@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-05-25
+
 ### Added
 - Added `docs.yml` workflow file for automated documentation deployment.
 - Added `nuget.yml` workflow file for NuGet package deployment.
@@ -11,6 +13,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Updated and edited the build status badge link in the README.
+- Updated nuget project URL.
 
 
 ## [1.0.0] - 2026-05-25
@@ -45,4 +48,5 @@ All notable changes to this project will be documented in this file.
 - Removed `reports/` folder.
 
 [unreleased]: https://github.com/ferdikurnazdm/Resultron/
+[1.1.0]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.1.0
 [1.0.0]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.0.0
