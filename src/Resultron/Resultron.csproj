@@ -4,6 +4,35 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>Resultron</Title>
+    <Description>A robust and flexible C# library for implementing the Result pattern in .NET. Supports generic/non-generic results, fluent API with Map &amp; Bind, async operations, error aggregation, paged results, and implicit conversions — making your code cleaner and exception-free. </Description>
+    <Authors>ferdikurnazdm</Authors>
+    <Company>ferdikurnazdm</Company>
+    <PackageProjectUrl>https://github.com/ferdikurnazdm/Resultron</PackageProjectUrl>
+    <Copyright>Copyright © 2025 ferdikurnazdm</Copyright>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/ferdikurnazdm/Resultron</RepositoryUrl>
+    <PackageTags>result;result-pattern;functional;error-handling;dotnet;csharp</PackageTags>
+    <PackageReleaseNotes>initial release</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <IncludeSymbols>False</IncludeSymbols>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
