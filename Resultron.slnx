@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/sample/">
+    <Project Path="sample/Resultron.Sample/Resultron.Sample.csproj" Id="6f6939cc-9eb6-4ee7-a933-abec1a93dd59" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="CHANGELOG.md" />
+    <File Path="CODE_OF_CONDUCT.md" />
+    <File Path="CONTRIBUTING.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+    <File Path="SECURITY.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Resultron/Resultron.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Resultron.UnitTest/Resultron.UnitTest.csproj" />
+  </Folder>
+</Solution>
