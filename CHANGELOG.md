@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- edited nuget.yml file.
+
+
 ## [1.1.1] - 2026-05-25
 
 ### Added

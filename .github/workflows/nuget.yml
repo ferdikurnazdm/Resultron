@@ -7,25 +7,9 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '10.0.x'
-
-      - name: Restore
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-
+  # 1. ADIM: Test Süreci (Eğer testler geçmezse paketleme hiç başlamaz)
   test:
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - uses: actions/checkout@v4
 
@@ -40,9 +24,10 @@ jobs:
       - name: Test
         run: dotnet test --configuration Release --no-restore --verbosity normal
 
+  # 2. ADIM: Derleme, Paketleme ve Yükleme Süreci
   publish:
     runs-on: ubuntu-latest
-    needs: test
+    needs: test # Testler başarıyla biterse burası çalışır
     steps:
       - uses: actions/checkout@v4
 
@@ -51,11 +36,18 @@ jobs:
         with:
           dotnet-version: '10.0.x'
 
+      # Nokta atışı sadece ana projeyi restore et
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore src/Resultron/Resultron.csproj
 
+      # Aynı sunucu içinde önce BUILD et (DLL diske yazılsın)
+      - name: Build
+        run: dotnet build src/Resultron/Resultron.csproj --configuration Release --no-restore
+
+      # Aynı sunucu içinde peşinden PACK et (Hata vermeden paketlensin)
       - name: Pack
-        run: dotnet pack --configuration Release --no-restore
+        run: dotnet pack src/Resultron/Resultron.csproj --configuration Release --no-build --no-restore
 
+      # Sadece ana projenin altındaki paketi yükle (Sample asla gidemez)
       - name: Push
-        run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push src/Resultron/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
