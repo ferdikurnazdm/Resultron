@@ -7,7 +7,7 @@ enabling safe error handling, fluent pipelines, and exception-free code.
 [![NuGet](https://img.shields.io/nuget/v/Resultron.svg)](https://www.nuget.org/packages/Resultron)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![GitHub](https://img.shields.io/badge/github-ferdikurnazdm%2FResultron-black)](https://github.com/ferdikurnazdm/Resultron)
-[![Build](https://img.shields.io/github/actions/workflow/status/ferdikurnazdm/Resultron/ci.yml?branch=master)](https://github.com/ferdikurnazdm/Resultron/actions)
+[![Build](https://img.shields.io/github/actions/workflow/status/ferdikurnazdm/Resultron/nuget.yml?branch=main)](https://github.com/ferdikurnazdm/Resultron/actions)
 
 ---
 
