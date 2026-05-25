@@ -4,14 +4,27 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-05-25
+
+### Added
+
+- Added strict versioning property to the main `.csproj` file.
+- Added `<IsPackable>false</IsPackable>` configuration to the sample project to prevent accidental package creation.
+
+### Changed
+
+- Updated the `nuget.yml` workflow file to pack and deploy only the core library.
+
 ## [1.1.0] - 2026-05-25
 
 ### Added
+
 - Added `docs.yml` workflow file for automated documentation deployment.
 - Added `nuget.yml` workflow file for NuGet package deployment.
 - Added **DocFX** support for generating the project documentation site.
 
 ### Changed
+
 - Updated and edited the build status badge link in the README.
 - Updated nuget project URL.
 
@@ -48,5 +61,6 @@ All notable changes to this project will be documented in this file.
 - Removed `reports/` folder.
 
 [unreleased]: https://github.com/ferdikurnazdm/Resultron/
+[1.1.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.1.1
 [1.1.0]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.1.0
 [1.0.0]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.0.0
