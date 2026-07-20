@@ -7,7 +7,7 @@ public sealed class Result : BaseResult
     public static Result Success() => new(true, Error.None);
     public static Result Failure(Error error) => new(false, error);
 
-
+    public static implicit operator Result(Error error) => Failure(error);
 
 
 

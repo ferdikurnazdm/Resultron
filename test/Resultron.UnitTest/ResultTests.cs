@@ -260,4 +260,19 @@ public sealed class ResultTests
         result.Error.Should().Be(error);
     }
 
+    [Fact]
+    public void ImplicitConversion_FromError_ShouldReturnFailureResult()
+    {
+        // Arrange
+        var error = new Error("E008");
+
+        // Act
+        Result result = error;
+
+        // Assert
+        result.IsSuccess.Should().BeFalse();
+        
+        result.Error.Should().Be(error);
+    }
+
 }

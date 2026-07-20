@@ -351,4 +351,34 @@ public sealed class ResultOfTTests
         // Assert
         act.Should().Throw<ArgumentNullException>();
     }
+
+    [Fact]
+    public void ImplicitConversion_FromError_ShouldReturnFailureResult()
+    {
+        // Arrange
+        var error = new Error("E010");
+
+        // Act
+        Result<int> result = error;
+
+        // Assert
+        result.IsSuccess.Should().BeFalse();
+
+        result.Error.Should().Be(error);
+    }
+
+    [Fact]
+    public void ImplicitConversion_FromValue_ShouldReturnSuccessResult()
+    {
+        // Arrange
+        var value = 42;
+
+        // Act
+        Result<int> result = value;
+
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+        
+        result.Value.Should().Be(value);
+    }
 }

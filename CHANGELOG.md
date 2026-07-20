@@ -4,8 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Changed
+## [1.2.1] - 2026-07-20
 
+### Added
+
+- Added strict versioning property to the main `.csproj` file.
 - edited nuget.yml file.
 
 
@@ -66,6 +69,7 @@ All notable changes to this project will be documented in this file.
 - Removed `reports/` folder.
 
 [unreleased]: https://github.com/ferdikurnazdm/Resultron/
+[1.2.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.2.1
 [1.1.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.1.1
 [1.1.0]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.1.0
 [1.0.0]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.0.0
