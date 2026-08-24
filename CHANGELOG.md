@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-08-24
+
+### Changed
+
+- Changed logo.
+
 ## [1.2.1] - 2026-07-20
 
 ### Added
@@ -69,6 +75,7 @@ All notable changes to this project will be documented in this file.
 - Removed `reports/` folder.
 
 [unreleased]: https://github.com/ferdikurnazdm/Resultron/
+[1.3.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.3.1
 [1.2.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.2.1
 [1.1.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.1.1
 [1.1.0]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.1.0

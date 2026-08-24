@@ -14,7 +14,7 @@
     "resource": [
       {
         "files": [
-          "images/**"
+          "docs/images/**"
         ]
       }
     ],
@@ -27,7 +27,7 @@
         "_appName": "Resultron",
         "_appTitle": "Resultron",
         "_appLogoPath": "docs/images/logo.png",
-        "_appFaviconPath": "docs/images/favicon.ico",
+        "_appFaviconPath": "docs/images/logo.png",
         "_appFooter": "© 2026 Resultron. Licensed under MIT.",
         "_enableSearch": true,
         "pdf": false,

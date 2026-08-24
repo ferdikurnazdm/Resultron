@@ -71,6 +71,36 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "docs/images/favicon.ico",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/favicon.ico"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/logo.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "docs/images/logo1.png",
+      "output": {
+        "resource": {
+          "relative_path": "docs/images/logo1.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "docs/introduction.md",
       "output": {
