@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resultron - Result Pattern for .NET</title>
+<link rel="icon" href="assets/images/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="brand">
+    <img src="assets/images/logo.png" alt="Resultron Logo">
+    <span>Resultron</span>
+  </div>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="guide/quick-start.html">Docs</a>
+    <a href="https://github.com/ferdikurnazdm/Resultron">GitHub</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <img class="hero-logo" src="assets/images/logo.png" alt="Resultron">
+  <h1>Predictable results.<br>Cleaner .NET code.</h1>
+  <p>A modern Result Pattern library for building reliable applications without unnecessary exceptions.</p>
+
+  <div class="buttons">
+    <a class="btn" href="guide/quick-start.html">Get Started</a>
+    <a class="btn secondary" href="https://github.com/ferdikurnazdm/Resultron">GitHub</a>
+  </div>
+
+<pre><code>var result = await userService.CreateAsync(request);
+
+return result.Match(
+    success => Ok(success),
+    failure => BadRequest(failure.Errors)
+);</code></pre>
+</section>
+
+<section id="features" class="features">
+<div class="card"><h3>✓ Result&lt;T&gt;</h3><p>Strongly typed success and failure flows.</p></div>
+<div class="card"><h3>✓ Fluent API</h3><p>Map, Bind and compose operations.</p></div>
+<div class="card"><h3>✓ Async First</h3><p>Designed for modern .NET applications.</p></div>
+<div class="card"><h3>✓ Error Handling</h3><p>Clean error aggregation support.</p></div>
+<div class="card"><h3>✓ Pagination</h3><p>Built-in paged result models.</p></div>
+</section>
+
+<footer>
+Resultron · Result Pattern for .NET
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

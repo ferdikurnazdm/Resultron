@@ -1,0 +1,1 @@
+console.log('Resultron v2 docs loaded');

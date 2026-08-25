@@ -1,0 +1,113 @@
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Inter,Arial,sans-serif;
+background:
+radial-gradient(circle at top,#123524,#050807 55%);
+color:#e8fff2;
+}
+
+.nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:24px 8%;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:12px;
+font-size:26px;
+font-weight:700;
+}
+
+.brand img{
+width:42px;
+height:42px;
+}
+
+.nav a{
+color:#c8f7da;
+text-decoration:none;
+margin-left:24px;
+}
+
+.hero{
+text-align:center;
+padding:70px 8%;
+}
+
+.hero-logo{
+width:130px;
+filter:drop-shadow(0 0 30px #00d26a);
+}
+
+.hero h1{
+font-size:58px;
+line-height:1.1;
+background:linear-gradient(90deg,#00d26a,#7affb0);
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.hero p{
+font-size:22px;
+max-width:750px;
+margin:auto;
+color:#b7d9c5;
+}
+
+.buttons{
+margin:40px;
+}
+
+.btn{
+background:#00d26a;
+color:#001b0d;
+padding:14px 28px;
+border-radius:12px;
+font-weight:700;
+text-decoration:none;
+margin:8px;
+}
+
+.secondary{
+background:#10251a;
+color:#d8ffe8;
+}
+
+pre{
+max-width:750px;
+margin:auto;
+text-align:left;
+background:#020604;
+border:1px solid #164d31;
+padding:25px;
+border-radius:18px;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:22px;
+padding:50px 8%;
+}
+
+.card{
+background:#0d1511;
+border:1px solid #164d31;
+padding:28px;
+border-radius:20px;
+}
+
+.card h3{
+color:#00d26a;
+}
+
+footer{
+text-align:center;
+padding:40px;
+color:#9bc5ac;
+}
