@@ -1,25 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Version>1.2.1</Version>
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
         <Title>Resultron</Title>
+        <PackageId>Resultron</PackageId>
+
+
         <Description>A robust and flexible C# library for implementing the Result pattern in .NET. Supports generic/non-generic results, fluent API with Map &amp; Bind, async operations, error aggregation, paged results, and implicit conversions — making your code cleaner and exception-free. </Description>
+
         <Authors>ferdikurnazdm</Authors>
         <Company>ferdikurnazdm</Company>
+
         <PackageProjectUrl>https://ferdikurnazdm.github.io/Resultron/</PackageProjectUrl>
-        <Copyright>Copyright © 2025 ferdikurnazdm</Copyright>
+        <RepositoryUrl>https://github.com/ferdikurnazdm/Resultron</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <PackageTags>result;result-pattern;functional;error-handling;dotnet;csharp</PackageTags>
+
         <PackageIcon>logo.png</PackageIcon>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <RepositoryUrl>https://github.com/ferdikurnazdm/Resultron</RepositoryUrl>
-        <PackageTags>result;result-pattern;functional;error-handling;dotnet;csharp</PackageTags>
-        <PackageReleaseNotes>initial release</PackageReleaseNotes>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <IncludeSymbols>False</IncludeSymbols>
-        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        
+        <Copyright>Copyright © 2025 ferdikurnazdm</Copyright>
     </PropertyGroup>
 
     <ItemGroup>
