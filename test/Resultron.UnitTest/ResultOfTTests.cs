@@ -381,4 +381,134 @@ public sealed class ResultOfTTests
         
         result.Value.Should().Be(value);
     }
+
+       [Fact]
+    public async Task MapAsync_Should_Map_Value_When_Result_Is_Success()
+    {
+        // Arrange
+        Result<int> result = 10;
+
+        // Act
+        var mapped = await result.MapAsync(async value =>
+        {
+            await Task.Delay(1);
+            return value * 2;
+        });
+
+        // Assert
+        mapped.IsSuccess.Should().BeTrue();
+        mapped.Value.Should().Be(20);
+    }
+
+
+    [Fact]
+    public async Task MapAsync_Action_Should_Execute_When_Result_Is_Success()
+    {
+        // Arrange
+        Result<int> result = 10;
+
+        var calledValue = 0;
+
+        // Act
+        var response = await result.MapAsync(async value =>
+        {
+            await Task.Delay(1);
+            calledValue = value;
+        });
+
+        // Assert
+        response.IsSuccess.Should().BeTrue();
+        calledValue.Should().Be(10);
+    }
+
+
+    [Fact]
+    public async Task MapAsync_Should_Return_Error_When_Result_Is_Failure()
+    {
+        // Arrange
+        var error = new Error(
+            "FAILED",
+            "Error");
+
+        Result<int> result = error;
+
+        // Act
+        var mapped = await result.MapAsync(async value =>
+        {
+            await Task.Delay(1);
+            return value * 2;
+        });
+
+        // Assert
+        mapped.IsSuccess.Should().BeFalse();
+        mapped.Error.Should().Be(error);
+    }
+
+
+    [Fact]
+    public async Task BindAsync_Should_Return_New_ResultT_When_Result_Is_Success()
+    {
+        // Arrange
+        Result<int> result = 10;
+
+        // Act
+        var response = await result.BindAsync(async value =>
+        {
+            await Task.Delay(1);
+            return Result<string>.Success(value.ToString());
+        });
+
+        // Assert
+        response.IsSuccess.Should().BeTrue();
+        response.Value.Should().Be("10");
+    }
+
+
+    [Fact]
+    public async Task BindAsync_Should_Not_Call_Function_When_Result_Is_Failure()
+    {
+        // Arrange
+        var error = new Error(
+            "FAILED",
+            "Error");
+
+        Result<int> result = error;
+
+        var called = false;
+
+        // Act
+        var response = await result.BindAsync(value =>
+        {
+            called = true;
+            return Task.FromResult(Result<string>.Success(value.ToString()));
+        });
+
+        // Assert
+        called.Should().BeFalse();
+
+        response.IsSuccess.Should().BeFalse();
+        response.Error.Should().Be(error);
+    }
+
+
+    [Fact]
+    public async Task MatchAsync_Should_Pass_Value_To_Success_Callback()
+    {
+        // Arrange
+        Result<int> result = 50;
+
+        var receivedValue = 0;
+
+        // Act
+        await result.MatchAsync(
+            value =>
+            {
+                receivedValue = value;
+                return Task.CompletedTask;
+            },
+            _ => Task.CompletedTask);
+
+        // Assert
+        receivedValue.Should().Be(50);
+    }
 }

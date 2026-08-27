@@ -46,6 +46,7 @@ public sealed class Result : BaseResult
     public void Match(Action onSuccess, Action<Error> onFailure)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
+
         ArgumentNullException.ThrowIfNull(onFailure);
 
         if (IsSuccess)
@@ -53,12 +54,30 @@ public sealed class Result : BaseResult
             onSuccess();
             return;
         }
+
         onFailure(Error);
+    }
+
+    public async Task MatchAsync(Func<Task> onSuccess, Func<Error, Task> onFailure)
+    {
+        ArgumentNullException.ThrowIfNull(onSuccess);
+
+        ArgumentNullException.ThrowIfNull(onFailure);
+
+        if (IsSuccess)
+        {
+            await onSuccess();
+
+            return;
+        }
+
+        await onFailure(Error);
     }
 
     public TResult Match<TResult>(Func<TResult> onSuccess, Func<Error, TResult> onFailure)
     {
         ArgumentNullException.ThrowIfNull(onSuccess);
+
         ArgumentNullException.ThrowIfNull(onFailure);
 
         return IsSuccess
@@ -66,6 +85,16 @@ public sealed class Result : BaseResult
             : onFailure(Error);
     }
 
+    public async Task<TResult> MatchAsync<TResult>(Func<Task<TResult>> onSuccess, Func<Error, Task<TResult>> onFailure)
+    {
+        ArgumentNullException.ThrowIfNull(onSuccess);
+
+        ArgumentNullException.ThrowIfNull(onFailure);
+
+        return IsSuccess
+            ? await onSuccess()
+            : await onFailure(Error);
+    }
 
 
 
@@ -76,6 +105,16 @@ public sealed class Result : BaseResult
         return IsSuccess
             ? Result<T>.Success(func())
             : Result<T>.Failure(Error);
+    }
+
+    public async Task<Result<T>> MapAsync<T>(Func<Task<T>> func)
+    {
+        ArgumentNullException.ThrowIfNull(func);
+
+        if (!IsSuccess)
+            return Result<T>.Failure(Error);
+
+        return Result<T>.Success(await func());
     }
 
 
@@ -89,6 +128,15 @@ public sealed class Result : BaseResult
             : Result.Failure(Error);
     }
 
+    public async Task<Result> BindAsync(Func<Task<Result>> func)
+    {
+        ArgumentNullException.ThrowIfNull(func);
+
+        return IsSuccess
+            ? await func()
+            : Result.Failure(Error);
+    }
+
     public Result<T> Bind<T>(Func<Result<T>> func)
     {
         ArgumentNullException.ThrowIfNull(func);
@@ -97,4 +145,14 @@ public sealed class Result : BaseResult
             ? func()
             : Result<T>.Failure(Error);
     }
+
+    public async Task<Result<T>> BindAsync<T>(Func<Task<Result<T>>> func)
+    {
+        ArgumentNullException.ThrowIfNull(func);
+
+        return IsSuccess
+            ? await func()
+            : Result<T>.Failure(Error);
+    }
+
 }

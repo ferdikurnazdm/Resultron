@@ -46,67 +46,140 @@ public sealed class Result<T> : BaseResult
 
 
 
-    public void Match(Action<T> onSuccess, Action<Error> onFailure)
-    {
-        ArgumentNullException.ThrowIfNull(onSuccess);
-        ArgumentNullException.ThrowIfNull(onFailure);
+  public void Match(Action<T> onSuccess, Action<Error> onFailure)
+  {
+      ArgumentNullException.ThrowIfNull(onSuccess);
 
-        if (IsSuccess)
-        {
-            onSuccess(Value);
-            return;
-        }
-        onFailure(Error);
-    }
+      ArgumentNullException.ThrowIfNull(onFailure);
 
-    public TResult Match<TResult>(Func<T, TResult> onSuccess, Func<Error, TResult> onFailure)
-    {
-        ArgumentNullException.ThrowIfNull(onSuccess);
-        ArgumentNullException.ThrowIfNull(onFailure);
+      if (IsSuccess)
+      {
+          onSuccess(Value);
 
-        return IsSuccess
-            ? onSuccess(Value)
-            : onFailure(Error);
-    }
+          return;
+      }
+      onFailure(Error);
+  }
+
+  public async Task MatchAsync(Func<T, Task> onSuccess, Func<Error, Task> onFailure)
+  {
+      ArgumentNullException.ThrowIfNull(onSuccess);
+
+      ArgumentNullException.ThrowIfNull(onFailure);
+
+      if (IsSuccess)
+      {
+          await onSuccess(Value);
+
+          return;
+      }
+
+      await onFailure(Error);
+  }
+
+  public TResult Match<TResult>(Func<T, TResult> onSuccess, Func<Error, TResult> onFailure)
+  {
+      ArgumentNullException.ThrowIfNull(onSuccess);
+
+      ArgumentNullException.ThrowIfNull(onFailure);
+
+      return IsSuccess
+          ? onSuccess(Value)
+          : onFailure(Error);
+  }
+
+  public async Task<TResult> MatchAsync<TResult>(Func<T, Task<TResult>> onSuccess, Func<Error, Task<TResult>> onFailure)
+  {
+      ArgumentNullException.ThrowIfNull(onSuccess);
+
+      ArgumentNullException.ThrowIfNull(onFailure);
+
+      return IsSuccess
+          ? await onSuccess(Value)
+          : await onFailure(Error);
+  }
 
 
 
-    public Result Map(Action<T> action)
-    {
-        ArgumentNullException.ThrowIfNull(action);
+  public Result Map(Action<T> action)
+  {
+      ArgumentNullException.ThrowIfNull(action);
 
-        if (IsSuccess)
-        {
-            action(Value);
-            return Result.Success();
-        }
-        return Result.Failure(Error);
-    }
+      if (IsSuccess)
+      {
+          action(Value);
 
-    public Result<TResult> Map<TResult>(Func<T, TResult> func)
-    {
-        ArgumentNullException.ThrowIfNull(func);
+          return Result.Success();
+      }
+      return Result.Failure(Error);
+  }
 
-        return IsSuccess
-            ? Result<TResult>.Success(func(Value))
-            : Result<TResult>.Failure(Error);
-    }
+  public async Task<Result> MapAsync(Func<T, Task> action)
+  {
+      ArgumentNullException.ThrowIfNull(action);
+
+      if (!IsSuccess)
+          return Result.Failure(Error);
+
+      await action(Value);
+
+      return Result.Success();
+  }
+
+  public Result<TResult> Map<TResult>(Func<T, TResult> func)
+  {
+      ArgumentNullException.ThrowIfNull(func);
+
+      return IsSuccess
+          ? Result<TResult>.Success(func(Value))
+          : Result<TResult>.Failure(Error);
+  }
+
+  public async Task<Result<TResult>> MapAsync<TResult>(Func<T, Task<TResult>> func)
+  {
+      ArgumentNullException.ThrowIfNull(func);
+
+      if (!IsSuccess)
+          return Result<TResult>.Failure(Error);
+
+      return Result<TResult>.Success(await func(Value));
+  }
 
 
-    public Result Bind(Func<T, Result> func)
-    {
-        ArgumentNullException.ThrowIfNull(func);
 
-        return IsSuccess
-            ? func(Value)
-            : Result.Failure(Error);
-    }
-    public Result<TResult> Bind<TResult>(Func<T, Result<TResult>> func)
-    {
-        ArgumentNullException.ThrowIfNull(func);
+  public Result Bind(Func<T, Result> func)
+  {
+      ArgumentNullException.ThrowIfNull(func);
 
-        return IsSuccess
-            ? func(Value)
-            : Result<TResult>.Failure(Error);
-    }
+      return IsSuccess
+          ? func(Value)
+          : Result.Failure(Error);
+  }
+
+  public async Task<Result> BindAsync(Func<T, Task<Result>> func)
+  {
+      ArgumentNullException.ThrowIfNull(func);
+
+      return IsSuccess
+          ? await func(Value)
+          : Result.Failure(Error);
+  }
+
+  public Result<TResult> Bind<TResult>(Func<T, Result<TResult>> func)
+  {
+      ArgumentNullException.ThrowIfNull(func);
+
+      return IsSuccess
+          ? func(Value)
+          : Result<TResult>.Failure(Error);
+  }
+
+  public async Task<Result<TResult>> BindAsync<TResult>(Func<T, Task<Result<TResult>>> func)
+  {
+      ArgumentNullException.ThrowIfNull(func);
+
+      return IsSuccess
+          ? await func(Value)
+          : Result<TResult>.Failure(Error);
+  }
 }

@@ -275,4 +275,154 @@ public sealed class ResultTests
         result.Error.Should().Be(error);
     }
 
+        [Fact]
+    public async Task MatchAsync_Should_Call_Success_Callback_When_Result_Is_Success()
+    {
+        // Arrange
+        var successCalled = false;
+
+        var result = Result.Success();
+
+        // Act
+        await result.MatchAsync(
+            () =>
+            {
+                successCalled = true;
+                return Task.CompletedTask;
+            },
+            _ => Task.CompletedTask);
+
+        // Assert
+        successCalled.Should().BeTrue();
+    }
+
+
+    [Fact]
+    public async Task MatchAsync_Should_Call_Failure_Callback_When_Result_Is_Failure()
+    {
+        // Arrange
+        var error = new Error(
+            "TEST_ERROR",
+            "Test error");
+
+        var result = Result.Failure(error);
+
+        Error? receivedError = null;
+
+        // Act
+        await result.MatchAsync(
+            () => Task.CompletedTask,
+            e =>
+            {
+                receivedError = e;
+                return Task.CompletedTask;
+            });
+
+        // Assert
+        receivedError.Should().Be(error);
+    }
+
+
+    [Fact]
+    public async Task MatchAsync_Should_Return_Success_Value_When_Result_Is_Success()
+    {
+        // Arrange
+        var result = Result.Success();
+
+        // Act
+        var response = await result.MatchAsync(
+            () => Task.FromResult(10),
+            _ => Task.FromResult(0));
+
+        // Assert
+        response.Should().Be(10);
+    }
+
+
+    [Fact]
+    public async Task MapAsync_Should_Return_Mapped_Value_When_Result_Is_Success()
+    {
+        // Arrange
+        var result = Result.Success();
+
+        // Act
+        var mapped = await result.MapAsync(async () =>
+        {
+            await Task.Delay(1);
+            return "success";
+        });
+
+        // Assert
+        mapped.IsSuccess.Should().BeTrue();
+        mapped.Value.Should().Be("success");
+    }
+
+
+    [Fact]
+    public async Task MapAsync_Should_Return_Error_When_Result_Is_Failure()
+    {
+        // Arrange
+        var error = new Error(
+            "FAILED",
+            "Something went wrong");
+
+        var result = Result.Failure(error);
+
+        // Act
+        var mapped = await result.MapAsync(async () =>
+        {
+            await Task.Delay(1);
+            return "value";
+        });
+
+        // Assert
+        mapped.IsSuccess.Should().BeFalse();
+        mapped.Error.Should().Be(error);
+    }
+
+
+    [Fact]
+    public async Task BindAsync_Should_Return_New_Result_When_Result_Is_Success()
+    {
+        // Arrange
+        var result = Result.Success();
+
+        // Act
+        var response = await result.BindAsync(async () =>
+        {
+            await Task.Delay(1);
+            return Result.Success();
+        });
+
+        // Assert
+        response.IsSuccess.Should().BeTrue();
+    }
+
+
+    [Fact]
+    public async Task BindAsync_Should_Not_Execute_Function_When_Result_Is_Failure()
+    {
+        // Arrange
+        var error = new Error(
+            "FAILED",
+            "Something went wrong");
+
+        var result = Result.Failure(error);
+
+        var called = false;
+
+        // Act
+        var response = await result.BindAsync(() =>
+        {
+            called = true;
+            return Task.FromResult(Result.Success());
+        });
+
+        // Assert
+        called.Should().BeFalse();
+
+        response.IsSuccess.Should().BeFalse();
+        response.Error.Should().Be(error);
+    }
+
 }

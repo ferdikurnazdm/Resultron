@@ -66,4 +66,31 @@ public sealed class UserService
         var user = new User(Guid.NewGuid(), name, email, DateTime.UtcNow);
         return _repository.Add(user);
     }
+
+    public async Task<Result<User>> CreateAsync(
+    string name,
+    string email)
+    {
+        await Task.Delay(50);
+
+        return Create(name, email);
+    }
+
+
+    public async Task<Result<User>> UpdateNameAsync(
+        Guid id,
+        string name)
+    {
+        await Task.Delay(50);
+
+        return UpdateName(id, name);
+    }
+
+
+    public async Task<Result<User>> GetByIdAsync(Guid id)
+    {
+        await Task.Delay(50);
+
+        return GetById(id);
+    }
 }

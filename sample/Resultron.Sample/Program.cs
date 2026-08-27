@@ -1,4 +1,5 @@
-﻿using Resultron.Sample.Repositories;
+﻿using Resultron;
+using Resultron.Sample.Repositories;
 using Resultron.Sample.Services;
 
 var repository = new InMemoryUserRepository();
@@ -75,3 +76,121 @@ deleteAgainResult.Match(
 
 
 
+Console.WriteLine("\n=== Async Result Kullanımı ===");
+
+// Async TryAsync
+var tryResult = await Result.TryAsync(async () =>
+{
+    await Task.Delay(100);
+
+    Console.WriteLine("[OK] Async operasyon başarıyla tamamlandı.");
+});
+
+tryResult.Match(
+    onSuccess: () => Console.WriteLine("[OK] TryAsync başarılı."),
+    onFailure: error => Console.WriteLine($"[HATA] {error.Code}: {error.Description}")
+);
+
+
+// Async TryAsync hata durumu
+var failedTryResult = await Result.TryAsync(async () =>
+{
+    await Task.Delay(100);
+
+    throw new InvalidOperationException("Async işlem başarısız.");
+});
+
+await failedTryResult.MatchAsync(
+    onSuccess: () =>
+    {
+        Console.WriteLine("[OK] İşlem başarılı.");
+        return Task.CompletedTask;
+    },
+    onFailure: error =>
+    {
+        Console.WriteLine($"[HATA] {error.Code}: {error.Description}");
+        return Task.CompletedTask;
+    });
+
+
+// Async Bind zinciri
+Console.WriteLine("\n=== Async Bind Zinciri ===");
+
+var asyncCreateResult = await service.CreateAsync(
+    "Async Kullanıcı",
+    "async@example.com");
+
+var asyncUpdateResult = await asyncCreateResult
+    .BindAsync(user =>
+    {
+        Console.WriteLine($"[OK] Oluşturuldu: {user.Name}");
+
+        return service.UpdateNameAsync(
+            user.Id,
+            "Async Güncellendi");
+    });
+
+
+await asyncUpdateResult.MatchAsync(
+    onSuccess: user =>
+    {
+        Console.WriteLine($"[OK] Güncellendi: {user.Name}");
+        return Task.CompletedTask;
+    },
+    onFailure: error =>
+    {
+        Console.WriteLine($"[HATA] {error.Code}: {error.Description}");
+        return Task.CompletedTask;
+    });
+
+
+// Async Map
+Console.WriteLine("\n=== Async Map ===");
+
+var userNameResult = await asyncCreateResult
+    .MapAsync(async user =>
+    {
+        await Task.Delay(50);
+
+        return user.Name.ToUpper();
+    });
+
+
+await userNameResult.MatchAsync(
+    name =>
+    {
+        Console.WriteLine($"[OK] Dönüştürülen değer: {name}");
+        return Task.CompletedTask;
+    },
+    error =>
+    {
+        Console.WriteLine($"[HATA] {error.Code}: {error.Description}");
+        return Task.CompletedTask;
+    });
+
+
+// Result<T> failure üzerinde async zincir
+Console.WriteLine("\n=== Async Failure Propagation ===");
+
+var failedUser = await service.GetByIdAsync(Guid.NewGuid());
+
+var failedUpdate = await failedUser
+    .BindAsync(user =>
+    {
+        return service.UpdateNameAsync(
+            user.Id,
+            "Yeni İsim");
+    });
+
+
+await failedUpdate.MatchAsync(
+    _ =>
+    {
+        Console.WriteLine("[OK] Güncellendi.");
+        return Task.CompletedTask;
+    },
+    error =>
+    {
+        Console.WriteLine($"[HATA] Zincir durdu: {error.Code} - {error.Description}");
+        return Task.CompletedTask;
+    });

@@ -4,7 +4,7 @@ public abstract class BaseResult
 {
     public bool IsSuccess { get; }
     public bool IsFailure => !IsSuccess;
-    public Error Error { get; }
+    public Error Error { get; } = Error.None;
 
     protected BaseResult(bool isSuccess, Error error)
     {
