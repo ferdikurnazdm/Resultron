@@ -1,0 +1,57 @@
+#nullable enable
+override Resultron.Error.Equals(object? obj) -> bool
+override Resultron.Error.GetHashCode() -> int
+override Resultron.Error.ToString() -> string!
+Resultron.BaseResult
+Resultron.BaseResult.BaseResult(bool isSuccess, Resultron.Error! error) -> void
+Resultron.BaseResult.Error.get -> Resultron.Error!
+Resultron.BaseResult.IsFailure.get -> bool
+Resultron.BaseResult.IsSuccess.get -> bool
+Resultron.Error
+Resultron.Error.<Clone>$() -> Resultron.Error!
+Resultron.Error.Code.get -> string!
+Resultron.Error.Code.init -> void
+Resultron.Error.Deconstruct(out string! Code, out string? Description) -> void
+Resultron.Error.Description.get -> string?
+Resultron.Error.Description.init -> void
+Resultron.Error.Equals(Resultron.Error? other) -> bool
+Resultron.Error.Error(string! Code, string? Description = null) -> void
+Resultron.Result
+Resultron.Result.Bind(System.Func<Resultron.Result!>! func) -> Resultron.Result!
+Resultron.Result.Bind<T>(System.Func<Resultron.Result<T>!>! func) -> Resultron.Result<T>!
+Resultron.Result.BindAsync(System.Func<System.Threading.Tasks.Task<Resultron.Result!>!>! func) -> System.Threading.Tasks.Task<Resultron.Result!>!
+Resultron.Result.BindAsync<T>(System.Func<System.Threading.Tasks.Task<Resultron.Result<T>!>!>! func) -> System.Threading.Tasks.Task<Resultron.Result<T>!>!
+Resultron.Result.Map<T>(System.Func<T>! func) -> Resultron.Result<T>!
+Resultron.Result.MapAsync<T>(System.Func<System.Threading.Tasks.Task<T>!>! func) -> System.Threading.Tasks.Task<Resultron.Result<T>!>!
+Resultron.Result.Match(System.Action! onSuccess, System.Action<Resultron.Error!>! onFailure) -> void
+Resultron.Result.Match<TResult>(System.Func<TResult>! onSuccess, System.Func<Resultron.Error!, TResult>! onFailure) -> TResult
+Resultron.Result.MatchAsync(System.Func<System.Threading.Tasks.Task!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task!>! onFailure) -> System.Threading.Tasks.Task!
+Resultron.Result.MatchAsync<TResult>(System.Func<System.Threading.Tasks.Task<TResult>!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task<TResult>!>! onFailure) -> System.Threading.Tasks.Task<TResult>!
+Resultron.Result<T>
+Resultron.Result<T>.Bind(System.Func<T, Resultron.Result!>! func) -> Resultron.Result!
+Resultron.Result<T>.Bind<TResult>(System.Func<T, Resultron.Result<TResult>!>! func) -> Resultron.Result<TResult>!
+Resultron.Result<T>.BindAsync(System.Func<T, System.Threading.Tasks.Task<Resultron.Result!>!>! func) -> System.Threading.Tasks.Task<Resultron.Result!>!
+Resultron.Result<T>.BindAsync<TResult>(System.Func<T, System.Threading.Tasks.Task<Resultron.Result<TResult>!>!>! func) -> System.Threading.Tasks.Task<Resultron.Result<TResult>!>!
+Resultron.Result<T>.Map(System.Action<T>! action) -> Resultron.Result!
+Resultron.Result<T>.Map<TResult>(System.Func<T, TResult>! func) -> Resultron.Result<TResult>!
+Resultron.Result<T>.MapAsync(System.Func<T, System.Threading.Tasks.Task!>! action) -> System.Threading.Tasks.Task<Resultron.Result!>!
+Resultron.Result<T>.MapAsync<TResult>(System.Func<T, System.Threading.Tasks.Task<TResult>!>! func) -> System.Threading.Tasks.Task<Resultron.Result<TResult>!>!
+Resultron.Result<T>.Match(System.Action<T>! onSuccess, System.Action<Resultron.Error!>! onFailure) -> void
+Resultron.Result<T>.Match<TResult>(System.Func<T, TResult>! onSuccess, System.Func<Resultron.Error!, TResult>! onFailure) -> TResult
+Resultron.Result<T>.MatchAsync(System.Func<T, System.Threading.Tasks.Task!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task!>! onFailure) -> System.Threading.Tasks.Task!
+Resultron.Result<T>.MatchAsync<TResult>(System.Func<T, System.Threading.Tasks.Task<TResult>!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task<TResult>!>! onFailure) -> System.Threading.Tasks.Task<TResult>!
+Resultron.Result<T>.Value.get -> T
+static readonly Resultron.Error.None -> Resultron.Error!
+static Resultron.Error.operator !=(Resultron.Error? left, Resultron.Error? right) -> bool
+static Resultron.Error.operator ==(Resultron.Error? left, Resultron.Error? right) -> bool
+static Resultron.Result.Failure(Resultron.Error! error) -> Resultron.Result!
+static Resultron.Result.implicit operator Resultron.Result!(Resultron.Error! error) -> Resultron.Result!
+static Resultron.Result.Success() -> Resultron.Result!
+static Resultron.Result.Try(System.Action! action) -> Resultron.Result!
+static Resultron.Result.TryAsync(System.Func<System.Threading.Tasks.Task!>! action) -> System.Threading.Tasks.Task<Resultron.Result!>!
+static Resultron.Result<T>.Failure(Resultron.Error! error) -> Resultron.Result<T>!
+static Resultron.Result<T>.implicit operator Resultron.Result<T>!(Resultron.Error! error) -> Resultron.Result<T>!
+static Resultron.Result<T>.implicit operator Resultron.Result<T>!(T value) -> Resultron.Result<T>!
+static Resultron.Result<T>.Success(T value) -> Resultron.Result<T>!
+static Resultron.Result<T>.Try(System.Func<T>! func) -> Resultron.Result<T>!
+static Resultron.Result<T>.TryAsync(System.Func<System.Threading.Tasks.Task<T>!>! func) -> System.Threading.Tasks.Task<Resultron.Result<T>!>!
