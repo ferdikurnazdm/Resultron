@@ -1,10 +1,14 @@
 #nullable enable
+override Resultron.Error.Equals(object? obj) -> bool
+override Resultron.Error.GetHashCode() -> int
+override Resultron.Error.ToString() -> string!
+override Resultron.Success.Equals(object? obj) -> bool
+override Resultron.Success.GetHashCode() -> int
 override Resultron.Success.ToString() -> string!
 override Resultron.Unit.Equals(object? obj) -> bool
 override Resultron.Unit.GetHashCode() -> int
 override Resultron.Unit.ToString() -> string!
 Resultron.BaseResult
-Resultron.BaseResult.AddReason(Resultron.IReason! reason) -> void
 Resultron.BaseResult.BaseResult(bool isSuccess, System.Collections.Generic.IEnumerable<Resultron.IReason!>? reasons = null) -> void
 Resultron.BaseResult.Error.get -> Resultron.Error!
 Resultron.BaseResult.Errors.get -> System.Collections.Generic.IReadOnlyList<Resultron.Error!>!
@@ -18,12 +22,14 @@ Resultron.Error
 Resultron.Error.CausedBy(System.Exception! exception) -> Resultron.Error!
 Resultron.Error.Code.get -> string!
 Resultron.Error.Code.init -> void
+Resultron.Error.Deconstruct(out string! Code, out string! Description, out System.Exception? Exception) -> void
 Resultron.Error.Description.get -> string!
 Resultron.Error.Description.init -> void
 Resultron.Error.Exception.get -> System.Exception?
 Resultron.Error.Exception.init -> void
-Resultron.Error.Metadata.get -> System.Collections.Generic.Dictionary<string!, object!>!
+Resultron.Error.Metadata.get -> System.Collections.Generic.IReadOnlyDictionary<string!, object!>!
 Resultron.Error.Metadata.init -> void
+Resultron.Error.WithMetadata(string! key, object! value) -> Resultron.Error!
 Resultron.IBaseResult
 Resultron.IBaseResult.Errors.get -> System.Collections.Generic.IReadOnlyList<Resultron.Error!>!
 Resultron.IBaseResult.IsFailure.get -> bool
@@ -32,11 +38,18 @@ Resultron.IBaseResult.Reasons.get -> System.Collections.Generic.IReadOnlyList<Re
 Resultron.IBaseResult.Successes.get -> System.Collections.Generic.IReadOnlyList<Resultron.Success!>!
 Resultron.IReason
 Resultron.IReason.Message.get -> string!
-Resultron.IReason.Metadata.get -> System.Collections.Generic.Dictionary<string!, object!>!
+Resultron.IReason.Metadata.get -> System.Collections.Generic.IReadOnlyDictionary<string!, object!>!
 Resultron.Maybe<T>
+Resultron.Maybe<T>.Bind<TResult>(System.Func<T, Resultron.Maybe<TResult>>! func) -> Resultron.Maybe<TResult>
+Resultron.Maybe<T>.GetValueOrDefault() -> T?
+Resultron.Maybe<T>.GetValueOrDefault(T defaultValue) -> T
+Resultron.Maybe<T>.GetValueOrElse(System.Func<T>! factory) -> T
 Resultron.Maybe<T>.HasNoValue.get -> bool
 Resultron.Maybe<T>.HasValue.get -> bool
+Resultron.Maybe<T>.IfNone(System.Action! action) -> void
+Resultron.Maybe<T>.IfSome(System.Action<T>! action) -> void
 Resultron.Maybe<T>.Map<TResult>(System.Func<T, TResult>! func) -> Resultron.Maybe<TResult>
+Resultron.Maybe<T>.Match<TResult>(System.Func<T, TResult>! some, System.Func<TResult>! none) -> TResult
 Resultron.Maybe<T>.Maybe() -> void
 Resultron.Maybe<T>.Value.get -> T
 Resultron.Result
@@ -44,9 +57,10 @@ Resultron.Result<T>
 Resultron.Result<T>.Value.get -> T
 Resultron.ResultExtensions
 Resultron.Success
+Resultron.Success.Deconstruct(out string! Message) -> void
 Resultron.Success.Message.get -> string!
 Resultron.Success.Message.init -> void
-Resultron.Success.Metadata.get -> System.Collections.Generic.Dictionary<string!, object!>!
+Resultron.Success.Metadata.get -> System.Collections.Generic.IReadOnlyDictionary<string!, object!>!
 Resultron.Success.Metadata.init -> void
 Resultron.Success.WithMetadata(string! key, object! value) -> Resultron.Success!
 Resultron.Unit
@@ -58,6 +72,7 @@ static readonly Resultron.Error.None -> Resultron.Error!
 static readonly Resultron.Success.None -> Resultron.Success!
 static readonly Resultron.Unit.Value -> Resultron.Unit
 static Resultron.Error.operator !=(Resultron.Error? left, Resultron.Error? right) -> bool
+static Resultron.Error.operator ==(Resultron.Error? left, Resultron.Error? right) -> bool
 static Resultron.Maybe<T>.From(T? value) -> Resultron.Maybe<T>
 static Resultron.Maybe<T>.implicit operator Resultron.Maybe<T>(T? value) -> Resultron.Maybe<T>
 static Resultron.Maybe<T>.None() -> Resultron.Maybe<T>
@@ -155,27 +170,19 @@ static Resultron.ResultExtensions.ToUnitResultAsync(this System.Threading.Tasks.
 static Resultron.ResultExtensions.ToUnitResultAsync<T>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask) -> System.Threading.Tasks.Task<Resultron.Result<Resultron.Unit>!>!
 static Resultron.ResultExtensions.Where(this Resultron.Result! result, System.Func<bool>! predicate, Resultron.Error! error) -> Resultron.Result!
 static Resultron.ResultExtensions.Where<T>(this Resultron.Result<T>! result, System.Func<T, bool>! predicate, Resultron.Error! error) -> Resultron.Result<T>!
+static Resultron.Success.operator !=(Resultron.Success? left, Resultron.Success? right) -> bool
+static Resultron.Success.operator ==(Resultron.Success? left, Resultron.Success? right) -> bool
 static Resultron.Unit.operator !=(Resultron.Unit left, Resultron.Unit right) -> bool
 static Resultron.Unit.operator ==(Resultron.Unit left, Resultron.Unit right) -> bool
-virtual Resultron.Error.EqualityContract.get -> System.Type!
-override Resultron.Error.ToString() -> string!
-virtual Resultron.Error.PrintMembers(System.Text.StringBuilder! builder) -> bool
-static Resultron.Error.operator ==(Resultron.Error? left, Resultron.Error? right) -> bool
-override Resultron.Error.GetHashCode() -> int
-override Resultron.Error.Equals(object? obj) -> bool
-virtual Resultron.Error.Equals(Resultron.Error? other) -> bool
 virtual Resultron.Error.<Clone>$() -> Resultron.Error!
+virtual Resultron.Error.EqualityContract.get -> System.Type!
 Resultron.Error.Error(Resultron.Error! original) -> void
-Resultron.Error.Deconstruct(out string! Code, out string! Description, out System.Exception? Exception) -> void
 Resultron.Error.Error(string! Code, string! Description, System.Exception? Exception = null) -> void
+virtual Resultron.Error.Equals(Resultron.Error? other) -> bool
+virtual Resultron.Error.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Resultron.Success.<Clone>$() -> Resultron.Success!
 virtual Resultron.Success.EqualityContract.get -> System.Type!
-virtual Resultron.Success.PrintMembers(System.Text.StringBuilder! builder) -> bool
-static Resultron.Success.operator !=(Resultron.Success? left, Resultron.Success? right) -> bool
-override Resultron.Success.GetHashCode() -> int
-virtual Resultron.Success.Equals(Resultron.Success? other) -> bool
 Resultron.Success.Success(Resultron.Success! original) -> void
 Resultron.Success.Success(string! Message) -> void
-static Resultron.Success.operator ==(Resultron.Success? left, Resultron.Success? right) -> bool
-override Resultron.Success.Equals(object? obj) -> bool
-virtual Resultron.Success.<Clone>$() -> Resultron.Success!
-Resultron.Success.Deconstruct(out string! Message) -> void
+virtual Resultron.Success.Equals(Resultron.Success? other) -> bool
+virtual Resultron.Success.PrintMembers(System.Text.StringBuilder! builder) -> bool

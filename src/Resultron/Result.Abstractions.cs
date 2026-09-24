@@ -14,5 +14,5 @@ public interface IReason
     /// <summary>
     /// Gets the contextual metadata key-value pairs associated with this reason.
     /// </summary>
-    Dictionary<string, object> Metadata { get; }
+    IReadOnlyDictionary<string, object> Metadata { get; }
 }

@@ -22,7 +22,8 @@ public readonly struct Unit : IEquatable<Unit>, IComparable<Unit>, IComparable
     /// </summary>
     /// <param name="obj">The object to compare with the current instance.</param>
     /// <returns><c>true</c> if the specified object is a <see cref="Unit"/>; otherwise, <c>false</c>.</returns>
-    public override bool Equals(object? obj) => obj is Unit;
+    public override bool Equals(object? obj) =>
+        obj is Unit;
 
     /// <summary>
     /// Determines whether the specified <see cref="Unit"/> is equal to the current <see cref="Unit"/> instance.
@@ -32,18 +33,26 @@ public readonly struct Unit : IEquatable<Unit>, IComparable<Unit>, IComparable
     public bool Equals(Unit other) => true;
 
     /// <summary>
-    /// Compares the current instance with another <see cref="Unit"/> instance and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
+    /// Compares the current instance with another <see cref="Unit"/> instance.
     /// </summary>
-    /// <param name="other">An object to compare with this instance.</param>
-    /// <returns>Always 0, as all unit instances are equal.</returns>
+    /// <param name="other">The <see cref="Unit"/> instance to compare with.</param>
+    /// <returns>Always 0, as all <see cref="Unit"/> instances are equal.</returns>
     public int CompareTo(Unit other) => 0;
 
     /// <summary>
-    /// Compares the current instance with a specified object and indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
+    /// Compares the current instance with a specified object.
     /// </summary>
-    /// <param name="obj">The object to compare with this instance.</param>
-    /// <returns>Always 0.</returns>
-    public int CompareTo(object? obj) => 0;
+    /// <param name="obj">The object to compare with the current instance.</param>
+    /// <returns>Always 0 when <paramref name="obj"/> is a <see cref="Unit"/>.</returns>
+    /// <exception cref="ArgumentException">
+    /// Thrown if <paramref name="obj"/> is not a <see cref="Unit"/>.
+    /// </exception>
+    public int CompareTo(object? obj) =>
+        obj is Unit
+            ? 0
+            : throw new ArgumentException(
+                "Object must be of type Unit.",
+                nameof(obj));
 
     /// <summary>
     /// Determines whether two <see cref="Unit"/> instances are equal.

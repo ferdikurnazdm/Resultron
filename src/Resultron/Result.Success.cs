@@ -15,8 +15,9 @@ public record Success(string Message) : IReason
     /// <summary>
     /// Gets or initializes additional contextual metadata key-value pairs for the success reason.
     /// </summary>
-    public Dictionary<string, object> Metadata { get; init; } =
-        new(StringComparer.OrdinalIgnoreCase);
+    public IReadOnlyDictionary<string, object> Metadata { get; init; } =
+            new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
 
     /// <summary>
     /// Creates a new <see cref="Success"/> instance containing an additional or updated metadata key-value pair.
@@ -26,12 +27,19 @@ public record Success(string Message) : IReason
     /// <returns>A new <see cref="Success"/> instance with the updated metadata.</returns>
     public Success WithMetadata(string key, object value)
     {
+        ArgumentException.ThrowIfNullOrEmpty(key);
+
         var newMetadata = new Dictionary<string, object>(
-            dictionary: Metadata,
-            comparer: StringComparer.OrdinalIgnoreCase)
+            Metadata.Count,
+            StringComparer.OrdinalIgnoreCase);
+
+        foreach (var item in Metadata)
         {
-            [key] = value
-        };
+            newMetadata[item.Key] = item.Value;
+        }
+
+        newMetadata[key] = value;
+
         return this with { Metadata = newMetadata };
     }
 }

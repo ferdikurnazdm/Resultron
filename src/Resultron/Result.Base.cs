@@ -40,19 +40,8 @@ public interface IBaseResult
 /// Serves as the foundational abstract class for all result types in the Resultron library,
 /// managing success states, reason collections, and conditional side effects.
 /// </summary>
-public abstract class BaseResult
+public abstract class BaseResult : IBaseResult
 {
-    /// <summary>
-    /// Gets a value indicating whether the result represents a successful outcome.
-    /// </summary>
-    public bool IsSuccess { get; }
-
-    /// <summary>
-    /// Gets a value indicating whether the result represents a failed outcome (the inverse of <see cref="IsSuccess"/>).
-    /// </summary>
-    public bool IsFailure => !IsSuccess;
-
-
     private readonly List<IReason> _reasons = [];
 
     /// <summary>
@@ -75,6 +64,15 @@ public abstract class BaseResult
     /// </summary>
     public Error Error => Errors.FirstOrDefault() ?? Error.None;
 
+    /// <summary>
+    /// Gets a value indicating whether the result represents a successful outcome.
+    /// </summary>
+    public bool IsSuccess { get; }
+
+    /// <summary>
+    /// Gets a value indicating whether the result represents a failed outcome (the inverse of <see cref="IsSuccess"/>).
+    /// </summary>
+    public bool IsFailure => !IsSuccess;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BaseResult"/> class with the specified success status and optional reasons.
@@ -91,27 +89,12 @@ public abstract class BaseResult
         }
     }
 
-
-
-    /// <summary>
-    /// Adds a new reason (<see cref="IReason"/>) to the internal collection of this result.
-    /// </summary>
-    /// <param name="reason">The reason to add.</param>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="reason"/> is <c>null</c>.</exception>
-    protected void AddReason(IReason reason)
-    {
-        ArgumentNullException.ThrowIfNull(reason);
-
-        _reasons.Add(reason);
-    }
-
     /// <summary>
     /// Executes the specified action if the result is currently in a successful state, without breaking the fluent chain.
     /// </summary>
     /// <param name="action">The action to execute on success.</param>
     /// <returns>The current <see cref="BaseResult"/> instance for chaining.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="action"/> is <c>null</c>.</exception>
-    [Pure]
     public BaseResult SuccessIf(Action action)
     {
         ArgumentNullException.ThrowIfNull(action);
@@ -130,7 +113,6 @@ public abstract class BaseResult
     /// <param name="action">The action to execute on failure, receiving the primary <see cref="Error"/>.</param>
     /// <returns>The current <see cref="BaseResult"/> instance for chaining.</returns>
     /// <exception cref="ArgumentNullException">Thrown if <paramref name="action"/> is <c>null</c>.</exception>
-    [Pure]
     public BaseResult FailureIf(Action<Error> action)
     {
         ArgumentNullException.ThrowIfNull(action);
