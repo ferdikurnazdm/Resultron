@@ -11,10 +11,10 @@ public sealed class ResultOfTTests
         var result = Result<int>.Success(42);
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.IsFailure.Should().BeFalse();
-        result.Error.Should().Be(Error.None);
-        result.Value.Should().Be(42);
+        _ = result.IsSuccess.Should().BeTrue();
+        _ = result.IsFailure.Should().BeFalse();
+        _ = result.Error.Should().Be(Error.None);
+        _ = result.Value.Should().Be(42);
     }
 
     [Fact]
@@ -27,9 +27,9 @@ public sealed class ResultOfTTests
         var result = Result<int>.Failure(error);
 
         // Assert
-        result.IsSuccess.Should().BeFalse();
-        result.IsFailure.Should().BeTrue();
-        result.Error.Should().Be(error);
+        _ = result.IsSuccess.Should().BeFalse();
+        _ = result.IsFailure.Should().BeTrue();
+        _ = result.Error.Should().Be(error);
     }
 
     [Fact]
@@ -39,9 +39,9 @@ public sealed class ResultOfTTests
         var result = Result<int>.Try(() => 42);
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().Be(42);
-        result.Error.Should().Be(Error.None);
+        _ = result.IsSuccess.Should().BeTrue();
+        _ = result.Value.Should().Be(42);
+        _ = result.Error.Should().Be(Error.None);
     }
 
     [Fact]
@@ -51,9 +51,9 @@ public sealed class ResultOfTTests
         var result = Result<int>.Try(() => throw new InvalidOperationException("fail"));
 
         // Assert
-        result.IsSuccess.Should().BeFalse();
-        result.Error.Code.Should().Be(nameof(InvalidOperationException));
-        result.Error.Description.Should().Be("fail");
+        _ = result.IsSuccess.Should().BeFalse();
+        _ = result.Error.Code.Should().Be(nameof(InvalidOperationException));
+        _ = result.Error.Description.Should().Be("fail");
     }
 
     [Fact]
@@ -63,7 +63,7 @@ public sealed class ResultOfTTests
         var act = () => Result<int>.Try(null!);
 
         // Assert
-        act.Should().Throw<ArgumentNullException>();
+        _ = act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
@@ -77,9 +77,9 @@ public sealed class ResultOfTTests
         });
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().Be(42);
-        result.Error.Should().Be(Error.None);
+        _ = result.IsSuccess.Should().BeTrue();
+        _ = result.Value.Should().Be(42);
+        _ = result.Error.Should().Be(Error.None);
     }
 
     [Fact]
@@ -93,9 +93,9 @@ public sealed class ResultOfTTests
         });
 
         // Assert
-        result.IsSuccess.Should().BeFalse();
-        result.Error.Code.Should().Be(nameof(InvalidOperationException));
-        result.Error.Description.Should().Be("async fail");
+        _ = result.IsSuccess.Should().BeFalse();
+        _ = result.Error.Code.Should().Be(nameof(InvalidOperationException));
+        _ = result.Error.Description.Should().Be("async fail");
     }
 
     [Fact]
@@ -105,7 +105,7 @@ public sealed class ResultOfTTests
         var act = async () => await Result<int>.TryAsync(null!);
 
         // Assert
-        await act.Should().ThrowAsync<ArgumentNullException>();
+        _ = await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
@@ -123,15 +123,15 @@ public sealed class ResultOfTTests
         );
 
         // Assert
-        capturedValue.Should().Be(42);
-        failureCalled.Should().BeFalse();
+        _ = capturedValue.Should().Be(42);
+        _ = failureCalled.Should().BeFalse();
     }
 
     [Fact]
     public void Match_WhenResultIsFailure_ShouldInvokeOnFailureWithError()
     {
         // Arrange
-        var error = new Error("E002");
+        var error = new Error("E002", "Test error");
         var result = Result<int>.Failure(error);
         var successCalled = false;
         Error? capturedError = null;
@@ -143,8 +143,8 @@ public sealed class ResultOfTTests
         );
 
         // Assert
-        successCalled.Should().BeFalse();
-        capturedError.Should().Be(error);
+        _ = successCalled.Should().BeFalse();
+        _ = capturedError.Should().Be(error);
     }
 
     [Fact]
@@ -160,14 +160,14 @@ public sealed class ResultOfTTests
         );
 
         // Assert
-        value.Should().Be("Value: 42");
+        _ = value.Should().Be("Value: 42");
     }
 
     [Fact]
     public void MatchT_WhenResultIsFailure_ShouldReturnOnFailureValue()
     {
         // Arrange
-        var result = Result<int>.Failure(new Error("E003"));
+        var result = Result<int>.Failure(new Error("E003", "Test error"));
 
         // Act
         var value = result.Match(
@@ -176,7 +176,7 @@ public sealed class ResultOfTTests
         );
 
         // Assert
-        value.Should().Be("failure");
+        _ = value.Should().Be("failure");
     }
 
     [Fact]
@@ -190,15 +190,15 @@ public sealed class ResultOfTTests
         var mappedResult = result.Map(v => capturedValue = v);
 
         // Assert
-        mappedResult.IsSuccess.Should().BeTrue();
-        capturedValue.Should().Be(42);
+        _ = mappedResult.IsSuccess.Should().BeTrue();
+        _ = capturedValue.Should().Be(42);
     }
 
     [Fact]
     public void Map_WhenResultIsFailure_ShouldNotExecuteActionAndPropagateError()
     {
         // Arrange
-        var error = new Error("E004");
+        var error = new Error("E004", "Test error");
         var result = Result<int>.Failure(error);
         var actionCalled = false;
 
@@ -206,9 +206,9 @@ public sealed class ResultOfTTests
         var mappedResult = result.Map(_ => actionCalled = true);
 
         // Assert
-        mappedResult.IsSuccess.Should().BeFalse();
-        mappedResult.Error.Should().Be(error);
-        actionCalled.Should().BeFalse();
+        _ = mappedResult.IsSuccess.Should().BeFalse();
+        _ = mappedResult.Error.Should().Be(error);
+        _ = actionCalled.Should().BeFalse();
     }
 
     [Fact]
@@ -221,23 +221,23 @@ public sealed class ResultOfTTests
         var mappedResult = result.Map(v => v.ToString());
 
         // Assert
-        mappedResult.IsSuccess.Should().BeTrue();
-        mappedResult.Value.Should().Be("42");
+        _ = mappedResult.IsSuccess.Should().BeTrue();
+        _ = mappedResult.Value.Should().Be("42");
     }
 
     [Fact]
     public void MapT_WhenResultIsFailure_ShouldPropagateError()
     {
         // Arrange
-        var error = new Error("E005");
+        var error = new Error("E005", "Test error");
         var result = Result<int>.Failure(error);
 
         // Act
         var mappedResult = result.Map(v => v.ToString());
 
         // Assert
-        mappedResult.IsSuccess.Should().BeFalse();
-        mappedResult.Error.Should().Be(error);
+        _ = mappedResult.IsSuccess.Should().BeFalse();
+        _ = mappedResult.Error.Should().Be(error);
     }
 
     [Fact]
@@ -250,15 +250,15 @@ public sealed class ResultOfTTests
         var boundResult = result.Bind(v => Result<string>.Success(v.ToString()));
 
         // Assert
-        boundResult.IsSuccess.Should().BeTrue();
-        boundResult.Value.Should().Be("42");
+        _ = boundResult.IsSuccess.Should().BeTrue();
+        _ = boundResult.Value.Should().Be("42");
     }
 
     [Fact]
     public void Bind_WhenResultIsFailure_ShouldNotExecuteNextStepAndPropagateError()
     {
         // Arrange
-        var error = new Error("E006");
+        var error = new Error("E006", "Test error");
         var result = Result<int>.Failure(error);
         var funcCalled = false;
 
@@ -270,9 +270,9 @@ public sealed class ResultOfTTests
         });
 
         // Assert
-        boundResult.IsSuccess.Should().BeFalse();
-        boundResult.Error.Should().Be(error);
-        funcCalled.Should().BeFalse();
+        _ = boundResult.IsSuccess.Should().BeFalse();
+        _ = boundResult.Error.Should().Be(error);
+        _ = funcCalled.Should().BeFalse();
     }
 
     [Fact]
@@ -280,14 +280,14 @@ public sealed class ResultOfTTests
     {
         // Arrange
         var result = Result<int>.Success(42);
-        var error = new Error("E007");
+        var error = new Error("E007", "Test error");
 
         // Act
         var boundResult = result.Bind(_ => Result<string>.Failure(error));
 
         // Assert
-        boundResult.IsSuccess.Should().BeFalse();
-        boundResult.Error.Should().Be(error);
+        _ = boundResult.IsSuccess.Should().BeFalse();
+        _ = boundResult.Error.Should().Be(error);
     }
 
     [Fact]
@@ -300,14 +300,14 @@ public sealed class ResultOfTTests
         var boundResult = result.Bind(_ => Result.Success());
 
         // Assert
-        boundResult.IsSuccess.Should().BeTrue();
+        _ = boundResult.IsSuccess.Should().BeTrue();
     }
 
     [Fact]
     public void Bind_WhenResultIsFailure_ShouldNotExecuteFuncAndPropagateError()
     {
         // Arrange
-        var error = new Error("E008");
+        var error = new Error("E008", "Test error");
         var result = Result<int>.Failure(error);
         var funcCalled = false;
 
@@ -319,9 +319,9 @@ public sealed class ResultOfTTests
         });
 
         // Assert
-        boundResult.IsSuccess.Should().BeFalse();
-        boundResult.Error.Should().Be(error);
-        funcCalled.Should().BeFalse();
+        _ = boundResult.IsSuccess.Should().BeFalse();
+        _ = boundResult.Error.Should().Be(error);
+        _ = funcCalled.Should().BeFalse();
     }
 
     [Fact]
@@ -329,14 +329,14 @@ public sealed class ResultOfTTests
     {
         // Arrange
         var result = Result<int>.Success(42);
-        var error = new Error("E009");
+        var error = new Error("E009", "Test error");
 
         // Act
         var boundResult = result.Bind(_ => Result.Failure(error));
 
         // Assert
-        boundResult.IsSuccess.Should().BeFalse();
-        boundResult.Error.Should().Be(error);
+        _ = boundResult.IsSuccess.Should().BeFalse();
+        _ = boundResult.Error.Should().Be(error);
     }
 
     [Fact]
@@ -349,22 +349,22 @@ public sealed class ResultOfTTests
         var act = () => result.Bind(null!);
 
         // Assert
-        act.Should().Throw<ArgumentNullException>();
+        _ = act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void ImplicitConversion_FromError_ShouldReturnFailureResult()
     {
         // Arrange
-        var error = new Error("E010");
+        var error = new Error("E010", "Test error");
 
         // Act
         Result<int> result = error;
 
         // Assert
-        result.IsSuccess.Should().BeFalse();
+        _ = result.IsSuccess.Should().BeFalse();
 
-        result.Error.Should().Be(error);
+        _ = result.Error.Should().Be(error);
     }
 
     [Fact]
@@ -377,12 +377,12 @@ public sealed class ResultOfTTests
         Result<int> result = value;
 
         // Assert
-        result.IsSuccess.Should().BeTrue();
-        
-        result.Value.Should().Be(value);
+        _ = result.IsSuccess.Should().BeTrue();
+
+        _ = result.Value.Should().Be(value);
     }
 
-       [Fact]
+    [Fact]
     public async Task MapAsync_Should_Map_Value_When_Result_Is_Success()
     {
         // Arrange
@@ -396,8 +396,8 @@ public sealed class ResultOfTTests
         });
 
         // Assert
-        mapped.IsSuccess.Should().BeTrue();
-        mapped.Value.Should().Be(20);
+        _ = mapped.IsSuccess.Should().BeTrue();
+        _ = mapped.Value.Should().Be(20);
     }
 
 
@@ -417,8 +417,8 @@ public sealed class ResultOfTTests
         });
 
         // Assert
-        response.IsSuccess.Should().BeTrue();
-        calledValue.Should().Be(10);
+        _ = response.IsSuccess.Should().BeTrue();
+        _ = calledValue.Should().Be(10);
     }
 
 
@@ -440,8 +440,8 @@ public sealed class ResultOfTTests
         });
 
         // Assert
-        mapped.IsSuccess.Should().BeFalse();
-        mapped.Error.Should().Be(error);
+        _ = mapped.IsSuccess.Should().BeFalse();
+        _ = mapped.Error.Should().Be(error);
     }
 
 
@@ -459,8 +459,8 @@ public sealed class ResultOfTTests
         });
 
         // Assert
-        response.IsSuccess.Should().BeTrue();
-        response.Value.Should().Be("10");
+        _ = response.IsSuccess.Should().BeTrue();
+        _ = response.Value.Should().Be("10");
     }
 
 
@@ -484,10 +484,10 @@ public sealed class ResultOfTTests
         });
 
         // Assert
-        called.Should().BeFalse();
+        _ = called.Should().BeFalse();
 
-        response.IsSuccess.Should().BeFalse();
-        response.Error.Should().Be(error);
+        _ = response.IsSuccess.Should().BeFalse();
+        _ = response.Error.Should().Be(error);
     }
 
 
@@ -509,6 +509,6 @@ public sealed class ResultOfTTests
             _ => Task.CompletedTask);
 
         // Assert
-        receivedValue.Should().Be(50);
+        _ = receivedValue.Should().Be(50);
     }
 }

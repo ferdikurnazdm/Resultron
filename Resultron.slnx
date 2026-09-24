@@ -20,6 +20,7 @@
     <Project Path="src/Resultron/Resultron.csproj" />
   </Folder>
   <Folder Name="/test/">
+    <Project Path="test/Resultron.Benchmarks/Resultron.Benchmarks.csproj" Id="f994badf-71a8-4203-a1c0-9b28456c88e5" />
     <Project Path="test/Resultron.UnitTest/Resultron.UnitTest.csproj" />
   </Folder>
 </Solution>
