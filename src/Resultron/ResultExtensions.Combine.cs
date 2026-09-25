@@ -16,7 +16,7 @@ public static partial class ResultExtensions
     /// Thrown if <paramref name="results"/> is <c>null</c>.
     /// </exception>
     public static Result Combine(
-        this IEnumerable<BaseResult> results)
+        this IEnumerable<Result> results)
     {
         ArgumentNullException.ThrowIfNull(results);
 
@@ -46,11 +46,11 @@ public static partial class ResultExtensions
     /// Thrown if <paramref name="results"/> is <c>null</c>.
     /// </exception>
     public static Result Combine(
-        this BaseResult[] results)
+        this Result[] results)
     {
         ArgumentNullException.ThrowIfNull(results);
 
-        return ((IEnumerable<BaseResult>)results)
+        return ((IEnumerable<Result>)results)
             .Combine();
     }
 
@@ -68,7 +68,7 @@ public static partial class ResultExtensions
     /// Thrown if <paramref name="resultTasks"/> is <c>null</c>.
     /// </exception>
     public static async Task<Result> CombineAsync(
-        this IEnumerable<Task<BaseResult>> resultTasks)
+        this IEnumerable<Task<Result>> resultTasks)
     {
         ArgumentNullException.ThrowIfNull(resultTasks);
 
@@ -93,7 +93,7 @@ public static partial class ResultExtensions
     /// Thrown if <paramref name="resultTasks"/> is <c>null</c>.
     /// </exception>
     public static async Task<Result> CombineAsync(
-        this Task<BaseResult>[] resultTasks)
+        this Task<Result>[] resultTasks)
     {
         ArgumentNullException.ThrowIfNull(resultTasks);
 

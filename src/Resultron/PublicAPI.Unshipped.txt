@@ -12,12 +12,10 @@ Resultron.BaseResult
 Resultron.BaseResult.BaseResult(bool isSuccess, System.Collections.Generic.IEnumerable<Resultron.IReason!>? reasons = null) -> void
 Resultron.BaseResult.Error.get -> Resultron.Error!
 Resultron.BaseResult.Errors.get -> System.Collections.Generic.IReadOnlyList<Resultron.Error!>!
-Resultron.BaseResult.FailureIf(System.Action<Resultron.Error!>! action) -> Resultron.BaseResult!
 Resultron.BaseResult.IsFailure.get -> bool
 Resultron.BaseResult.IsSuccess.get -> bool
 Resultron.BaseResult.Reasons.get -> System.Collections.Generic.IReadOnlyList<Resultron.IReason!>!
 Resultron.BaseResult.Successes.get -> System.Collections.Generic.IReadOnlyList<Resultron.Success!>!
-Resultron.BaseResult.SuccessIf(System.Action! action) -> Resultron.BaseResult!
 Resultron.Error
 Resultron.Error.CausedBy(System.Exception! exception) -> Resultron.Error!
 Resultron.Error.Code.get -> string!
@@ -110,14 +108,15 @@ static Resultron.ResultExtensions.BindAsync(this System.Threading.Tasks.Task<Res
 static Resultron.ResultExtensions.BindAsync<T, TOut>(this Resultron.Result<T>! result, System.Func<T, System.Threading.Tasks.Task<Resultron.Result<TOut>!>!>! binder) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
 static Resultron.ResultExtensions.BindAsync<T, TOut>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask, System.Func<T, Resultron.Result<TOut>!>! binder) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
 static Resultron.ResultExtensions.BindAsync<T, TOut>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask, System.Func<T, System.Threading.Tasks.Task<Resultron.Result<TOut>!>!>! binder) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
+static Resultron.ResultExtensions.BindAsync<T>(this Resultron.Result<T>! result, System.Func<T, System.Threading.Tasks.Task<Resultron.Result!>!>! binder) -> System.Threading.Tasks.Task<Resultron.Result!>!
 static Resultron.ResultExtensions.BindAsync<TOut>(this System.Threading.Tasks.Task<Resultron.Result!>! resultTask, System.Func<Resultron.Result<TOut>!>! binder) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
 static Resultron.ResultExtensions.BindAsync<TOut>(this System.Threading.Tasks.Task<Resultron.Result!>! resultTask, System.Func<System.Threading.Tasks.Task<Resultron.Result<TOut>!>!>! binder) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
-static Resultron.ResultExtensions.Combine(this Resultron.BaseResult![]! results) -> Resultron.Result!
-static Resultron.ResultExtensions.Combine(this System.Collections.Generic.IEnumerable<Resultron.BaseResult!>! results) -> Resultron.Result!
+static Resultron.ResultExtensions.Combine(this Resultron.Result![]! results) -> Resultron.Result!
+static Resultron.ResultExtensions.Combine(this System.Collections.Generic.IEnumerable<Resultron.Result!>! results) -> Resultron.Result!
 static Resultron.ResultExtensions.Combine<T>(this Resultron.Result<T>![]! results) -> Resultron.Result<System.Collections.Generic.IReadOnlyList<T>!>!
 static Resultron.ResultExtensions.Combine<T>(this System.Collections.Generic.IEnumerable<Resultron.Result<T>!>! results) -> Resultron.Result<System.Collections.Generic.IReadOnlyList<T>!>!
-static Resultron.ResultExtensions.CombineAsync(this System.Collections.Generic.IEnumerable<System.Threading.Tasks.Task<Resultron.BaseResult!>!>! resultTasks) -> System.Threading.Tasks.Task<Resultron.Result!>!
-static Resultron.ResultExtensions.CombineAsync(this System.Threading.Tasks.Task<Resultron.BaseResult!>![]! resultTasks) -> System.Threading.Tasks.Task<Resultron.Result!>!
+static Resultron.ResultExtensions.CombineAsync(this System.Collections.Generic.IEnumerable<System.Threading.Tasks.Task<Resultron.Result!>!>! resultTasks) -> System.Threading.Tasks.Task<Resultron.Result!>!
+static Resultron.ResultExtensions.CombineAsync(this System.Threading.Tasks.Task<Resultron.Result!>![]! resultTasks) -> System.Threading.Tasks.Task<Resultron.Result!>!
 static Resultron.ResultExtensions.CombineAsync<T>(this System.Collections.Generic.IEnumerable<System.Threading.Tasks.Task<Resultron.Result<T>!>!>! resultTasks) -> System.Threading.Tasks.Task<Resultron.Result<System.Collections.Generic.IReadOnlyList<T>!>!>!
 static Resultron.ResultExtensions.CombineAsync<T>(this System.Threading.Tasks.Task<Resultron.Result<T>!>![]! resultTasks) -> System.Threading.Tasks.Task<Resultron.Result<System.Collections.Generic.IReadOnlyList<T>!>!>!
 static Resultron.ResultExtensions.Ensure(this Resultron.Result! result, System.Func<bool>! predicate, Resultron.Error! error) -> Resultron.Result!
@@ -133,7 +132,6 @@ static Resultron.ResultExtensions.Map<TOut>(this Resultron.Result! result, Syste
 static Resultron.ResultExtensions.MapAsync<T, TOut>(this Resultron.Result<T>! result, System.Func<T, System.Threading.Tasks.Task<TOut>!>! mapper) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
 static Resultron.ResultExtensions.MapAsync<T, TOut>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask, System.Func<T, System.Threading.Tasks.Task<TOut>!>! mapper) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
 static Resultron.ResultExtensions.MapAsync<T, TOut>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask, System.Func<T, TOut>! mapper) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
-static Resultron.ResultExtensions.MapAsync<T>(this Resultron.Result<T>! result, System.Func<T, System.Threading.Tasks.Task!>! action) -> System.Threading.Tasks.Task<Resultron.Result<T>!>!
 static Resultron.ResultExtensions.MapAsync<TOut>(this Resultron.Result! result, System.Func<System.Threading.Tasks.Task<TOut>!>! mapper) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
 static Resultron.ResultExtensions.MapAsync<TOut>(this System.Threading.Tasks.Task<Resultron.Result!>! resultTask, System.Func<System.Threading.Tasks.Task<TOut>!>! mapper) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
 static Resultron.ResultExtensions.MapAsync<TOut>(this System.Threading.Tasks.Task<Resultron.Result!>! resultTask, System.Func<TOut>! mapper) -> System.Threading.Tasks.Task<Resultron.Result<TOut>!>!
@@ -142,12 +140,25 @@ static Resultron.ResultExtensions.Match<T, TOut>(this Resultron.Result<T>! resul
 static Resultron.ResultExtensions.Match<T>(this Resultron.Result<T>! result, System.Action<T>! onSuccess, System.Action<Resultron.Error!>! onFailure) -> void
 static Resultron.ResultExtensions.Match<TOut>(this Resultron.Result! result, System.Func<TOut>! onSuccess, System.Func<Resultron.Error!, TOut>! onFailure) -> TOut
 static Resultron.ResultExtensions.MatchAsync(this Resultron.Result! result, System.Func<System.Threading.Tasks.Task!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task!>! onFailure) -> System.Threading.Tasks.Task!
+static Resultron.ResultExtensions.MatchAsync(this System.Threading.Tasks.Task<Resultron.Result!>! resultTask, System.Action! onSuccess, System.Action<Resultron.Error!>! onFailure) -> System.Threading.Tasks.Task!
+static Resultron.ResultExtensions.MatchAsync(this System.Threading.Tasks.Task<Resultron.Result!>! resultTask, System.Func<System.Threading.Tasks.Task!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task!>! onFailure) -> System.Threading.Tasks.Task!
+static Resultron.ResultExtensions.MatchAsync<T, TOut>(this Resultron.Result<T>! result, System.Func<T, System.Threading.Tasks.Task<TOut>!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task<TOut>!>! onFailure) -> System.Threading.Tasks.Task<TOut>!
 static Resultron.ResultExtensions.MatchAsync<T, TOut>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask, System.Func<T, System.Threading.Tasks.Task<TOut>!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task<TOut>!>! onFailure) -> System.Threading.Tasks.Task<TOut>!
 static Resultron.ResultExtensions.MatchAsync<T, TOut>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask, System.Func<T, TOut>! onSuccess, System.Func<Resultron.Error!, TOut>! onFailure) -> System.Threading.Tasks.Task<TOut>!
 static Resultron.ResultExtensions.MatchAsync<T>(this Resultron.Result<T>! result, System.Func<T, System.Threading.Tasks.Task!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task!>! onFailure) -> System.Threading.Tasks.Task!
+static Resultron.ResultExtensions.MatchAsync<T>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask, System.Action<T>! onSuccess, System.Action<Resultron.Error!>! onFailure) -> System.Threading.Tasks.Task!
+static Resultron.ResultExtensions.MatchAsync<T>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask, System.Func<T, System.Threading.Tasks.Task!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task!>! onFailure) -> System.Threading.Tasks.Task!
 static Resultron.ResultExtensions.MatchAsync<TOut>(this Resultron.Result! result, System.Func<System.Threading.Tasks.Task<TOut>!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task<TOut>!>! onFailure) -> System.Threading.Tasks.Task<TOut>!
 static Resultron.ResultExtensions.MatchAsync<TOut>(this System.Threading.Tasks.Task<Resultron.Result!>! resultTask, System.Func<System.Threading.Tasks.Task<TOut>!>! onSuccess, System.Func<Resultron.Error!, System.Threading.Tasks.Task<TOut>!>! onFailure) -> System.Threading.Tasks.Task<TOut>!
 static Resultron.ResultExtensions.MatchAsync<TOut>(this System.Threading.Tasks.Task<Resultron.Result!>! resultTask, System.Func<TOut>! onSuccess, System.Func<Resultron.Error!, TOut>! onFailure) -> System.Threading.Tasks.Task<TOut>!
+static Resultron.ResultExtensions.OnFailure(this Resultron.Result! result, System.Action<Resultron.Error!>! action) -> Resultron.Result!
+static Resultron.ResultExtensions.OnFailure<T>(this Resultron.Result<T>! result, System.Action<Resultron.Error!>! action) -> Resultron.Result<T>!
+static Resultron.ResultExtensions.OnFailureAsync(this Resultron.Result! result, System.Func<Resultron.Error!, System.Threading.Tasks.Task!>! action) -> System.Threading.Tasks.Task<Resultron.Result!>!
+static Resultron.ResultExtensions.OnFailureAsync<T>(this Resultron.Result<T>! result, System.Func<Resultron.Error!, System.Threading.Tasks.Task!>! action) -> System.Threading.Tasks.Task<Resultron.Result<T>!>!
+static Resultron.ResultExtensions.OnSuccess(this Resultron.Result! result, System.Action! action) -> Resultron.Result!
+static Resultron.ResultExtensions.OnSuccess<T>(this Resultron.Result<T>! result, System.Action<T>! action) -> Resultron.Result<T>!
+static Resultron.ResultExtensions.OnSuccessAsync(this Resultron.Result! result, System.Func<System.Threading.Tasks.Task!>! action) -> System.Threading.Tasks.Task<Resultron.Result!>!
+static Resultron.ResultExtensions.OnSuccessAsync<T>(this Resultron.Result<T>! result, System.Func<T, System.Threading.Tasks.Task!>! action) -> System.Threading.Tasks.Task<Resultron.Result<T>!>!
 static Resultron.ResultExtensions.Select<T, TOut>(this Resultron.Result<T>! result, System.Func<T, TOut>! selector) -> Resultron.Result<TOut>!
 static Resultron.ResultExtensions.Select<TOut>(this Resultron.Result! result, System.Func<TOut>! selector) -> Resultron.Result<TOut>!
 static Resultron.ResultExtensions.SelectMany<T, TIntermediate, TOut>(this Resultron.Result<T>! result, System.Func<T, Resultron.Result<TIntermediate>!>! binder, System.Func<T, TIntermediate, TOut>! projector) -> Resultron.Result<TOut>!
@@ -169,6 +180,7 @@ static Resultron.ResultExtensions.ToUnitResult<T>(this Resultron.Result<T>! resu
 static Resultron.ResultExtensions.ToUnitResultAsync(this System.Threading.Tasks.Task<Resultron.Result!>! resultTask) -> System.Threading.Tasks.Task<Resultron.Result<Resultron.Unit>!>!
 static Resultron.ResultExtensions.ToUnitResultAsync<T>(this System.Threading.Tasks.Task<Resultron.Result<T>!>! resultTask) -> System.Threading.Tasks.Task<Resultron.Result<Resultron.Unit>!>!
 static Resultron.ResultExtensions.Where(this Resultron.Result! result, System.Func<bool>! predicate, Resultron.Error! error) -> Resultron.Result!
+static Resultron.ResultExtensions.Where<T>(this Resultron.Result<T>! result, System.Func<T, bool>! predicate) -> Resultron.Result<T>!
 static Resultron.ResultExtensions.Where<T>(this Resultron.Result<T>! result, System.Func<T, bool>! predicate, Resultron.Error! error) -> Resultron.Result<T>!
 static Resultron.Success.operator !=(Resultron.Success? left, Resultron.Success? right) -> bool
 static Resultron.Success.operator ==(Resultron.Success? left, Resultron.Success? right) -> bool

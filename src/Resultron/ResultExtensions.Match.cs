@@ -3,6 +3,187 @@
 public static partial class ResultExtensions
 {
     /// <summary>
+    /// Asynchronously matches the outcome of a <see cref="Result{T}"/>,
+    /// executing either the asynchronous success function with the underlying
+    /// value or the asynchronous failure function with the primary error,
+    /// and returning the resulting value.
+    /// </summary>
+    /// <typeparam name="T">The value type of the source result.</typeparam>
+    /// <typeparam name="TOut">The output return type of the match handlers.</typeparam>
+    /// <param name="result">The source result.</param>
+    /// <param name="onSuccess">
+    /// The asynchronous function to execute if the result is successful,
+    /// receiving the underlying value.
+    /// </param>
+    /// <param name="onFailure">
+    /// The asynchronous function to execute if the result has failed,
+    /// receiving the primary <see cref="Error"/>.
+    /// </param>
+    /// <returns>
+    /// A task containing the value returned by either the success or failure handler.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="result"/>, <paramref name="onSuccess"/>,
+    /// or <paramref name="onFailure"/> is <c>null</c>.
+    /// </exception>
+    public static async Task<TOut> MatchAsync<T, TOut>(
+        this Result<T> result,
+        Func<T, Task<TOut>> onSuccess,
+        Func<Error, Task<TOut>> onFailure)
+    {
+        ArgumentNullException.ThrowIfNull(result);
+        ArgumentNullException.ThrowIfNull(onSuccess);
+        ArgumentNullException.ThrowIfNull(onFailure);
+
+        if (result.IsSuccess)
+        {
+            return await onSuccess(result.Value)
+                .ConfigureAwait(false);
+        }
+
+        return await onFailure(result.Error)
+            .ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Asynchronously awaits a task-wrapped <see cref="Result"/> and matches
+    /// its outcome using the corresponding synchronous actions.
+    /// </summary>
+    /// <param name="resultTask">The task representing the source result.</param>
+    /// <param name="onSuccess">The action to execute if the result is successful.</param>
+    /// <param name="onFailure">
+    /// The action to execute if the result has failed, receiving the primary
+    /// <see cref="Error"/>.
+    /// </param>
+    /// <returns>A task representing the asynchronous match operation.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="resultTask"/>, <paramref name="onSuccess"/>,
+    /// or <paramref name="onFailure"/> is <c>null</c>.
+    /// </exception>
+    public static async Task MatchAsync(
+        this Task<Result> resultTask,
+        Action onSuccess,
+        Action<Error> onFailure)
+    {
+        ArgumentNullException.ThrowIfNull(resultTask);
+        ArgumentNullException.ThrowIfNull(onSuccess);
+        ArgumentNullException.ThrowIfNull(onFailure);
+
+        var result = await resultTask
+            .ConfigureAwait(false);
+
+        result.Match(
+            onSuccess,
+            onFailure);
+    }
+
+    /// <summary>
+    /// Asynchronously awaits a task-wrapped <see cref="Result"/> and matches
+    /// its outcome using asynchronous actions.
+    /// </summary>
+    /// <param name="resultTask">The task representing the source result.</param>
+    /// <param name="onSuccess">
+    /// The asynchronous action to execute if the result is successful.
+    /// </param>
+    /// <param name="onFailure">
+    /// The asynchronous action to execute if the result has failed, receiving
+    /// the primary <see cref="Error"/>.
+    /// </param>
+    /// <returns>A task representing the asynchronous match operation.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="resultTask"/>, <paramref name="onSuccess"/>,
+    /// or <paramref name="onFailure"/> is <c>null</c>.
+    /// </exception>
+    public static async Task MatchAsync(
+        this Task<Result> resultTask,
+        Func<Task> onSuccess,
+        Func<Error, Task> onFailure)
+    {
+        ArgumentNullException.ThrowIfNull(resultTask);
+        ArgumentNullException.ThrowIfNull(onSuccess);
+        ArgumentNullException.ThrowIfNull(onFailure);
+
+        var result = await resultTask
+            .ConfigureAwait(false);
+
+        await result
+            .MatchAsync(onSuccess, onFailure)
+            .ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Asynchronously awaits a task-wrapped <see cref="Result{T}"/> and matches
+    /// its outcome using the corresponding synchronous actions.
+    /// </summary>
+    /// <typeparam name="T">The value type of the source result.</typeparam>
+    /// <param name="resultTask">The task representing the source result.</param>
+    /// <param name="onSuccess">
+    /// The action to execute if the result is successful, receiving the
+    /// underlying value.
+    /// </param>
+    /// <param name="onFailure">
+    /// The action to execute if the result has failed, receiving the primary
+    /// <see cref="Error"/>.
+    /// </param>
+    /// <returns>A task representing the asynchronous match operation.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="resultTask"/>, <paramref name="onSuccess"/>,
+    /// or <paramref name="onFailure"/> is <c>null</c>.
+    /// </exception>
+    public static async Task MatchAsync<T>(
+        this Task<Result<T>> resultTask,
+        Action<T> onSuccess,
+        Action<Error> onFailure)
+    {
+        ArgumentNullException.ThrowIfNull(resultTask);
+        ArgumentNullException.ThrowIfNull(onSuccess);
+        ArgumentNullException.ThrowIfNull(onFailure);
+
+        var result = await resultTask
+            .ConfigureAwait(false);
+
+        result.Match(
+            onSuccess,
+            onFailure);
+    }
+
+    /// <summary>
+    /// Asynchronously awaits a task-wrapped <see cref="Result{T}"/> and matches
+    /// its outcome using asynchronous actions.
+    /// </summary>
+    /// <typeparam name="T">The value type of the source result.</typeparam>
+    /// <param name="resultTask">The task representing the source result.</param>
+    /// <param name="onSuccess">
+    /// The asynchronous action to execute if the result is successful,
+    /// receiving the underlying value.
+    /// </param>
+    /// <param name="onFailure">
+    /// The asynchronous action to execute if the result has failed, receiving
+    /// the primary <see cref="Error"/>.
+    /// </param>
+    /// <returns>A task representing the asynchronous match operation.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="resultTask"/>, <paramref name="onSuccess"/>,
+    /// or <paramref name="onFailure"/> is <c>null</c>.
+    /// </exception>
+    public static async Task MatchAsync<T>(
+        this Task<Result<T>> resultTask,
+        Func<T, Task> onSuccess,
+        Func<Error, Task> onFailure)
+    {
+        ArgumentNullException.ThrowIfNull(resultTask);
+        ArgumentNullException.ThrowIfNull(onSuccess);
+        ArgumentNullException.ThrowIfNull(onFailure);
+
+        var result = await resultTask
+            .ConfigureAwait(false);
+
+        await result
+            .MatchAsync(onSuccess, onFailure)
+            .ConfigureAwait(false);
+    }
+
+    /// <summary>
     /// Matches the outcome of a <see cref="Result"/>,
     /// executing the success action if successful,
     /// or the failure action with the primary error if failed.

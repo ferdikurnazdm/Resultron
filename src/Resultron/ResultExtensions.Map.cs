@@ -16,7 +16,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A task containing a successful <see cref="Result{TOut}"/> with the mapped
-    /// value, or a failed result containing the prior errors.
+    /// value, or a failed result containing the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -30,48 +30,13 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         var mappedValue = await mapper()
             .ConfigureAwait(false);
 
         return Result<TOut>.Success(mappedValue);
-    }
-
-    /// <summary>
-    /// Asynchronously executes the specified action with the underlying value
-    /// of a successful <see cref="Result{T}"/> and returns the original result.
-    /// If the source result has failed, the action is not executed and the
-    /// original failure is returned.
-    /// </summary>
-    /// <typeparam name="T">The value type of the source result.</typeparam>
-    /// <param name="result">The source result.</param>
-    /// <param name="action">
-    /// The asynchronous action to execute with the underlying value if successful.
-    /// </param>
-    /// <returns>
-    /// A task containing the original <see cref="Result{T}"/>.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">
-    /// Thrown if <paramref name="result"/> or <paramref name="action"/> is <c>null</c>.
-    /// </exception>
-    public static async Task<Result<T>> MapAsync<T>(
-        this Result<T> result,
-        Func<T, Task> action)
-    {
-        ArgumentNullException.ThrowIfNull(result);
-        ArgumentNullException.ThrowIfNull(action);
-
-        if (result.IsFailure)
-        {
-            return result;
-        }
-
-        await action(result.Value)
-            .ConfigureAwait(false);
-
-        return result;
     }
 
     /// <summary>
@@ -88,7 +53,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A task containing a successful <see cref="Result{TOut}"/> with the mapped
-    /// value, or a failed result containing the prior errors.
+    /// value, or a failed result containing the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -102,7 +67,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         var mappedValue = await mapper(result.Value)
@@ -121,7 +86,7 @@ public static partial class ResultExtensions
     /// <param name="mapper">The mapping function to invoke if successful.</param>
     /// <returns>
     /// A successful <see cref="Result{TOut}"/> containing the mapped value,
-    /// or a failed result containing the prior errors.
+    /// or a failed result containing the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -135,7 +100,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         return Result<TOut>.Success(mapper());
@@ -152,7 +117,7 @@ public static partial class ResultExtensions
     /// <param name="mapper">The mapping function to apply if successful.</param>
     /// <returns>
     /// A successful <see cref="Result{TOut}"/> containing the mapped value,
-    /// or a failed result containing the prior errors.
+    /// or a failed result containing the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -166,7 +131,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         return Result<TOut>.Success(
@@ -226,7 +191,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         var mappedValue = await mapper()
@@ -274,7 +239,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A task containing a successful <see cref="Result{TOut}"/> with the mapped
-    /// value, or a failed result containing the prior errors.
+    /// value, or a failed result containing the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="resultTask"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -291,7 +256,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         var mappedValue = await mapper(result.Value)

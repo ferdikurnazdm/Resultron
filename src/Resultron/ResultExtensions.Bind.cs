@@ -3,6 +3,42 @@
 public static partial class ResultExtensions
 {
     /// <summary>
+    /// Asynchronously binds the value of a successful <see cref="Result{T}"/>
+    /// to a non-generic <see cref="Result"/> using the specified asynchronous
+    /// binder function.
+    /// If the source result has failed, the binder is not executed and the
+    /// prior failure is propagated.
+    /// </summary>
+    /// <typeparam name="T">The value type of the source result.</typeparam>
+    /// <param name="result">The source result.</param>
+    /// <param name="binder">
+    /// The asynchronous binder function to execute with the underlying value
+    /// if the result is successful.
+    /// </param>
+    /// <returns>
+    /// A task containing the result returned by the binder if successful;
+    /// otherwise, a failed <see cref="Result"/> containing the prior reasons.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="result"/> or <paramref name="binder"/> is <c>null</c>.
+    /// </exception>
+    public static async Task<Result> BindAsync<T>(
+        this Result<T> result,
+        Func<T, Task<Result>> binder)
+    {
+        ArgumentNullException.ThrowIfNull(result);
+        ArgumentNullException.ThrowIfNull(binder);
+
+        if (result.IsFailure)
+        {
+            return Result.Failure(result.Reasons);
+        }
+
+        return await binder(result.Value)
+            .ConfigureAwait(false);
+    }
+
+    /// <summary>
     /// Asynchronously binds a successful <see cref="Result"/> to a new
     /// <see cref="Result"/> using the specified asynchronous binder function.
     /// If the source result has failed, the binder is not executed and the
@@ -14,7 +50,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A task containing the result returned by the binder if successful;
-    /// otherwise, the original failed <see cref="Result"/>.
+    /// otherwise, the original reasons <see cref="Result"/>.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="binder"/> is <c>null</c>.
@@ -47,7 +83,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// The result returned by the binder if successful;
-    /// otherwise, a failed result containing the prior errors.
+    /// otherwise, a failed result containing the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="binder"/> is <c>null</c>.
@@ -61,7 +97,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result.Failure(result.Errors);
+            return Result.Failure(result.Reasons);
         }
 
         return binder(result.Value);
@@ -101,7 +137,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         return binder();
@@ -121,7 +157,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         return binder(result.Value);
@@ -141,7 +177,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         return await binder(result.Value)
@@ -221,7 +257,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         return await binder()
@@ -261,7 +297,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         return await binder(result.Value)

@@ -12,7 +12,7 @@ public static partial class ResultExtensions
     /// <param name="selector">A transform function to invoke if successful.</param>
     /// <returns>
     /// A new successful <see cref="Result{TOut}"/> containing the projected value,
-    /// or a failed result with the prior errors.
+    /// or a failed result with the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="selector"/> is <c>null</c>.
@@ -74,7 +74,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A successful <see cref="Result{TOut}"/> containing the projected
-    /// combination, or a failed result with the prior errors.
+    /// combination, or a failed result with the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/>, <paramref name="binder"/>,
@@ -91,14 +91,14 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         var intermediate = binder();
 
         if (intermediate.IsFailure)
         {
-            return Result<TOut>.Failure(intermediate.Errors);
+            return Result<TOut>.Failure(intermediate.Reasons);
         }
 
         return Result<TOut>.Success(
@@ -152,7 +152,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A new successful <see cref="Result{TOut}"/> containing the projected
-    /// value, or a failed result with the prior errors.
+    /// value, or a failed result with the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="selector"/> is <c>null</c>.
@@ -216,7 +216,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A successful <see cref="Result{TOut}"/> containing the projected
-    /// combination, or a failed result with the prior errors.
+    /// combination, or a failed result with the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/>, <paramref name="binder"/>,
@@ -233,7 +233,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Errors);
+            return Result<TOut>.Failure(result.Reasons);
         }
 
         var intermediateResult = binder(result.Value);
@@ -241,7 +241,7 @@ public static partial class ResultExtensions
         if (intermediateResult.IsFailure)
         {
             return Result<TOut>.Failure(
-                intermediateResult.Errors);
+                intermediateResult.Reasons);
         }
 
         return Result<TOut>.Success(
@@ -283,5 +283,38 @@ public static partial class ResultExtensions
         return result.Ensure(
             predicate,
             error);
+    }
+
+    /// <summary>
+    /// Filters a successful <see cref="Result{T}"/> using the specified
+    /// predicate condition.
+    /// Enables C# query comprehension syntax using the <c>where</c> clause.
+    /// If the predicate evaluates to <c>false</c>, a default predicate failure
+    /// error is returned.
+    /// </summary>
+    /// <typeparam name="T">The value type of the source result.</typeparam>
+    /// <param name="result">The source result.</param>
+    /// <param name="predicate">
+    /// The condition to evaluate against the underlying value.
+    /// </param>
+    /// <returns>
+    /// The original result if successful and the predicate passes;
+    /// otherwise, a failed result containing the default predicate failure error.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="result"/> or <paramref name="predicate"/> is <c>null</c>.
+    /// </exception>
+    public static Result<T> Where<T>(
+        this Result<T> result,
+        Func<T, bool> predicate)
+    {
+        ArgumentNullException.ThrowIfNull(result);
+        ArgumentNullException.ThrowIfNull(predicate);
+
+        return result.Ensure(
+            predicate,
+            new Error(
+                "result.predicate_failed",
+                "The result did not satisfy the specified condition."));
     }
 }

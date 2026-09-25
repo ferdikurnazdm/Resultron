@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Contracts;
-
-namespace Resultron;
+﻿namespace Resultron;
 
 /// <summary>
 /// Defines the core contract for all result types within the Resultron library,
@@ -87,41 +85,5 @@ public abstract class BaseResult : IBaseResult
         {
             _reasons.AddRange(reasons);
         }
-    }
-
-    /// <summary>
-    /// Executes the specified action if the result is currently in a successful state, without breaking the fluent chain.
-    /// </summary>
-    /// <param name="action">The action to execute on success.</param>
-    /// <returns>The current <see cref="BaseResult"/> instance for chaining.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="action"/> is <c>null</c>.</exception>
-    public BaseResult SuccessIf(Action action)
-    {
-        ArgumentNullException.ThrowIfNull(action);
-
-        if (IsSuccess)
-        {
-            action();
-        }
-
-        return this;
-    }
-
-    /// <summary>
-    /// Executes the specified action with the primary error if the result is currently in a failed state, without breaking the fluent chain.
-    /// </summary>
-    /// <param name="action">The action to execute on failure, receiving the primary <see cref="Error"/>.</param>
-    /// <returns>The current <see cref="BaseResult"/> instance for chaining.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if <paramref name="action"/> is <c>null</c>.</exception>
-    public BaseResult FailureIf(Action<Error> action)
-    {
-        ArgumentNullException.ThrowIfNull(action);
-
-        if (IsFailure)
-        {
-            action(Error);
-        }
-
-        return this;
     }
 }

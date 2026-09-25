@@ -5,12 +5,12 @@ public static partial class ResultExtensions
     /// <summary>
     /// Converts a non-generic <see cref="Result"/> into a generic
     /// <see cref="Result{Unit}"/> containing <see cref="Unit.Value"/>.
-    /// Preserves existing errors if the source result has failed.
+    /// Preserves existing reasons if the source result has failed.
     /// </summary>
     /// <param name="result">The source result.</param>
     /// <returns>
     /// A successful <see cref="Result{Unit}"/> if the source result is successful;
-    /// otherwise, a failed result containing the prior errors.
+    /// otherwise, a failed result containing the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> is <c>null</c>.
@@ -22,7 +22,7 @@ public static partial class ResultExtensions
 
         return result.IsSuccess
             ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(result.Errors);
+            : Result<Unit>.Failure(result.Reasons);
     }
 
     /// <summary>
@@ -53,13 +53,13 @@ public static partial class ResultExtensions
     /// <summary>
     /// Converts a typed <see cref="Result{T}"/> into a generic
     /// <see cref="Result{Unit}"/> containing <see cref="Unit.Value"/>.
-    /// Preserves existing errors if the source result has failed.
+    /// Preserves existing reasons if the source result has failed.
     /// </summary>
     /// <typeparam name="T">The value type of the source result.</typeparam>
     /// <param name="result">The source result.</param>
     /// <returns>
     /// A successful <see cref="Result{Unit}"/> if the source result is successful;
-    /// otherwise, a failed result containing the prior errors.
+    /// otherwise, a failed result containing the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> is <c>null</c>.
@@ -71,19 +71,19 @@ public static partial class ResultExtensions
 
         return result.IsSuccess
             ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(result.Errors);
+            : Result<Unit>.Failure(result.Reasons);
     }
 
     /// <summary>
     /// Converts a typed <see cref="Result{T}"/> into a non-generic
     /// <see cref="Result"/>.
-    /// Preserves existing errors if the source result has failed.
+    /// Preserves existing reasons if the source result has failed.
     /// </summary>
     /// <typeparam name="T">The value type of the source result.</typeparam>
     /// <param name="result">The source result.</param>
     /// <returns>
     /// A successful <see cref="Result"/> if the source result is successful;
-    /// otherwise, a failed result containing the prior errors.
+    /// otherwise, a failed result containing the prior reasons.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> is <c>null</c>.
@@ -95,7 +95,7 @@ public static partial class ResultExtensions
 
         return result.IsSuccess
             ? Result.Success()
-            : Result.Failure(result.Errors);
+            : Result.Failure(result.Reasons);
     }
 
     /// <summary>

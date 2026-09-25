@@ -34,6 +34,7 @@ public readonly struct Maybe<T>
     private Maybe(T? value, bool hasValue)
     {
         _value = value;
+        
         HasValue = hasValue;
     }
 
