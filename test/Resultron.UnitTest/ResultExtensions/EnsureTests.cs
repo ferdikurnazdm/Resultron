@@ -93,24 +93,18 @@ public sealed class EnsureTests
         predicate.DidNotReceive().Invoke();
     }
 
+
     [Fact]
-    public void Ensure_Should_Preserve_Existing_Reasons_When_Result_Is_Already_Failure()
+    public void Ensure_Should_Preserve_Existing_Error_When_Result_Is_Already_Failure()
     {
         // Arrange
-        var error =
+        var sourceError =
             new Error(
                 "source.failed",
                 "Source failed.");
 
-        var context =
-            new Success("Context.");
-
-        Result source = Result.Failure(
-            new IReason[]
-            {
-                error,
-                context
-            });
+        Result source =
+            Result.Failure(sourceError);
 
         // Act
         Result result = source.Ensure(
@@ -119,9 +113,8 @@ public sealed class EnsureTests
 
         // Assert
         result.Should().BeSameAs(source);
-
-        result.Reasons.Should()
-            .BeEquivalentTo(source.Reasons);
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(sourceError);
     }
 
     #endregion
@@ -216,28 +209,23 @@ public sealed class EnsureTests
             .Invoke(Arg.Any<int>());
     }
 
+
     [Fact]
-    public void Ensure_Generic_Should_Not_Expose_Value_When_Validation_Fails()
+    public void Ensure_Generic_Should_Return_Default_Value_When_Validation_Fails()
     {
         // Arrange
         Result<int> source =
             Result<int>.Success(42);
 
+        // Act
         Result<int> result = source.Ensure(
             value => value < 0,
             ValidationError);
 
-        // Act
-        Action act = () =>
-        {
-            _ = result.Value;
-        };
-
         // Assert
         result.IsFailure.Should().BeTrue();
-
-        act.Should()
-            .Throw<InvalidOperationException>();
+        result.Error.Should().Be(ValidationError);
+        result.Value.Should().Be(default);
     }
 
     #endregion

@@ -5,7 +5,7 @@ namespace Resultron;
 public static partial class ResultExtensions
 {
     /// <summary>
-    /// Asynchronously executes the specified action with the primary error if the
+    /// Asynchronously executes the specified action with the error if the
     /// <see cref="Result"/> has failed, while preserving the result instance
     /// for fluent chaining.
     /// </summary>
@@ -38,7 +38,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    /// Asynchronously executes the specified action with the primary error if the
+    /// Asynchronously executes the specified action with the error if the
     /// <see cref="Result{T}"/> has failed, while preserving the result instance
     /// for fluent chaining.
     /// </summary>
@@ -72,7 +72,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    /// Executes the specified action with the primary error if the
+    /// Executes the specified action with the error if the
     /// <see cref="Result"/> has failed, while preserving the result
     /// instance for fluent chaining.
     /// </summary>
@@ -103,7 +103,7 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    /// Executes the specified action with the primary error if the
+    /// Executes the specified action with the error if the
     /// <see cref="Result{T}"/> has failed, while preserving the result
     /// instance for fluent chaining.
     /// </summary>

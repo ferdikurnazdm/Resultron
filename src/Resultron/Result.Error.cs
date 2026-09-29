@@ -1,23 +1,18 @@
 ﻿namespace Resultron;
 
 /// <summary>
-/// Represents a detailed error reason used within the Result pattern, 
-/// supporting error codes, descriptions, exception chaining, and custom metadata.
+/// Represents a detailed error used within the Result pattern,
+/// supporting error codes, descriptions, underlying exceptions, and custom metadata.
 /// </summary>
-/// <param name="Code">A unique machine-readable identifier code for the error.</param>
-/// <param name="Description">A human-readable description explaining the error.</param>
-/// <param name="Exception">The underlying exception that triggered this error, if applicable.</param>
-public record Error(string Code, string Description, Exception? Exception = null) : IReason
+/// <param name="Code">A unique machine-readable identifier for the error.</param>
+/// <param name="Description">A human-readable description of the error.</param>
+/// <param name="Exception">The underlying exception associated with the error, if any.</param>
+public record Error(string Code, string Description, Exception? Exception = null)
 {
     /// <summary>
-    /// Represents a default, empty error state (indicates the absence of an error).
+    /// Represents the absence of an error.
     /// </summary>
     public static readonly Error None = new(string.Empty, string.Empty);
-
-    /// <summary>
-    /// Gets the human-readable message associated with this error (maps to <see cref="Description"/>).
-    /// </summary>
-    string IReason.Message => Description;
 
     /// <summary>
     /// Gets additional contextual metadata associated with the error.
@@ -26,11 +21,14 @@ public record Error(string Code, string Description, Exception? Exception = null
         new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
-    /// Creates a new <see cref="Error"/> instance containing an additional or updated metadata key-value pair.
+    /// Creates a new <see cref="Error"/> instance with the specified metadata entry added or updated.
     /// </summary>
     /// <param name="key">The metadata key.</param>
     /// <param name="value">The metadata value.</param>
-    /// <returns>A new <see cref="Error"/> instance with the updated metadata.</returns>
+    /// <returns>A new <see cref="Error"/> instance containing the updated metadata.</returns>
+    /// <exception cref="ArgumentException">
+    /// Thrown when <paramref name="key"/> is null or empty.
+    /// </exception>
     public Error WithMetadata(string key, object value)
     {
         ArgumentException.ThrowIfNullOrEmpty(key);
@@ -50,10 +48,13 @@ public record Error(string Code, string Description, Exception? Exception = null
     }
 
     /// <summary>
-    /// Creates a new <see cref="Error"/> instance chained with the specified underlying exception.
+    /// Creates a new <see cref="Error"/> instance associated with the specified exception.
     /// </summary>
-    /// <param name="exception">The exception that caused this error.</param>
-    /// <returns>A new <see cref="Error"/> instance with the exception attached via record with-expression.</returns>
+    /// <param name="exception">The exception associated with this error.</param>
+    /// <returns>A new <see cref="Error"/> instance containing the specified exception.</returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown when <paramref name="exception"/> is null.
+    /// </exception>
     public Error CausedBy(Exception exception)
     {
         ArgumentNullException.ThrowIfNull(exception);

@@ -44,33 +44,47 @@ public readonly struct Maybe<T>
     /// </summary>
     /// <param name="value">The value to wrap.</param>
     /// <returns>A <see cref="Maybe{T}"/> instance representing the value.</returns>
-    public static Maybe<T> From(T? value) =>
-        value is null
-            ? None()
-            : Some(value);
+    public static Maybe<T> From(T? value)
+    {
+        if (value is null)
+        {
+            return None();
+        }
+
+        return Some(value: value);
+    }
 
     /// <summary>
     /// Creates a new <see cref="Maybe{T}"/> instance representing the presence of the specified value.
     /// </summary>
     /// <param name="value">The value to wrap.</param>
     /// <returns>A <see cref="Maybe{T}"/> instance containing the value.</returns>
-    public static Maybe<T> Some(T value) =>
-        new(value, true);
+    public static Maybe<T> Some(T? value)
+    {
+        if(value is null)
+        {
+            return None();
+        }
+
+        return new(
+            value: value, 
+            hasValue: true);
+    }
 
     /// <summary>
     /// Creates a new <see cref="Maybe{T}"/> instance representing the absence of a value.
     /// </summary>
     /// <returns>A <see cref="Maybe{T}"/> instance with no value.</returns>
-    public static Maybe<T> None() =>
-        new(default, false);
+    public static Maybe<T> None() => new(
+        value: default, 
+        hasValue: false);
 
     /// <summary>
     /// Gets the underlying value if present; otherwise, returns the default value of <typeparamref name="T"/>.
     /// </summary>
     /// <returns>The contained value or the default value of <typeparamref name="T"/>.</returns>
     [Pure]
-    public T? GetValueOrDefault() =>
-        _value;
+    public T? GetValueOrDefault() => _value;
 
     /// <summary>
     /// Gets the underlying value if present; otherwise, returns the specified fallback value.

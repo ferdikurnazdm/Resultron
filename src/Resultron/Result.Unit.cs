@@ -1,8 +1,9 @@
 ﻿namespace Resultron;
 
 /// <summary>
-/// Represents a void type, since <see cref="void"/> cannot be used as a generic type parameter in C#.
-/// Used primarily in functional result patterns (e.g., <see cref="Result{Unit}"/>) to indicate operations that succeed without returning a value.
+/// Represents a unit type for operations that do not produce a meaningful value.
+/// Commonly used with <see cref="Result{Unit}"/> when a generic result is required
+/// for an operation that does not return data.
 /// </summary>
 public readonly struct Unit : IEquatable<Unit>, IComparable<Unit>, IComparable
 {

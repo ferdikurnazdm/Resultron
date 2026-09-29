@@ -5,21 +5,10 @@ namespace Resultron.UnitTest;
 
 public sealed class ResultOfTTests
 {
-    private static readonly Error FirstError =
+    private static readonly Error TestError =
         new(
-            "first.error",
-            "First error.");
-
-    private static readonly Error SecondError =
-        new(
-            "second.error",
-            "Second error.");
-
-    private static readonly Success FirstSuccess =
-        new("First success.");
-
-    private static readonly Success SecondSuccess =
-        new("Second success.");
+            "test.error",
+            "Test error.");
 
     #region Success
 
@@ -47,20 +36,7 @@ public sealed class ResultOfTTests
     }
 
     [Fact]
-    public void Success_Should_Have_No_Reasons_When_None_Are_Provided()
-    {
-        // Act
-        Result<int> result =
-            Result<int>.Success(42);
-
-        // Assert
-        result.Reasons.Should().BeEmpty();
-        result.Errors.Should().BeEmpty();
-        result.Successes.Should().BeEmpty();
-    }
-
-    [Fact]
-    public void Success_Should_Return_Error_None_When_No_Error_Exists()
+    public void Success_Should_Have_Error_None()
     {
         // Act
         Result<int> result =
@@ -100,205 +76,14 @@ public sealed class ResultOfTTests
 
     #endregion
 
-    #region Success With Success Reason
+    #region Failure
 
     [Fact]
-    public void Success_With_Success_Reason_Should_Create_Successful_Result()
+    public void Failure_Should_Create_Failed_Result()
     {
         // Act
         Result<int> result =
-            Result<int>.Success(
-                42,
-                FirstSuccess);
-
-        // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().Be(42);
-    }
-
-    [Fact]
-    public void Success_With_Success_Reason_Should_Add_Reason()
-    {
-        // Act
-        Result<int> result =
-            Result<int>.Success(
-                42,
-                FirstSuccess);
-
-        // Assert
-        result.Reasons.Should()
-            .ContainSingle()
-            .Which.Should()
-            .Be(FirstSuccess);
-    }
-
-    [Fact]
-    public void Success_With_Success_Reason_Should_Add_Success()
-    {
-        // Act
-        Result<int> result =
-            Result<int>.Success(
-                42,
-                FirstSuccess);
-
-        // Assert
-        result.Successes.Should()
-            .ContainSingle()
-            .Which.Should()
-            .Be(FirstSuccess);
-
-        result.Errors.Should().BeEmpty();
-    }
-
-    [Fact]
-    public void Success_With_Success_Reason_Should_Preserve_Value()
-    {
-        // Act
-        Result<int> result =
-            Result<int>.Success(
-                42,
-                FirstSuccess);
-
-        // Assert
-        result.Value.Should().Be(42);
-    }
-
-    #endregion
-
-    #region Success With Reasons
-
-    [Fact]
-    public void Success_With_Reasons_Should_Preserve_All_Reasons()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            FirstSuccess,
-            FirstError,
-            SecondSuccess
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Success(
-                42,
-                reasons);
-
-        // Assert
-        result.IsSuccess.Should().BeTrue();
-        result.Value.Should().Be(42);
-
-        result.Reasons.Should().Equal(
-            FirstSuccess,
-            FirstError,
-            SecondSuccess);
-    }
-
-    [Fact]
-    public void Success_With_Reasons_Should_Filter_Errors()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            FirstSuccess,
-            FirstError,
-            SecondSuccess,
-            SecondError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Success(
-                42,
-                reasons);
-
-        // Assert
-        result.Errors.Should().Equal(
-            FirstError,
-            SecondError);
-    }
-
-    [Fact]
-    public void Success_With_Reasons_Should_Filter_Successes()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            FirstSuccess,
-            FirstError,
-            SecondSuccess,
-            SecondError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Success(
-                42,
-                reasons);
-
-        // Assert
-        result.Successes.Should().Equal(
-            FirstSuccess,
-            SecondSuccess);
-    }
-
-    [Fact]
-    public void Success_With_Reasons_Should_Preserve_Reason_Order()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            SecondSuccess,
-            FirstError,
-            FirstSuccess,
-            SecondError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Success(
-                42,
-                reasons);
-
-        // Assert
-        result.Reasons.Should().Equal(
-            SecondSuccess,
-            FirstError,
-            FirstSuccess,
-            SecondError);
-    }
-
-    [Fact]
-    public void Success_With_Reasons_Should_Use_First_Error_As_Primary_Error()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            FirstSuccess,
-            FirstError,
-            SecondError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Success(
-                42,
-                reasons);
-
-        // Assert
-        result.Error.Should().Be(FirstError);
-    }
-
-    #endregion
-
-    #region Failure With Error
-
-    [Fact]
-    public void Failure_With_Error_Should_Create_Failed_Result()
-    {
-        // Act
-        Result<int> result =
-            Result<int>.Failure(FirstError);
+            Result<int>.Failure(TestError);
 
         // Assert
         result.IsFailure.Should().BeTrue();
@@ -306,257 +91,49 @@ public sealed class ResultOfTTests
     }
 
     [Fact]
-    public void Failure_With_Error_Should_Add_Error_To_Reasons()
+    public void Failure_Should_Preserve_Error()
     {
         // Act
         Result<int> result =
-            Result<int>.Failure(FirstError);
+            Result<int>.Failure(TestError);
 
         // Assert
-        result.Reasons.Should()
-            .ContainSingle()
-            .Which.Should()
-            .Be(FirstError);
+        result.Error.Should().Be(TestError);
     }
 
     [Fact]
-    public void Failure_With_Error_Should_Add_Error_To_Errors()
+    public void Failure_Should_Preserve_Error_Code()
     {
         // Act
         Result<int> result =
-            Result<int>.Failure(FirstError);
+            Result<int>.Failure(TestError);
 
         // Assert
-        result.Errors.Should()
-            .ContainSingle()
-            .Which.Should()
-            .Be(FirstError);
-
-        result.Successes.Should().BeEmpty();
+        result.Error.Code.Should().Be("test.error");
     }
 
     [Fact]
-    public void Failure_With_Error_Should_Set_Primary_Error()
+    public void Failure_Should_Preserve_Error_Description()
     {
         // Act
         Result<int> result =
-            Result<int>.Failure(FirstError);
+            Result<int>.Failure(TestError);
 
         // Assert
-        result.Error.Should().Be(FirstError);
-    }
-
-    #endregion
-
-    #region Failure With Errors
-
-    [Fact]
-    public void Failure_With_Errors_Should_Create_Failed_Result()
-    {
-        // Arrange
-        Error[] errors =
-        [
-            FirstError,
-            SecondError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Failure(errors);
-
-        // Assert
-        result.IsFailure.Should().BeTrue();
-        result.IsSuccess.Should().BeFalse();
+        result.Error.Description.Should().Be("Test error.");
     }
 
     [Fact]
-    public void Failure_With_Errors_Should_Preserve_All_Errors()
+    public void Failure_With_Error_None_Should_Throw_ArgumentException()
     {
-        // Arrange
-        Error[] errors =
-        [
-            FirstError,
-            SecondError
-        ];
-
         // Act
-        Result<int> result =
-            Result<int>.Failure(errors);
+        Action action = () =>
+            Result<int>.Failure(Error.None);
 
         // Assert
-        result.Errors.Should().Equal(
-            FirstError,
-            SecondError);
-
-        result.Reasons.Should().Equal(
-            FirstError,
-            SecondError);
-    }
-
-    [Fact]
-    public void Failure_With_Errors_Should_Preserve_Error_Order()
-    {
-        // Arrange
-        Error[] errors =
-        [
-            SecondError,
-            FirstError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Failure(errors);
-
-        // Assert
-        result.Errors.Should().Equal(
-            SecondError,
-            FirstError);
-    }
-
-    [Fact]
-    public void Failure_With_Errors_Should_Use_First_Error_As_Primary_Error()
-    {
-        // Arrange
-        Error[] errors =
-        [
-            FirstError,
-            SecondError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Failure(errors);
-
-        // Assert
-        result.Error.Should().Be(FirstError);
-    }
-
-    [Fact]
-    public void Failure_With_Empty_Errors_Should_Still_Be_Failure()
-    {
-        // Arrange
-        Error[] errors = [];
-
-        // Act
-        Result<int> result =
-            Result<int>.Failure(errors);
-
-        // Assert
-        result.IsFailure.Should().BeTrue();
-        result.Errors.Should().BeEmpty();
-
-        result.Error.Should()
-            .BeSameAs(Error.None);
-    }
-
-    #endregion
-
-    #region Failure With Reasons
-
-    [Fact]
-    public void Failure_With_Reasons_Should_Create_Failed_Result()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            FirstError,
-            FirstSuccess
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Failure(reasons);
-
-        // Assert
-        result.IsFailure.Should().BeTrue();
-        result.IsSuccess.Should().BeFalse();
-    }
-
-    [Fact]
-    public void Failure_With_Reasons_Should_Preserve_All_Reasons()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            FirstError,
-            FirstSuccess,
-            SecondError,
-            SecondSuccess
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Failure(reasons);
-
-        // Assert
-        result.Reasons.Should().Equal(
-            FirstError,
-            FirstSuccess,
-            SecondError,
-            SecondSuccess);
-    }
-
-    [Fact]
-    public void Failure_With_Reasons_Should_Filter_Errors()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            FirstSuccess,
-            FirstError,
-            SecondSuccess,
-            SecondError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Failure(reasons);
-
-        // Assert
-        result.Errors.Should().Equal(
-            FirstError,
-            SecondError);
-    }
-
-    [Fact]
-    public void Failure_With_Reasons_Should_Filter_Successes()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            FirstSuccess,
-            FirstError,
-            SecondSuccess,
-            SecondError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Failure(reasons);
-
-        // Assert
-        result.Successes.Should().Equal(
-            FirstSuccess,
-            SecondSuccess);
-    }
-
-    [Fact]
-    public void Failure_With_Reasons_Should_Use_First_Error_As_Primary_Error()
-    {
-        // Arrange
-        IReason[] reasons =
-        [
-            FirstSuccess,
-            FirstError,
-            SecondError
-        ];
-
-        // Act
-        Result<int> result =
-            Result<int>.Failure(reasons);
-
-        // Assert
-        result.Error.Should().Be(FirstError);
+        action.Should()
+            .Throw<ArgumentException>()
+            .WithParameterName("error");
     }
 
     #endregion
@@ -577,45 +154,18 @@ public sealed class ResultOfTTests
         value.Should().Be(42);
     }
 
+
     [Fact]
-    public void Value_Should_Throw_When_Result_Is_Failure()
+    public void Value_Should_Return_Default_When_Result_Is_Failure()
     {
         // Arrange
         Result<int> result =
-            Result<int>.Failure(FirstError);
-
-        // Act
-        Action act = () =>
-        {
-            _ = result.Value;
-        };
+            Result<int>.Failure(TestError);
 
         // Assert
-        act.Should()
-            .Throw<InvalidOperationException>()
-            .WithMessage(
-                "Cannot access value of a failed result.");
-    }
-
-    [Fact]
-    public void Value_Should_Throw_When_Failure_Has_No_Error()
-    {
-        // Arrange
-        Result<int> result =
-            Result<int>.Failure(
-                Array.Empty<Error>());
-
-        // Act
-        Action act = () =>
-        {
-            _ = result.Value;
-        };
-
-        // Assert
-        act.Should()
-            .Throw<InvalidOperationException>()
-            .WithMessage(
-                "Cannot access value of a failed result.");
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(TestError);
+        result.Value.Should().Be(default);
     }
 
     #endregion
@@ -663,7 +213,7 @@ public sealed class ResultOfTTests
     public void Implicit_Error_Conversion_Should_Create_Failed_Result()
     {
         // Act
-        Result<int> result = FirstError;
+        Result<int> result = TestError;
 
         // Assert
         result.IsFailure.Should().BeTrue();
@@ -674,32 +224,23 @@ public sealed class ResultOfTTests
     public void Implicit_Error_Conversion_Should_Preserve_Error()
     {
         // Act
-        Result<int> result = FirstError;
+        Result<int> result = TestError;
 
         // Assert
-        result.Error.Should().Be(FirstError);
-
-        result.Errors.Should()
-            .ContainSingle()
-            .Which.Should()
-            .Be(FirstError);
+        result.Error.Should().Be(TestError);
     }
 
+
     [Fact]
-    public void Implicit_Error_Conversion_Should_Prevent_Value_Access()
+    public void Implicit_Error_Conversion_Should_Return_Default_Value()
     {
         // Arrange
-        Result<int> result = FirstError;
-
-        // Act
-        Action act = () =>
-        {
-            _ = result.Value;
-        };
+        Result<int> result = TestError;
 
         // Assert
-        act.Should()
-            .Throw<InvalidOperationException>();
+        result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(TestError);
+        result.Value.Should().Be(default);
     }
 
     #endregion
@@ -719,6 +260,8 @@ public sealed class ResultOfTTests
         // Assert
         baseResult.Should().NotBeNull();
         baseResult.IsSuccess.Should().BeTrue();
+        baseResult.IsFailure.Should().BeFalse();
+        baseResult.Error.Should().BeSameAs(Error.None);
     }
 
     [Fact]
@@ -732,82 +275,40 @@ public sealed class ResultOfTTests
         IBaseResult baseResult = result;
 
         // Assert
+        baseResult.Should().NotBeNull();
         baseResult.IsSuccess.Should().BeTrue();
-        baseResult.Reasons.Should().BeEmpty();
-    }
-
-    #endregion
-
-    #region Source Collection Isolation
-
-    [Fact]
-    public void Success_Should_Copy_Reasons_From_Source_Collection()
-    {
-        // Arrange
-        var reasons = new List<IReason>
-        {
-            FirstSuccess
-        };
-
-        Result<int> result =
-            Result<int>.Success(
-                42,
-                reasons);
-
-        // Act
-        reasons.Add(SecondSuccess);
-
-        // Assert
-        result.Reasons.Should()
-            .ContainSingle()
-            .Which.Should()
-            .Be(FirstSuccess);
-
-        result.Value.Should().Be(42);
+        baseResult.IsFailure.Should().BeFalse();
+        baseResult.Error.Should().BeSameAs(Error.None);
     }
 
     [Fact]
-    public void Failure_Should_Copy_Errors_From_Source_Collection()
+    public void Failed_Result_Should_Expose_Error_Through_BaseResult()
     {
         // Arrange
-        var errors = new List<Error>
-        {
-            FirstError
-        };
-
         Result<int> result =
-            Result<int>.Failure(errors);
+            Result<int>.Failure(TestError);
 
         // Act
-        errors.Add(SecondError);
+        BaseResult baseResult = result;
 
         // Assert
-        result.Errors.Should()
-            .ContainSingle()
-            .Which.Should()
-            .Be(FirstError);
+        baseResult.IsFailure.Should().BeTrue();
+        baseResult.Error.Should().Be(TestError);
     }
 
     [Fact]
-    public void Failure_Should_Copy_Reasons_From_Source_Collection()
+    public void Failed_Result_Should_Expose_Error_Through_IBaseResult()
     {
         // Arrange
-        var reasons = new List<IReason>
-        {
-            FirstError
-        };
-
         Result<int> result =
-            Result<int>.Failure(reasons);
+            Result<int>.Failure(TestError);
 
         // Act
-        reasons.Add(FirstSuccess);
+        IBaseResult baseResult = result;
 
         // Assert
-        result.Reasons.Should()
-            .ContainSingle()
-            .Which.Should()
-            .Be(FirstError);
+        baseResult.IsFailure.Should().BeTrue();
+        baseResult.Error.Should().Be(TestError);
     }
 
     #endregion

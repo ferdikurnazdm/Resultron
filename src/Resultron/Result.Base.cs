@@ -1,8 +1,8 @@
 ﻿namespace Resultron;
 
 /// <summary>
-/// Defines the core contract for all result types within the Resultron library,
-/// providing status flags and collections of success or failure reasons.
+/// Defines the core contract for all result types in the Resultron library,
+/// exposing the operation status and the associated error.
 /// </summary>
 public interface IBaseResult
 {
@@ -17,50 +17,25 @@ public interface IBaseResult
     bool IsFailure { get; }
 
     /// <summary>
-    /// Gets a read-only list of all reasons (<see cref="IReason"/>), including both successes and errors, associated with this result.
+    /// Gets the error associated with this result.
+    /// Returns <see cref="Error.None"/> when the result is successful.
     /// </summary>
-    IReadOnlyList<IReason> Reasons { get; }
-
-    /// <summary>
-    /// Gets a read-only list of all error reasons (<see cref="Error"/>) associated with this result.
-    /// </summary>
-    IReadOnlyList<Error> Errors { get; }
-
-    /// <summary>
-    /// Gets a read-only list of all success reasons (<see cref="Success"/>) associated with this result.
-    /// </summary>
-    IReadOnlyList<Success> Successes { get; }
+    Error Error { get; }
 }
 
 
 
 /// <summary>
-/// Serves as the foundational abstract class for all result types in the Resultron library,
-/// managing success states, reason collections, and conditional side effects.
+/// Provides the base implementation for all result types in the Resultron library,
+/// managing the success state and associated error.
 /// </summary>
 public abstract class BaseResult : IBaseResult
 {
-    private readonly List<IReason> _reasons = [];
-
     /// <summary>
-    /// Gets a read-only list of all reasons (<see cref="IReason"/>), including both successes and errors, associated with this result.
+    /// Gets the error associated with this result.
+    /// Returns <see cref="Error.None"/> when the result is successful.
     /// </summary>
-    public IReadOnlyList<IReason> Reasons => _reasons.AsReadOnly();
-
-    /// <summary>
-    /// Gets a read-only list of all error reasons (<see cref="Error"/>) associated with this result.
-    /// </summary>
-    public IReadOnlyList<Error> Errors => _reasons.OfType<Error>().ToList().AsReadOnly();
-
-    /// <summary>
-    /// Gets a read-only list of all success reasons (<see cref="Success"/>) associated with this result.
-    /// </summary>
-    public IReadOnlyList<Success> Successes => _reasons.OfType<Success>().ToList().AsReadOnly();
-
-    /// <summary>
-    /// Gets the primary error associated with this result. Returns <see cref="Error.None"/> if no errors exist.
-    /// </summary>
-    public Error Error => Errors.FirstOrDefault() ?? Error.None;
+    public Error Error { get; }
 
     /// <summary>
     /// Gets a value indicating whether the result represents a successful outcome.
@@ -68,22 +43,39 @@ public abstract class BaseResult : IBaseResult
     public bool IsSuccess { get; }
 
     /// <summary>
-    /// Gets a value indicating whether the result represents a failed outcome (the inverse of <see cref="IsSuccess"/>).
+    /// Gets a value indicating whether the result represents a failed outcome.
     /// </summary>
     public bool IsFailure => !IsSuccess;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BaseResult"/> class with the specified success status and optional reasons.
+    /// Initializes a new instance of the <see cref="BaseResult"/> class
+    /// with the specified success state and error.
     /// </summary>
-    /// <param name="isSuccess">Indicates whether the result is successful.</param>
-    /// <param name="reasons">An optional collection of initial reasons (<see cref="IReason"/>).</param>
-    protected BaseResult(bool isSuccess, IEnumerable<IReason>? reasons = null)
+    /// <param name="isSuccess">
+    /// A value indicating whether the result represents a successful outcome.
+    /// </param>
+    /// <param name="error">
+    /// The error associated with the result.
+    /// Use <see cref="Error.None"/> for successful results.
+    /// </param>
+    /// <exception cref="ArgumentException">
+    /// Thrown when a successful result contains an error or a failed result
+    /// does not contain an error.
+    /// </exception>
+    protected BaseResult(bool isSuccess, Error error)
     {
-        IsSuccess = isSuccess;
+        if (IsInvalidResultState(isSuccess, error))
+            throw new ArgumentException(
+                "A successful result cannot contain an error, and a failed result must contain an error.",
+                nameof(error));
 
-        if (reasons is not null)
-        {
-            _reasons.AddRange(reasons);
-        }
+        IsSuccess = isSuccess;
+        Error = error;
+    }
+
+    private static bool IsInvalidResultState(bool isSuccess, Error error)
+    {
+        return (isSuccess && error != Error.None) ||
+               (!isSuccess && error == Error.None);
     }
 }

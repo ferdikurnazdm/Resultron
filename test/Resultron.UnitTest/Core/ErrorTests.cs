@@ -26,7 +26,8 @@ public sealed class ErrorTests
     {
         // Arrange
         var exception =
-            new InvalidOperationException("Something failed.");
+            new InvalidOperationException(
+                "Something failed.");
 
         // Act
         var error = new Error(
@@ -53,87 +54,30 @@ public sealed class ErrorTests
 
     #endregion
 
-    #region IReason
-
-    [Fact]
-    public void IReason_Message_Should_Return_Description()
-    {
-        // Arrange
-        var error = new Error(
-            "test.error",
-            "Test error description.");
-
-        // Act
-        IReason reason = error;
-
-        // Assert
-        reason.Message.Should()
-            .Be("Test error description.");
-    }
-
-    [Fact]
-    public void IReason_Metadata_Should_Return_Error_Metadata()
-    {
-        // Arrange
-        Error error = new Error(
-            "test.error",
-            "Test error.")
-            .WithMetadata(
-                "TraceId",
-                "ABC-123");
-
-        // Act
-        IReason reason = error;
-
-        // Assert
-        reason.Metadata.Should()
-            .ContainKey("TraceId");
-
-        reason.Metadata["TraceId"]
-            .Should()
-            .Be("ABC-123");
-    }
-
-    #endregion
-
     #region None
 
     [Fact]
     public void None_Should_Have_Empty_Code()
     {
-        // Assert
         Error.None.Code.Should().BeEmpty();
     }
 
     [Fact]
     public void None_Should_Have_Empty_Description()
     {
-        // Assert
         Error.None.Description.Should().BeEmpty();
     }
 
     [Fact]
     public void None_Should_Have_No_Exception()
     {
-        // Assert
         Error.None.Exception.Should().BeNull();
     }
 
     [Fact]
     public void None_Should_Have_Empty_Metadata()
     {
-        // Assert
         Error.None.Metadata.Should().BeEmpty();
-    }
-
-    [Fact]
-    public void None_Should_Expose_Empty_Message_Through_IReason()
-    {
-        // Arrange
-        IReason reason = Error.None;
-
-        // Assert
-        reason.Message.Should().BeEmpty();
     }
 
     #endregion
@@ -280,7 +224,8 @@ public sealed class ErrorTests
     {
         // Arrange
         var exception =
-            new InvalidOperationException("Failure.");
+            new InvalidOperationException(
+                "Failure.");
 
         var source = new Error(
             "test.error",
@@ -503,7 +448,7 @@ public sealed class ErrorTests
     #region Combined Operations
 
     [Fact]
-    public void Error_Should_Support_Metadata_And_Exception_Chaining()
+    public void Error_Should_Support_Metadata_And_Exception()
     {
         // Arrange
         var exception =

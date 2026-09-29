@@ -17,7 +17,7 @@ public static class BaseResultSnippets
         }
     }
 
-    public static void AccessPrimaryError(BaseResult result)
+    public static void AccessError(BaseResult result)
     {
         if (result.IsFailure)
         {
@@ -25,31 +25,6 @@ public static class BaseResultSnippets
 
             Console.WriteLine(error.Code);
             Console.WriteLine(error.Description);
-        }
-    }
-
-    public static void AccessReasons(BaseResult result)
-    {
-        foreach (IReason reason in result.Reasons)
-        {
-            Console.WriteLine(reason.Message);
-        }
-    }
-
-    public static void AccessErrors(BaseResult result)
-    {
-        foreach (Error error in result.Errors)
-        {
-            Console.WriteLine(
-                $"{error.Code}: {error.Description}");
-        }
-    }
-
-    public static void AccessSuccesses(BaseResult result)
-    {
-        foreach (Success success in result.Successes)
-        {
-            Console.WriteLine(success.Message);
         }
     }
 }

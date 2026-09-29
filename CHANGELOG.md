@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.5.1] - 2026-09-29
+
+### Added
+
+- Added .NET 8 support alongside .NET 10.
+- Added `Maybe<T>` for representing optional values in a type-safe and functional way.
+- Added `Unit` for operations that do not return a meaningful value.
+- Added `PublicAPI.Shipped.txt` and `PublicAPI.Unshipped.txt` support for public API tracking.
+- Added a dedicated `Snippets` class library project containing compile-time validated usage examples.
+
+### Changed
+
+- Refactored `Map`, `Bind`, `Match`, `Ensure`, `OnSuccess`, `OnFailure`, `Tap`, and related async operations from instance methods to extension methods.
+- Simplified the result model to use a single `Error` instead of reason and error collections.
+- Updated synchronous and asynchronous result pipelines to propagate the single error model consistently.
+- Updated unit tests and snippets to match the new result and extension-method architecture.
+- Updated XML documentation to reflect the current API behavior and terminology.
+
+### Removed
+
+- Removed legacy reason and success collection-based APIs.
+- Removed multi-error and multi-reason result handling.
+- Removed obsolete `IReason` and `Success`-based usage patterns.
+- Removed `Combine` APIs that were based on aggregating multiple errors.
+
 ## [1.4.1] - 2026-08-27
 
 ### Added
@@ -98,6 +123,7 @@ All notable changes to this project will be documented in this file.
 - Removed `reports/` folder.
 
 [unreleased]: https://github.com/ferdikurnazdm/Resultron/
+[1.5.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.5.1
 [1.4.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.4.1
 [1.3.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.3.1
 [1.2.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.2.1

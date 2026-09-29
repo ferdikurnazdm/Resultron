@@ -44,7 +44,8 @@ public sealed class MapTests
         // Assert
         result.Value.Should().Be(42);
 
-        mapper.Received(1).Invoke();
+        mapper.Received(1)
+            .Invoke();
     }
 
     [Fact]
@@ -64,11 +65,12 @@ public sealed class MapTests
         result.IsFailure.Should().BeTrue();
         result.Error.Should().Be(TestError);
 
-        mapper.DidNotReceive().Invoke();
+        mapper.DidNotReceive()
+            .Invoke();
     }
 
     [Fact]
-    public void Map_Should_Propagate_All_Reasons_When_Result_Is_Failure()
+    public void Map_Should_Propagate_Error_When_Result_Is_Failure()
     {
         // Arrange
         var error =
@@ -76,15 +78,8 @@ public sealed class MapTests
                 "source.failed",
                 "Source failed.");
 
-        var context =
-            new Success("Context.");
-
-        Result source = Result.Failure(
-            new IReason[]
-            {
-                error,
-                context
-            });
+        Result source =
+            Result.Failure(error);
 
         // Act
         Result<int> result = source.Map(
@@ -92,9 +87,7 @@ public sealed class MapTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-
-        result.Reasons.Should()
-            .BeEquivalentTo(source.Reasons);
+        result.Error.Should().Be(error);
     }
 
     #endregion
@@ -162,7 +155,7 @@ public sealed class MapTests
     }
 
     [Fact]
-    public void Map_Generic_Should_Propagate_All_Reasons_When_Result_Is_Failure()
+    public void Map_Generic_Should_Propagate_Error_When_Result_Is_Failure()
     {
         // Arrange
         var error =
@@ -170,15 +163,8 @@ public sealed class MapTests
                 "source.failed",
                 "Source failed.");
 
-        var context =
-            new Success("Context.");
-
-        Result<int> source = Result<int>.Failure(
-            new IReason[]
-            {
-                error,
-                context
-            });
+        Result<int> source =
+            Result<int>.Failure(error);
 
         // Act
         Result<string> result = source.Map(
@@ -186,9 +172,7 @@ public sealed class MapTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-
-        result.Reasons.Should()
-            .BeEquivalentTo(source.Reasons);
+        result.Error.Should().Be(error);
     }
 
     [Fact]
@@ -223,7 +207,6 @@ public sealed class MapTests
             async () =>
             {
                 await Task.Yield();
-
                 return 42;
             });
 
@@ -251,7 +234,8 @@ public sealed class MapTests
         // Assert
         result.Value.Should().Be(42);
 
-        await mapper.Received(1).Invoke();
+        await mapper.Received(1)
+            .Invoke();
     }
 
     [Fact]
@@ -272,11 +256,12 @@ public sealed class MapTests
         result.IsFailure.Should().BeTrue();
         result.Error.Should().Be(TestError);
 
-        await mapper.DidNotReceive().Invoke();
+        await mapper.DidNotReceive()
+            .Invoke();
     }
 
     [Fact]
-    public async Task MapAsync_Should_Propagate_Reasons_When_Result_Is_Failure()
+    public async Task MapAsync_Should_Propagate_Error_When_Result_Is_Failure()
     {
         // Arrange
         var error =
@@ -284,15 +269,8 @@ public sealed class MapTests
                 "source.failed",
                 "Source failed.");
 
-        var context =
-            new Success("Context.");
-
-        Result source = Result.Failure(
-            new IReason[]
-            {
-                error,
-                context
-            });
+        Result source =
+            Result.Failure(error);
 
         // Act
         Result<int> result = await source.MapAsync(
@@ -300,9 +278,7 @@ public sealed class MapTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-
-        result.Reasons.Should()
-            .BeEquivalentTo(source.Reasons);
+        result.Error.Should().Be(error);
     }
 
     #endregion
@@ -321,7 +297,6 @@ public sealed class MapTests
             async value =>
             {
                 await Task.Yield();
-
                 return $"Value: {value}";
             });
 
@@ -377,7 +352,7 @@ public sealed class MapTests
     }
 
     [Fact]
-    public async Task MapAsync_Generic_Should_Propagate_All_Reasons_When_Result_Is_Failure()
+    public async Task MapAsync_Generic_Should_Propagate_Error_When_Result_Is_Failure()
     {
         // Arrange
         var error =
@@ -385,15 +360,8 @@ public sealed class MapTests
                 "source.failed",
                 "Source failed.");
 
-        var context =
-            new Success("Context.");
-
-        Result<int> source = Result<int>.Failure(
-            new IReason[]
-            {
-                error,
-                context
-            });
+        Result<int> source =
+            Result<int>.Failure(error);
 
         // Act
         Result<string> result = await source.MapAsync(
@@ -402,9 +370,7 @@ public sealed class MapTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-
-        result.Reasons.Should()
-            .BeEquivalentTo(source.Reasons);
+        result.Error.Should().Be(error);
     }
 
     #endregion
@@ -439,7 +405,6 @@ public sealed class MapTests
             async () =>
             {
                 await Task.Yield();
-
                 return 42;
             });
 
@@ -465,8 +430,10 @@ public sealed class MapTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(TestError);
 
-        mapper.DidNotReceive().Invoke();
+        mapper.DidNotReceive()
+            .Invoke();
     }
 
     [Fact]
@@ -486,8 +453,10 @@ public sealed class MapTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(TestError);
 
-        await mapper.DidNotReceive().Invoke();
+        await mapper.DidNotReceive()
+            .Invoke();
     }
 
     #endregion
@@ -524,7 +493,6 @@ public sealed class MapTests
             async value =>
             {
                 await Task.Yield();
-
                 return $"Value: {value}";
             });
 
@@ -550,13 +518,14 @@ public sealed class MapTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
+        result.Error.Should().Be(TestError);
 
         mapper.DidNotReceive()
             .Invoke(Arg.Any<int>());
     }
 
     [Fact]
-    public async Task MapAsync_Task_Generic_Result_Should_Propagate_All_Reasons()
+    public async Task MapAsync_Task_Generic_Result_Should_Propagate_Error()
     {
         // Arrange
         var error =
@@ -564,17 +533,9 @@ public sealed class MapTests
                 "source.failed",
                 "Source failed.");
 
-        var context =
-            new Success("Context.");
-
         Task<Result<int>> source =
             Task.FromResult(
-                Result<int>.Failure(
-                    new IReason[]
-                    {
-                        error,
-                        context
-                    }));
+                Result<int>.Failure(error));
 
         // Act
         Result<string> result = await source.MapAsync(
@@ -582,10 +543,7 @@ public sealed class MapTests
 
         // Assert
         result.IsFailure.Should().BeTrue();
-
-        result.Reasons.Should().Equal(
-            error,
-            context);
+        result.Error.Should().Be(error);
     }
 
     #endregion

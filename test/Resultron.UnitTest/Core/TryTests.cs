@@ -97,8 +97,9 @@ public sealed class TryTests
             .BeSameAs(exception);
     }
 
+
     [Fact]
-    public void Try_Should_Contain_Single_Error_When_Action_Throws()
+    public void Try_Should_Contain_Error_When_Action_Throws()
     {
         // Arrange
         var exception =
@@ -110,9 +111,18 @@ public sealed class TryTests
             () => throw exception);
 
         // Assert
-        result.Errors.Should().ContainSingle();
-        result.Reasons.Should().ContainSingle();
+        result.IsFailure.Should().BeTrue();
+
+        result.Error.Code.Should()
+            .Be(nameof(InvalidOperationException));
+
+        result.Error.Description.Should()
+            .Be("Operation failed.");
+
+        result.Error.Exception.Should()
+            .BeSameAs(exception);
     }
+
 
     #endregion
 
@@ -450,25 +460,6 @@ public sealed class TryTests
 
         result.Error.Exception.Should()
             .BeSameAs(exception);
-    }
-
-    [Fact]
-    public void Generic_Try_Should_Prevent_Value_Access_When_Function_Throws()
-    {
-        // Arrange
-        Result<int> result =
-            Result<int>.Try(
-                () => throw new InvalidOperationException());
-
-        // Act
-        Action act = () =>
-        {
-            _ = result.Value;
-        };
-
-        // Assert
-        act.Should()
-            .Throw<InvalidOperationException>();
     }
 
     #endregion

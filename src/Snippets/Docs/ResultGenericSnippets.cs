@@ -12,39 +12,6 @@ public static class ResultGenericSnippets
         Console.WriteLine(result.Value);
     }
 
-    public static void SuccessWithReason()
-    {
-        var success = new Success(
-            "User retrieved successfully.");
-
-        Result<int> result =
-            Result<int>.Success(42, success);
-
-        Console.WriteLine(result.Value);
-        Console.WriteLine(result.Successes[0].Message);
-    }
-
-    public static void SuccessWithReasons()
-    {
-        IReason[] reasons =
-        [
-            new Success("User retrieved successfully.")
-                .WithMetadata("Source", "Database"),
-
-            new Success("Result loaded from primary storage.")
-        ];
-
-        Result<int> result =
-            Result<int>.Success(42, reasons);
-
-        Console.WriteLine(result.Value);
-
-        foreach (IReason reason in result.Reasons)
-        {
-            Console.WriteLine(reason.Message);
-        }
-    }
-
     public static void Failure()
     {
         var error = new Error(
@@ -56,47 +23,27 @@ public static class ResultGenericSnippets
 
         Console.WriteLine(result.IsFailure);
         Console.WriteLine(result.Error.Code);
+        Console.WriteLine(result.Error.Description);
     }
 
-    public static void FailureWithErrors()
+    public static void FailureWithMetadata()
     {
-        Error[] errors =
-        [
-            new(
-                "validation.failed",
-                "Validation failed."),
-
-            new(
-                "value.out_of_range",
-                "The supplied value is outside the allowed range.")
-        ];
+        var error = new Error(
+            "operation.failed",
+            "The operation could not be completed.")
+            .WithMetadata("Operation", "GetUser");
 
         Result<int> result =
-            Result<int>.Failure(errors);
+            Result<int>.Failure(error);
 
-        foreach (Error error in result.Errors)
+        Console.WriteLine(result.Error.Code);
+        Console.WriteLine(result.Error.Description);
+
+        if (result.Error.Metadata.TryGetValue(
+            "Operation",
+            out var operation))
         {
-            Console.WriteLine(
-                $"{error.Code}: {error.Description}");
-        }
-    }
-
-    public static void FailureWithReasons()
-    {
-        IReason[] reasons =
-        [
-            new Error(
-                "operation.failed",
-                "The operation could not be completed.")
-                .WithMetadata("Operation", "GetUser")
-        ];
-
-        Result<int> result =
-            Result<int>.Failure(reasons);
-
-        foreach (IReason reason in result.Reasons)
-        {
-            Console.WriteLine(reason.Message);
+            Console.WriteLine(operation);
         }
     }
 
@@ -147,10 +94,11 @@ public static class ResultGenericSnippets
 
     public static void OnSuccess()
     {
-        Result<int> result = Result<int>.Success(42);
+        Result<int> result =
+            Result<int>.Success(42);
 
         Result<int> afterChain = result.OnSuccess(
-            value => Console.WriteLine($"başarılı: {value}"));
+            value => Console.WriteLine($"Success: {value}"));
 
         int value = afterChain.Value;
 
@@ -159,10 +107,11 @@ public static class ResultGenericSnippets
 
     public static void OnFailure()
     {
-        Result<int> result = Result<int>.Failure(
-            new Error(
-                "operation.failed",
-                "İşlem başarısız."));
+        Result<int> result =
+            Result<int>.Failure(
+                new Error(
+                    "operation.failed",
+                    "The operation failed."));
 
         Result<int> afterChain = result.OnFailure(
             error => Console.WriteLine(error.Description));

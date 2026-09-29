@@ -13,32 +13,19 @@ public static class IBaseResultSnippets
 
         if (result.IsFailure)
         {
-            Console.WriteLine("Operation failed.");
-        }
-    }
-
-    public static void ReadReasons(IBaseResult result)
-    {
-        foreach (IReason reason in result.Reasons)
-        {
-            Console.WriteLine(reason.Message);
-        }
-    }
-
-    public static void ReadErrors(IBaseResult result)
-    {
-        foreach (Error error in result.Errors)
-        {
             Console.WriteLine(
-                $"{error.Code}: {error.Description}");
+                $"Operation failed: {result.Error.Description}");
         }
     }
 
-    public static void ReadSuccesses(IBaseResult result)
+    public static void ReadError(IBaseResult result)
     {
-        foreach (Success success in result.Successes)
+        if (result.IsFailure)
         {
-            Console.WriteLine(success.Message);
+            Error error = result.Error;
+
+            Console.WriteLine(error.Code);
+            Console.WriteLine(error.Description);
         }
     }
 }

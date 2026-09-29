@@ -3,72 +3,67 @@
 namespace Resultron;
 
 /// <summary>
-/// Represents the outcome of an operation that returns a value of type <typeparamref name="T"/>, 
-/// inheriting from <see cref="BaseResult"/> to provide success/failure states, reasons, and type-safe data access.
+/// Represents the outcome of an operation that returns a value of type
+/// <typeparamref name="T"/>, providing success or failure state information
+/// and type-safe access to the associated value.
 /// </summary>
-/// <typeparam name="T">The type of the value returned by the operation.</typeparam>
+/// <typeparam name="T">The type of value returned by the operation.</typeparam>
 public sealed partial class Result<T> : BaseResult
 {
     /// <summary>
-    /// Gets the underlying value associated with this result.
+    /// Gets the value associated with this result.
+    /// The value may be <see langword="null"/> or the default value of
+    /// <typeparamref name="T"/> when the result represents a failure.
     /// </summary>
-    /// <exception cref="InvalidOperationException">Thrown if the result is in a failed state (<see cref="BaseResult.IsFailure"/> is true).</exception>
     [AllowNull]
-    public T Value => IsSuccess
-        ? field!
-        : throw new InvalidOperationException("Cannot access value of a failed result.");
+    public T Value { get; }
 
-    private Result(bool isSuccess, T? value, IEnumerable<IReason>? reasons = null)
-        : base(isSuccess, reasons) => Value = value;
-
-    /// <summary>
-    /// Creates a new successful <see cref="Result{T}"/> instance containing the specified value and no specific reasons.
-    /// </summary>
-    /// <param name="value">The success value to wrap.</param>
-    /// <returns>A successful <see cref="Result{T}"/> with the given value.</returns>
-    public static Result<T> Success(T value) => new(true, value);
+    private Result(bool isSuccess, Error error, T? value)
+        : base(isSuccess, error)
+    {
+        Value = value;
+    }
 
     /// <summary>
-    /// Creates a new successful <see cref="Result{T}"/> instance containing the specified value and success reason.
+    /// Creates a successful <see cref="Result{T}"/> containing the specified value.
     /// </summary>
-    /// <param name="value">The success value to wrap.</param>
-    /// <param name="success">The success reason (<see cref="Resultron.Success"/>) to attach.</param>
-    /// <returns>A successful <see cref="Result{T}"/> with the given value and reason.</returns>
-    public static Result<T> Success(T value, Success success) => new(true, value, [success]);
+    /// <param name="value">The value associated with the successful result.</param>
+    /// <returns>
+    /// A successful <see cref="Result{T}"/> containing the specified value.
+    /// </returns>
+    public static Result<T> Success(T value) => new(
+        isSuccess: true,
+        error: Error.None,
+        value: value);
 
     /// <summary>
-    /// Creates a new successful <see cref="Result{T}"/> instance containing the specified value and a collection of reasons.
+    /// Creates a failed <see cref="Result{T}"/> containing the specified error.
     /// </summary>
-    /// <param name="value">The success value to wrap.</param>
-    /// <param name="reasons">A collection of reasons (<see cref="IReason"/>) to attach.</param>
-    /// <returns>A successful <see cref="Result{T}"/> with the given value and reasons.</returns>
-    public static Result<T> Success(T value, IEnumerable<IReason> reasons) => new(true, value, reasons);
+    /// <param name="error">The error associated with the failure.</param>
+    /// <returns>
+    /// A failed <see cref="Result{T}"/> containing the specified error.
+    /// </returns>
+    public static Result<T> Failure(Error error) => new(
+        isSuccess: false,
+        error: error,
+        value: default);
 
     /// <summary>
-    /// Creates a new failed <see cref="Result{T}"/> instance containing the specified error.
+    /// Converts a value of type <typeparamref name="T"/> into a successful
+    /// <see cref="Result{T}"/>.
     /// </summary>
-    /// <param name="error">The error (<see cref="Error"/>) that caused the failure.</param>
-    /// <returns>A failed <see cref="Result{T}"/> containing the error.</returns>
-    public static Result<T> Failure(Error error) => new(false, default, [error]);
+    /// <param name="value">The value to convert.</param>
+    /// <returns>
+    /// A successful <see cref="Result{T}"/> containing the specified value.
+    /// </returns>
+    public static implicit operator Result<T>(T value) => Success(value);
 
     /// <summary>
-    /// Creates a new failed <see cref="Result{T}"/> instance containing a collection of errors.
+    /// Converts an <see cref="Error"/> into a failed <see cref="Result{T}"/>.
     /// </summary>
-    /// <param name="errors">A collection of errors (<see cref="Error"/>) that caused the failure.</param>
-    /// <returns>A failed <see cref="Result{T}"/> containing the errors.</returns>
-    public static Result<T> Failure(IEnumerable<Error> errors) => new(false, default, errors);
-
-    /// <summary>
-    /// Creates a new failed <see cref="Result{T}"/> instance containing a collection of failure reasons.
-    /// </summary>
-    /// <param name="reasons">A collection of reasons (<see cref="IReason"/>) associated with the failure.</param>
-    /// <returns>A failed <see cref="Result{T}"/> containing the reasons.</returns>
-    public static Result<T> Failure(IEnumerable<IReason> reasons) => new(false, default, reasons);
-
-
-    public static implicit operator Result<T>(T value)
-        => Success(value);
-
-    public static implicit operator Result<T>(Error error)
-        => Failure(error);
+    /// <param name="error">The error to convert.</param>
+    /// <returns>
+    /// A failed <see cref="Result{T}"/> containing the specified error.
+    /// </returns>
+    public static implicit operator Result<T>(Error error) => Failure(error);
 }

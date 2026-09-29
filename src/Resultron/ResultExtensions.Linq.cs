@@ -12,7 +12,7 @@ public static partial class ResultExtensions
     /// <param name="selector">A transform function to invoke if successful.</param>
     /// <returns>
     /// A new successful <see cref="Result{TOut}"/> containing the projected value,
-    /// or a failed result with the prior reasons.
+    /// or a failed result with the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="selector"/> is <c>null</c>.
@@ -74,7 +74,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A successful <see cref="Result{TOut}"/> containing the projected
-    /// combination, or a failed result with the prior reasons.
+    /// combination, or a failed result with the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/>, <paramref name="binder"/>,
@@ -91,14 +91,14 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         var intermediate = binder();
 
         if (intermediate.IsFailure)
         {
-            return Result<TOut>.Failure(intermediate.Reasons);
+            return Result<TOut>.Failure(intermediate.Error);
         }
 
         return Result<TOut>.Success(
@@ -152,7 +152,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A new successful <see cref="Result{TOut}"/> containing the projected
-    /// value, or a failed result with the prior reasons.
+    /// value, or a failed result with the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="selector"/> is <c>null</c>.
@@ -216,7 +216,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A successful <see cref="Result{TOut}"/> containing the projected
-    /// combination, or a failed result with the prior reasons.
+    /// combination, or a failed result with the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/>, <paramref name="binder"/>,
@@ -233,7 +233,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         var intermediateResult = binder(result.Value);
@@ -241,7 +241,7 @@ public static partial class ResultExtensions
         if (intermediateResult.IsFailure)
         {
             return Result<TOut>.Failure(
-                intermediateResult.Reasons);
+                intermediateResult.Error);
         }
 
         return Result<TOut>.Success(

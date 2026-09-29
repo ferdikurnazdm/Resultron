@@ -16,7 +16,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A task containing a successful <see cref="Result{TOut}"/> with the mapped
-    /// value, or a failed result containing the prior reasons.
+    /// value, or a failed result containing the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -30,7 +30,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         var mappedValue = await mapper()
@@ -53,7 +53,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A task containing a successful <see cref="Result{TOut}"/> with the mapped
-    /// value, or a failed result containing the prior reasons.
+    /// value, or a failed result containing the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -67,7 +67,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         var mappedValue = await mapper(result.Value)
@@ -86,7 +86,7 @@ public static partial class ResultExtensions
     /// <param name="mapper">The mapping function to invoke if successful.</param>
     /// <returns>
     /// A successful <see cref="Result{TOut}"/> containing the mapped value,
-    /// or a failed result containing the prior reasons.
+    /// or a failed result containing the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -100,7 +100,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         return Result<TOut>.Success(mapper());
@@ -117,7 +117,7 @@ public static partial class ResultExtensions
     /// <param name="mapper">The mapping function to apply if successful.</param>
     /// <returns>
     /// A successful <see cref="Result{TOut}"/> containing the mapped value,
-    /// or a failed result containing the prior reasons.
+    /// or a failed result containing the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -131,7 +131,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         return Result<TOut>.Success(
@@ -191,7 +191,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         var mappedValue = await mapper()
@@ -239,7 +239,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A task containing a successful <see cref="Result{TOut}"/> with the mapped
-    /// value, or a failed result containing the prior reasons.
+    /// value, or a failed result containing the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="resultTask"/> or <paramref name="mapper"/> is <c>null</c>.
@@ -256,7 +256,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         var mappedValue = await mapper(result.Value)

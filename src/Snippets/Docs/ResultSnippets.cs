@@ -11,34 +11,6 @@ public static class ResultSnippets
         Console.WriteLine(result.IsSuccess);
     }
 
-    public static void SuccessWithReason()
-    {
-        var success = new Success(
-            "Operation completed successfully.");
-
-        Result result = Result.Success(success);
-
-        Console.WriteLine(result.Successes[0].Message);
-    }
-
-    public static void SuccessWithReasons()
-    {
-        IReason[] reasons =
-        [
-            new Success("Operation completed successfully.")
-                .WithMetadata("Operation", "CreateUser"),
-
-            new Success("Notification sent successfully.")
-        ];
-
-        Result result = Result.Success(reasons);
-
-        foreach (IReason reason in result.Reasons)
-        {
-            Console.WriteLine(reason.Message);
-        }
-    }
-
     public static void Failure()
     {
         var error = new Error(
@@ -47,46 +19,28 @@ public static class ResultSnippets
 
         Result result = Result.Failure(error);
 
+        Console.WriteLine(result.IsFailure);
+        Console.WriteLine(result.Error.Code);
         Console.WriteLine(result.Error.Description);
     }
 
-    public static void FailureWithErrors()
+    public static void FailureWithMetadata()
     {
-        Error[] errors =
-        [
-            new(
-                "user.not_found",
-                "The requested user was not found."),
+        var error = new Error(
+            "operation.failed",
+            "The operation could not be completed.")
+            .WithMetadata("Operation", "CreateUser");
 
-            new(
-                "user.inactive",
-                "The user account is inactive.")
-        ];
+        Result result = Result.Failure(error);
 
-        Result result = Result.Failure(errors);
+        Console.WriteLine(result.Error.Code);
+        Console.WriteLine(result.Error.Description);
 
-        foreach (Error error in result.Errors)
+        if (result.Error.Metadata.TryGetValue(
+            "Operation",
+            out var operation))
         {
-            Console.WriteLine(
-                $"{error.Code}: {error.Description}");
-        }
-    }
-
-    public static void FailureWithReasons()
-    {
-        IReason[] reasons =
-        [
-            new Error(
-                "operation.failed",
-                "The operation could not be completed.")
-                .WithMetadata("Operation", "CreateUser")
-        ];
-
-        Result result = Result.Failure(reasons);
-
-        foreach (IReason reason in result.Reasons)
-        {
-            Console.WriteLine(reason.Message);
+            Console.WriteLine(operation);
         }
     }
 
@@ -119,7 +73,7 @@ public static class ResultSnippets
         Result result = Result.Success();
 
         Result afterChain = result.OnSuccess(
-            () => Console.WriteLine("başarılı"));
+            () => Console.WriteLine("Success"));
 
         Console.WriteLine(afterChain.IsSuccess);
     }
@@ -129,7 +83,7 @@ public static class ResultSnippets
         Result result = Result.Failure(
             new Error(
                 "operation.failed",
-                "İşlem başarısız."));
+                "The operation failed."));
 
         Result afterChain = result.OnFailure(
             error => Console.WriteLine(error.Description));

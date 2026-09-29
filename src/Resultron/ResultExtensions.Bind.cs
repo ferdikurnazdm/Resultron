@@ -17,7 +17,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A task containing the result returned by the binder if successful;
-    /// otherwise, a failed <see cref="Result"/> containing the prior reasons.
+    /// otherwise, a failed <see cref="Result"/> containing the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="binder"/> is <c>null</c>.
@@ -31,7 +31,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result.Failure(result.Reasons);
+            return Result.Failure(result.Error);
         }
 
         return await binder(result.Value)
@@ -50,7 +50,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// A task containing the result returned by the binder if successful;
-    /// otherwise, the original reasons <see cref="Result"/>.
+    /// otherwise, the original error <see cref="Result"/>.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="binder"/> is <c>null</c>.
@@ -83,7 +83,7 @@ public static partial class ResultExtensions
     /// </param>
     /// <returns>
     /// The result returned by the binder if successful;
-    /// otherwise, a failed result containing the prior reasons.
+    /// otherwise, a failed result containing the prior error.
     /// </returns>
     /// <exception cref="ArgumentNullException">
     /// Thrown if <paramref name="result"/> or <paramref name="binder"/> is <c>null</c>.
@@ -97,7 +97,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result.Failure(result.Reasons);
+            return Result.Failure(result.Error);
         }
 
         return binder(result.Value);
@@ -137,7 +137,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         return binder();
@@ -157,7 +157,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         return binder(result.Value);
@@ -177,7 +177,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         return await binder(result.Value)
@@ -257,7 +257,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         return await binder()
@@ -297,7 +297,7 @@ public static partial class ResultExtensions
 
         if (result.IsFailure)
         {
-            return Result<TOut>.Failure(result.Reasons);
+            return Result<TOut>.Failure(result.Error);
         }
 
         return await binder(result.Value)

@@ -5,7 +5,7 @@ public static partial class ResultExtensions
     /// <summary>
     /// Asynchronously matches the outcome of a <see cref="Result{T}"/>,
     /// executing either the asynchronous success function with the underlying
-    /// value or the asynchronous failure function with the primary error,
+    /// value or the asynchronous failure function with the error,
     /// and returning the resulting value.
     /// </summary>
     /// <typeparam name="T">The value type of the source result.</typeparam>
@@ -186,7 +186,7 @@ public static partial class ResultExtensions
     /// <summary>
     /// Matches the outcome of a <see cref="Result"/>,
     /// executing the success action if successful,
-    /// or the failure action with the primary error if failed.
+    /// or the failure action with the error if failed.
     /// </summary>
     /// <param name="result">The source result.</param>
     /// <param name="onSuccess">
@@ -221,7 +221,7 @@ public static partial class ResultExtensions
     /// <summary>
     /// Asynchronously matches the outcome of a <see cref="Result"/>,
     /// executing the asynchronous success action if successful,
-    /// or the asynchronous failure action with the primary error if failed.
+    /// or the asynchronous failure action with the error if failed.
     /// </summary>
     /// <param name="result">The source result.</param>
     /// <param name="onSuccess">
@@ -260,7 +260,7 @@ public static partial class ResultExtensions
     /// <summary>
     /// Asynchronously matches the outcome of a <see cref="Result"/>,
     /// executing either the asynchronous success function or the asynchronous
-    /// failure function with the primary error, and returning the resulting value.
+    /// failure function with the error, and returning the resulting value.
     /// </summary>
     /// <typeparam name="TOut">The output return type of the match handlers.</typeparam>
     /// <param name="result">The source result.</param>
@@ -300,7 +300,7 @@ public static partial class ResultExtensions
     /// <summary>
     /// Matches the outcome of a <see cref="Result{T}"/>,
     /// executing the success action with the underlying value if successful,
-    /// or the failure action with the primary error if failed.
+    /// or the failure action with the error if failed.
     /// </summary>
     /// <typeparam name="T">The value type of the source result.</typeparam>
     /// <param name="result">The source result.</param>
@@ -337,7 +337,7 @@ public static partial class ResultExtensions
     /// <summary>
     /// Asynchronously matches the outcome of a <see cref="Result{T}"/>,
     /// executing the success action with the underlying value if successful,
-    /// or the failure action with the primary error if failed.
+    /// or the failure action with the error if failed.
     /// </summary>
     /// <typeparam name="T">The value type of the source result.</typeparam>
     /// <param name="result">The source result.</param>
@@ -377,7 +377,7 @@ public static partial class ResultExtensions
 
     /// <summary>
     /// Matches the outcome of a <see cref="Result"/>, executing either
-    /// the success function or the failure function with the primary error,
+    /// the success function or the failure function with the error,
     /// and returning the resulting value of type <typeparamref name="TOut"/>.
     /// </summary>
     /// <typeparam name="TOut">The output return type of the match handlers.</typeparam>
@@ -408,7 +408,7 @@ public static partial class ResultExtensions
     /// <summary>
     /// Matches the outcome of a <see cref="Result{T}"/>, executing either
     /// the success function with the value or the failure function with the
-    /// primary error, and returning the resulting value of type
+    /// error, and returning the resulting value of type
     /// <typeparamref name="TOut"/>.
     /// </summary>
     /// <typeparam name="T">The value type of the source result.</typeparam>
@@ -519,7 +519,7 @@ public static partial class ResultExtensions
     /// The function to execute if successful, receiving the underlying value.
     /// </param>
     /// <param name="onFailure">
-    /// The function to execute if failed, receiving the primary error.
+    /// The function to execute if failed, receiving the error.
     /// </param>
     /// <returns>
     /// A task containing the evaluated outcome of type <typeparamref name="TOut"/>.
@@ -556,7 +556,7 @@ public static partial class ResultExtensions
     /// The asynchronous function to execute if successful, receiving the underlying value.
     /// </param>
     /// <param name="onFailure">
-    /// The asynchronous function to execute if failed, receiving the primary error.
+    /// The asynchronous function to execute if failed, receiving the error.
     /// </param>
     /// <returns>
     /// A task containing the evaluated outcome of type <typeparamref name="TOut"/>.
