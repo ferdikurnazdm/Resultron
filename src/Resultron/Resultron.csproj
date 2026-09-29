@@ -39,6 +39,18 @@
         <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\Resultron.Analyzers\Resultron.Analyzers.csproj"
+                          PrivateAssets="all"
+                          ReferenceOutputAssembly="false" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="..\Resultron.Analyzers\bin\$(Configuration)\netstandard2.0\Resultron.Analyzers.dll"
+              Pack="true"
+              PackagePath="analyzers/dotnet/cs/"
+              Visible="false" />
+    </ItemGroup>
 
     <ItemGroup>
         <None Include="..\..\LICENSE">

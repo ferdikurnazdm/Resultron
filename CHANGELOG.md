@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.6.1] - 2026-09-29
+
+### Added
+
+- Added the `Resultron.Analyzers` project for compile-time analysis of Resultron usage.
+- Added the analyzer assembly to the NuGet package under `analyzers/dotnet/cs`.
+- Added analyzer distribution directly through the main `Resultron` NuGet package, requiring no separate analyzer package installation.
+
+### Changed
+
+- Updated NuGet packaging configuration to include `Resultron.Analyzers.dll` automatically during package creation.
+- Updated the main `Resultron` project to build the analyzer project as part of the package build process.
+
 ## [1.5.1] - 2026-09-29
 
 ### Added
@@ -123,6 +136,7 @@ All notable changes to this project will be documented in this file.
 - Removed `reports/` folder.
 
 [unreleased]: https://github.com/ferdikurnazdm/Resultron/
+[1.6.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.6.1
 [1.5.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.5.1
 [1.4.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.4.1
 [1.3.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.3.1

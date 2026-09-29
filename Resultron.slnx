@@ -17,6 +17,7 @@
     <File Path="SECURITY.md" />
   </Folder>
   <Folder Name="/src/">
+    <Project Path="src/Resultron.Analyzers/Resultron.Analyzers.csproj" />
     <Project Path="src/Resultron/Resultron.csproj" />
     <Project Path="src/Snippets/Snippets.csproj" />
   </Folder>
