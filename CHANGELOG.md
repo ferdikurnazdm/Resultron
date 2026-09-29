@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.1] - 2026-09-29
+
+### Changed
+
+- Analyzers project edited messages.
+
 ## [1.6.1] - 2026-09-29
 
 ### Added
@@ -136,6 +142,7 @@ All notable changes to this project will be documented in this file.
 - Removed `reports/` folder.
 
 [unreleased]: https://github.com/ferdikurnazdm/Resultron/
+[1.7.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.7.1
 [1.6.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.6.1
 [1.5.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.5.1
 [1.4.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.4.1

@@ -11,7 +11,7 @@ namespace Resultron.Analyzers;
 public class ResultUnusedAnalyzer : DiagnosticAnalyzer
 {
     public const string DiagnosticId = "RES001";
-    private const string Title = "Result Sonucu İhmal Edildi";
+    private const string Title = "Result Ignored";
     private const string MessageFormat = "The Result returned from method '{0}' must be checked or assigned to a variable";
     private const string Category = "Usage";
 
@@ -19,7 +19,7 @@ public class ResultUnusedAnalyzer : DiagnosticAnalyzer
         DiagnosticId, Title, MessageFormat, Category,
         DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
-        description: "Result nesneleri göz ardı edilemez, hata durumu kontrol edilmelidir.");
+        description: "Result objects cannot be ignored; their error status must be checked.");
 
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => ImmutableArray.Create(Rule);
 
