@@ -1,16 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Resultron Quick Start</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050807">
+<title>Quick Start · Resultron</title>
+<link rel="icon" href="../assets/images/logo.png">
+<script>document.documentElement.classList.add("js")</script>
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
-<section class="hero">
-<img class="hero-logo" src="../assets/images/logo.png">
-<h1>Quick Start</h1>
-<pre><code>dotnet add package Resultron
+<body class="docs-page">
+<div class="page-noise" aria-hidden="true"></div>
+<div class="orb orb-one" aria-hidden="true"></div>
+<header class="nav shell reveal reveal-down">
+  <a class="brand" href="../index.html"><span class="brand-mark"><img src="../assets/images/logo.png" alt=""></span><span>Resultron</span></a>
+  <nav aria-label="Primary navigation"><a href="../index.html#features">Features</a><a href="https://github.com/ferdikurnazdm/Resultron/wiki" target="_blank" rel="noreferrer">Docs</a><a class="nav-github" href="https://github.com/ferdikurnazdm/Resultron" target="_blank" rel="noreferrer">GitHub <span>↗</span></a></nav>
+</header>
 
-Result&lt;User&gt; result = CreateUser();</code></pre>
-</section>
+<main class="docs-shell shell">
+  <aside class="docs-sidebar reveal">
+    <span class="section-kicker">Guide</span>
+    <a class="active" href="#install">Quick Start</a>
+    <a href="#create">Create a Result</a>
+    <a href="#match">Match outcomes</a>
+  </aside>
+
+  <article class="docs-content">
+    <div class="docs-hero reveal">
+      <div class="eyebrow"><span class="pulse-dot"></span> Get running quickly</div>
+      <h1>Quick Start</h1>
+      <p>Add Resultron to your project and model expected application outcomes with a clear Result flow.</p>
+    </div>
+
+    <section id="install" class="doc-section reveal">
+      <span class="section-kicker">01 · Install</span>
+      <h2>Add the package</h2>
+      <div class="code-window compact">
+        <div class="window-bar"><div class="window-dots"><span></span><span></span><span></span></div><div class="window-title">Terminal</div><button class="copy-btn" type="button" data-copy-target="#install-code">Copy</button></div>
+        <pre><code id="install-code">dotnet add package Resultron</code></pre>
+      </div>
+    </section>
+
+    <section id="create" class="doc-section reveal">
+      <span class="section-kicker">02 · Create</span>
+      <h2>Return a typed result</h2>
+      <p>Represent the outcome directly instead of throwing for expected domain or validation failures.</p>
+      <div class="code-window compact"><div class="window-bar"><div class="window-dots"><span></span><span></span><span></span></div><div class="window-title">UserService.cs</div><button class="copy-btn" type="button" data-copy-target="#create-code">Copy</button></div><pre><code id="create-code">Result&lt;User&gt; result = CreateUser();</code></pre></div>
+    </section>
+
+    <section id="match" class="doc-section reveal">
+      <span class="section-kicker">03 · Match</span>
+      <h2>Handle both outcomes</h2>
+      <div class="code-window compact"><div class="window-bar"><div class="window-dots"><span></span><span></span><span></span></div><div class="window-title">UsersController.cs</div><button class="copy-btn" type="button" data-copy-target="#match-code">Copy</button></div><pre><code id="match-code">return result.Match(
+    success =&gt; Ok(success),
+    failure =&gt; BadRequest(failure.Errors)
+);</code></pre></div>
+    </section>
+  </article>
+</main>
+
+<script src="../assets/js/main.js"></script>
 </body>
 </html>

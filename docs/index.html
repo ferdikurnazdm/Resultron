@@ -3,52 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050807">
 <title>Resultron - Result Pattern for .NET</title>
+<meta name="description" content="Resultron is a modern Result Pattern library for predictable, composable and exception-light .NET applications.">
 <link rel="icon" href="assets/images/logo.png">
+<script>document.documentElement.classList.add("js")</script>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<div class="page-noise" aria-hidden="true"></div>
+<div class="orb orb-one" aria-hidden="true"></div>
+<div class="orb orb-two" aria-hidden="true"></div>
 
-<header class="nav">
-  <div class="brand">
-    <img src="assets/images/logo.png" alt="Resultron Logo">
+<header class="nav shell reveal reveal-down">
+  <a class="brand" href="#top" aria-label="Resultron home">
+    <span class="brand-mark"><img src="assets/images/logo.png" alt=""></span>
     <span>Resultron</span>
-  </div>
-  <nav>
+  </a>
+  <nav aria-label="Primary navigation">
     <a href="#features">Features</a>
-    <a href="https://github.com/ferdikurnazdm/Resultron/wiki">Docs</a>
-    <a href="https://github.com/ferdikurnazdm/Resultron">GitHub</a>
+    <a href="guide/quick-start.html">Quick Start</a>
+    <a href="https://github.com/ferdikurnazdm/Resultron/wiki" target="_blank" rel="noreferrer">Docs</a>
+    <a class="nav-github" href="https://github.com/ferdikurnazdm/Resultron" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
   </nav>
 </header>
 
-<section class="hero">
-  <img class="hero-logo" src="assets/images/logo.png" alt="Resultron">
-  <h1>Predictable results.<br>Cleaner .NET code.</h1>
-  <p>A modern Result Pattern library for building reliable applications without unnecessary exceptions.</p>
+<main id="top">
+  <section class="hero shell">
+    <div class="hero-copy reveal">
+      <div class="eyebrow"><span class="pulse-dot"></span> Result Pattern for modern .NET</div>
+      <h1>Predictable results.<br><span>Cleaner .NET code.</span></h1>
+      <p>A focused Result Pattern library for building reliable applications with expressive success and failure flows — without unnecessary exceptions.</p>
 
-  <div class="buttons">
-    <a class="btn" href="guide/quick-start.html">Get Started</a>
-    <a class="btn secondary" href="https://github.com/ferdikurnazdm/Resultron">GitHub</a>
-  </div>
+      <div class="buttons">
+        <a class="btn btn-primary magnetic" href="guide/quick-start.html">Get Started <span>→</span></a>
+        <a class="btn btn-secondary magnetic" href="https://github.com/ferdikurnazdm/Resultron" target="_blank" rel="noreferrer">View on GitHub <span>↗</span></a>
+      </div>
 
-<pre><code>var result = await userService.CreateAsync(request);
+      <div class="hero-meta">
+        <span><i></i> Strongly typed</span>
+        <span><i></i> Async friendly</span>
+        <span><i></i> Fluent composition</span>
+      </div>
+    </div>
 
-return result.Match(
-    success => Ok(success),
-    failure => BadRequest(failure.Errors)
+    <div class="code-window reveal reveal-right" aria-label="Resultron code example">
+      <div class="window-bar">
+        <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="window-title">UsersController.cs</div>
+        <button class="copy-btn" type="button" data-copy-target="#hero-code">Copy</button>
+      </div>
+      <pre><code id="hero-code"><span class="code-keyword">var</span> result = <span class="code-keyword">await</span> userService.CreateAsync(request);
+
+<span class="code-keyword">return</span> result.Match(
+    success =&gt; Ok(success),
+    failure =&gt; BadRequest(failure.Errors)
 );</code></pre>
-</section>
+      <div class="code-glow" aria-hidden="true"></div>
+    </div>
 
-<section id="features" class="features">
-<div class="card"><h3>✓ Result&lt;T&gt;</h3><p>Strongly typed success and failure flows.</p></div>
-<div class="card"><h3>✓ Fluent API</h3><p>Map, Bind and compose operations.</p></div>
-<div class="card"><h3>✓ Async First</h3><p>Designed for modern .NET applications.</p></div>
-<div class="card"><h3>✓ Error Handling</h3><p>Clean error aggregation support.</p></div>
-<div class="card"><h3>✓ Pagination</h3><p>Built-in paged result models.</p></div>
-</section>
+    <a class="scroll-cue" href="#features" aria-label="Scroll to features">
+      <span>Explore</span>
+      <i></i>
+    </a>
+  </section>
 
-<footer>
-Resultron · Result Pattern for .NET
+  <section class="ticker" aria-label="Resultron capabilities">
+    <div class="ticker-track">
+      <span>RESULT&lt;T&gt;</span><b>•</b><span>MAP</span><b>•</b><span>BIND</span><b>•</b><span>MATCH</span><b>•</b><span>ASYNC</span><b>•</b><span>ERRORS</span><b>•</b><span>PAGINATION</span><b>•</b>
+      <span>RESULT&lt;T&gt;</span><b>•</b><span>MAP</span><b>•</b><span>BIND</span><b>•</b><span>MATCH</span><b>•</b><span>ASYNC</span><b>•</b><span>ERRORS</span><b>•</b><span>PAGINATION</span><b>•</b>
+      <span>RESULT&lt;T&gt;</span><b>•</b><span>MAP</span><b>•</b><span>BIND</span><b>•</b><span>MATCH</span><b>•</b><span>ASYNC</span><b>•</b><span>ERRORS</span><b>•</b><span>PAGINATION</span><b>•</b>
+      <span>RESULT&lt;T&gt;</span><b>•</b><span>MAP</span><b>•</b><span>BIND</span><b>•</b><span>MATCH</span><b>•</b><span>ASYNC</span><b>•</b><span>ERRORS</span><b>•</b><span>PAGINATION</span><b>•</b>
+    </div>
+  </section>
+
+  <section id="features" class="feature-section shell">
+    <div class="section-heading reveal">
+      <div>
+        <span class="section-kicker">Designed for clarity</span>
+        <h2>Everything you need.<br>Nothing you don’t.</h2>
+      </div>
+      <p>Keep application flow explicit, composable and easy to reason about from service layer to API response.</p>
+    </div>
+
+    <div class="features">
+      <article class="card feature-large reveal tilt-card">
+        <div>
+          <div class="card-icon">01</div>
+          <h3>Result&lt;T&gt;</h3>
+          <p>Model successful values and failures explicitly with a strongly typed API that reads naturally.</p>
+        </div>
+        <div class="mini-code"><span>Result&lt;User&gt;</span><br><em>Success</em> · <strong>Failure</strong></div>
+      </article>
+
+      <article class="card reveal tilt-card">
+        <div class="card-icon">02</div>
+        <h3>Fluent API</h3>
+        <p>Map, Bind and compose operations without deeply nested conditionals.</p>
+        <div class="card-arrow">↗</div>
+      </article>
+
+      <article class="card reveal tilt-card">
+        <div class="card-icon">03</div>
+        <h3>Async First</h3>
+        <p>Built around the asynchronous workflows used in modern .NET services.</p>
+        <div class="card-arrow">↗</div>
+      </article>
+
+      <article class="card reveal tilt-card">
+        <div class="card-icon">04</div>
+        <h3>Error Handling</h3>
+        <p>Aggregate and transport errors cleanly without using exceptions for expected outcomes.</p>
+        <div class="card-arrow">↗</div>
+      </article>
+
+      <article class="card reveal tilt-card">
+        <div class="card-icon">05</div>
+        <h3>Pagination</h3>
+        <p>Use built-in paged result models for consistent collection responses.</p>
+        <div class="card-arrow">↗</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="workflow shell reveal">
+    <div class="workflow-panel">
+      <div class="workflow-copy">
+        <span class="section-kicker">Small API. Clear intent.</span>
+        <h2>Write the happy path.<br>Handle failure deliberately.</h2>
+        <p>Resultron keeps expected application outcomes visible in your code instead of hiding them behind control flow.</p>
+        <a class="text-link" href="guide/quick-start.html">Read the Quick Start <span>→</span></a>
+      </div>
+      <div class="flow-diagram" aria-label="Result flow diagram">
+        <div class="flow-node">Request</div><span>→</span>
+        <div class="flow-node active">Result&lt;T&gt;</div><span>→</span>
+        <div class="flow-stack"><div>Success</div><div>Failure</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta shell reveal">
+    <div>
+      <span class="section-kicker">Start in seconds</span>
+      <h2>Make application outcomes explicit.</h2>
+    </div>
+    <a class="btn btn-primary magnetic" href="guide/quick-start.html">Install Resultron <span>→</span></a>
+  </section>
+</main>
+
+<footer class="shell">
+  <div class="footer-brand"><img src="assets/images/logo.png" alt=""> <span>Resultron</span></div>
+  <p>Result Pattern for .NET</p>
+  <a href="#top">Back to top ↑</a>
 </footer>
 
 <script src="assets/js/main.js"></script>
