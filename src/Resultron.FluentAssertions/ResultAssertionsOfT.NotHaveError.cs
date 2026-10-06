@@ -9,8 +9,17 @@ public partial class ResultAssertions<T>
     /// Asserts that the generic result does not contain an error.
     /// </summary>
     [CustomAssertion]
+    public AndConstraint<ResultAssertions<T>> NotHaveError()
+    {
+        return NotHaveError(string.Empty, Array.Empty<object>());
+    }
+
+    /// <summary>
+    /// Asserts that the generic result does not contain an error.
+    /// </summary>
+    [CustomAssertion]
     public AndConstraint<ResultAssertions<T>> NotHaveError(
-        string because = "", 
+        string because, 
         params object[] becauseArgs)
     {
         Subject.Should().NotBeNull(because, becauseArgs);

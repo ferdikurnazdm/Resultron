@@ -9,11 +9,21 @@ public partial class ResultAssertions<T>
     /// Asserts that the generic result's error was caused by an exception of type <typeparamref name="TException"/>.
     /// </summary>
     /// <typeparam name="TException">The expected exception type.</typeparam>
+    [CustomAssertion]
+    public AndConstraint<ResultAssertions<T>> HaveCausedBy<TException>() where TException : Exception
+    {
+        return HaveCausedBy<TException>(string.Empty, Array.Empty<object>());
+    }
+
+    /// <summary>
+    /// Asserts that the generic result's error was caused by an exception of type <typeparamref name="TException"/>.
+    /// </summary>
+    /// <typeparam name="TException">The expected exception type.</typeparam>
     /// <param name="because">A formatted phrase explaining why the assertion should be satisfied.</param>
     /// <param name="becauseArgs">Zero or more objects to format the because parameter.</param>
     [CustomAssertion]
     public AndConstraint<ResultAssertions<T>> HaveCausedBy<TException>(
-        string because = "", 
+        string because, 
         params object[] becauseArgs) where TException : Exception
     {
         Subject.Should().NotBeNull(because, becauseArgs);

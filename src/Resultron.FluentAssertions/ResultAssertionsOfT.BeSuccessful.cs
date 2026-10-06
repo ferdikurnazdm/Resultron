@@ -8,12 +8,21 @@ public partial class ResultAssertions<T>
     /// <summary>
     /// Asserts that the generic result is successful.
     /// </summary>
+    [CustomAssertion]
+    public AndConstraint<ResultAssertions<T>> BeSuccessful()
+    {
+        return BeSuccessful(string.Empty, Array.Empty<object>());
+    }
+
+    /// <summary>
+    /// Asserts that the generic result is successful.
+    /// </summary>
     /// <param name="because">A formatted phrase explaining why the assertion should be satisfied. If the phrase is empty, the assertion will fail with a default message.</param>
     /// <param name="becauseArgs">Zero or more objects to format the <paramref name="because"/> parameter.</param>
     /// <returns>An <see cref="AndConstraint{T}"/> which can be used to chain more assertions.</returns>
     [CustomAssertion]
     public AndConstraint<ResultAssertions<T>> BeSuccessful(
-        string because = "", 
+        string because, 
         params object[] becauseArgs)
     {
         Subject.Should().NotBeNull(because, becauseArgs);

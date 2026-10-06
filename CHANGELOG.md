@@ -4,6 +4,36 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Added parameterless assertion overloads to provide a cleaner and more consistent FluentAssertions-style API.
+
+- Added BeSuccessfulWithValue() for generic results.
+
+- Added BeSuccessfulWithValue(T expectedValue) to assert both successful result state and expected value.
+
+- Added assertion-based BeSuccessfulWithValue(...) support for validating returned values with FluentAssertions.
+
+- Added because overloads for the new success/value assertions.
+
+- Added BeFailureWithError(Error expectedError) to assert that a result failed with the expected Error record.
+
+- Added because overload support for BeFailureWithError(...).
+
+- Added equivalent assertion support for both generic and non-generic result types where applicable.
+
+### Changed
+
+- Standardized assertion overloads so common assertions can be called without explicitly providing a because argument.
+
+- Improved API consistency between ResultAssertions and ResultAssertions<T>.
+
+- Updated assertion behavior to preserve and propagate because and becauseArgs correctly in failure messages.
+
+- Improved failure assertions to compare the complete Error record instead of requiring separate error property assertions.
+
+- Updated the public API surface to include the newly introduced assertion overloads.
+
 ## [1.7.1] - 2026-09-29
 
 ### Changed

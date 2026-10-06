@@ -17,6 +17,8 @@ public partial class ResultAssertions
     /// <summary>
     /// Asserts that the result contains an error.
     /// </summary>
+    /// <param name="because">A formatted phrase explaining why the assertion should be satisfied.</param>
+    /// <param name="becauseArgs">Zero or more objects to format the because parameter.</param>
     [CustomAssertion]
     public AndConstraint<ResultAssertions> HaveError(
         string because, 

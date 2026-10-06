@@ -9,11 +9,21 @@ public partial class ResultAssertions<T>
     /// Asserts that the generic result contains an error with an exception of type <typeparamref name="TException"/>.
     /// </summary>
     /// <typeparam name="TException">The expected exception type.</typeparam>
+    [CustomAssertion]
+    public AndConstraint<ResultAssertions<T>> HaveException<TException>() where TException : Exception
+    {
+        return HaveException<TException>(string.Empty, Array.Empty<object>());
+    }
+
+    /// <summary>
+    /// Asserts that the generic result contains an error with an exception of type <typeparamref name="TException"/>.
+    /// </summary>
+    /// <typeparam name="TException">The expected exception type.</typeparam>
     /// <param name="because">A formatted phrase explaining why the assertion should be satisfied.</param>
     /// <param name="becauseArgs">Zero or more objects to format the because parameter.</param>
     [CustomAssertion]
     public AndConstraint<ResultAssertions<T>> HaveException<TException>(
-        string because = "", 
+        string because, 
         params object[] becauseArgs) where TException : Exception
     {
         Subject.Should().NotBeNull(because, becauseArgs);
@@ -32,6 +42,18 @@ public partial class ResultAssertions<T>
         return new AndConstraint<ResultAssertions<T>>(this);
     }
 
+
+    /// <summary>
+    /// Asserts that the generic result contains an error with the specified metadata key and value.
+    /// </summary>
+    /// <param name="key">The metadata key.</param>
+    /// <param name="expectedValue">The expected value associated with the metadata key.</param>
+    [CustomAssertion]
+    public AndConstraint<ResultAssertions<T>> HaveMetadata(string key, object expectedValue)
+    {
+        return HaveMetadata(key, expectedValue, string.Empty, Array.Empty<object>());
+    }
+
     /// <summary>
     /// Asserts that the generic result contains an error with the specified metadata key and value.
     /// </summary>
@@ -43,7 +65,7 @@ public partial class ResultAssertions<T>
     public AndConstraint<ResultAssertions<T>> HaveMetadata(
         string key,
         object expectedValue,
-        string because = "", 
+        string because, 
         params object[] becauseArgs)
     {
         Subject.Should().NotBeNull(because, becauseArgs);

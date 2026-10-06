@@ -1,1 +1,64 @@
 #nullable enable
+override Resultron.FluentAssertions.ResultAssertions.Identifier.get -> string!
+override Resultron.FluentAssertions.ResultAssertions<T>.Identifier.get -> string!
+Resultron.FluentAssertions.ResultAssertions
+Resultron.FluentAssertions.ResultAssertions.BeFailure() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.BeFailure(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.BeFailureWithError(Resultron.Error! expectedError) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.BeFailureWithError(Resultron.Error! expectedError, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.BeSuccessful() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.BeSuccessful(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveCausedBy<TException>() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveCausedBy<TException>(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveError() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveError(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveError(string! expectedErrorMessage) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveError(string! expectedErrorMessage, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveErrorCode(string! expectedCode) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveErrorCode(string! expectedCode, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveException<TException>() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveException<TException>(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveMetadata(string! key, object! expectedValue) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.HaveMetadata(string! key, object! expectedValue, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.NotHaveError() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.NotHaveError(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions!>!
+Resultron.FluentAssertions.ResultAssertions.ResultAssertions(Resultron.Result! instance) -> void
+Resultron.FluentAssertions.ResultAssertions<T>
+Resultron.FluentAssertions.ResultAssertions<T>.BeFailure() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeFailure(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeFailureWithError(Resultron.Error! expectedError) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeFailureWithError(Resultron.Error! expectedError, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeSuccessful() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeSuccessful(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeSuccessfulWithValue() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeSuccessfulWithValue(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeSuccessfulWithValue(System.Action<T>! valueAssertion) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeSuccessfulWithValue(System.Action<T>! valueAssertion, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeSuccessfulWithValue(T expectedValue) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.BeSuccessfulWithValue(T expectedValue, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveCausedBy<TException>() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveCausedBy<TException>(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveError() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveError(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveError(string! expectedErrorMessage) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveError(string! expectedErrorMessage, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveErrorCode(string! expectedCode) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveErrorCode(string! expectedCode, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveException<TException>() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveException<TException>(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveMetadata(string! key, object! expectedValue) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveMetadata(string! key, object! expectedValue, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveValue() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveValue(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveValue(System.Action<T>! valueAssertion) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveValue(System.Action<T>! valueAssertion, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveValue(T expectedValue) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.HaveValue(T expectedValue, string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.NotHaveError() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.NotHaveError(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.NotHaveValue() -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.NotHaveValue(string! because, params object![]! becauseArgs) -> FluentAssertions.AndConstraint<Resultron.FluentAssertions.ResultAssertions<T>!>!
+Resultron.FluentAssertions.ResultAssertions<T>.ResultAssertions(Resultron.Result<T>! instance) -> void
+Resultron.FluentAssertions.ResultExtensions
+static Resultron.FluentAssertions.ResultExtensions.Should(this Resultron.Result! instance) -> Resultron.FluentAssertions.ResultAssertions!
+static Resultron.FluentAssertions.ResultExtensions.Should<T>(this Resultron.Result<T>! instance) -> Resultron.FluentAssertions.ResultAssertions<T>!

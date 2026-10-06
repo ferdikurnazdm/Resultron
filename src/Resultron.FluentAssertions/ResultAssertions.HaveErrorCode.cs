@@ -9,12 +9,22 @@ public partial class ResultAssertions
     /// Asserts that the result contains an error with the specified error code.
     /// </summary>
     /// <param name="expectedCode">The expected error code.</param>
+    [CustomAssertion]
+    public AndConstraint<ResultAssertions> HaveErrorCode(string expectedCode)
+    {
+        return HaveErrorCode(expectedCode, string.Empty, Array.Empty<object>());
+    }
+
+    /// <summary>
+    /// Asserts that the result contains an error with the specified error code.
+    /// </summary>
+    /// <param name="expectedCode">The expected error code.</param>
     /// <param name="because">A formatted phrase explaining why the assertion should be satisfied.</param>
     /// <param name="becauseArgs">Zero or more objects to format the because parameter.</param>
     [CustomAssertion]
     public AndConstraint<ResultAssertions> HaveErrorCode(
         string expectedCode,
-        string because = "", 
+        string because, 
         params object[] becauseArgs)
     {
         Subject.Should().NotBeNull(because, becauseArgs);

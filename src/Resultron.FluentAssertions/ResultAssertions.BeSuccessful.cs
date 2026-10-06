@@ -9,15 +9,30 @@ public partial class ResultAssertions
     /// Asserts that the result is successful.
     /// </summary>
     [CustomAssertion]
+    public AndConstraint<ResultAssertions> BeSuccessful()
+    {
+        return BeSuccessful(string.Empty, Array.Empty<object>());
+    }
+
+    /// <summary>
+    /// Asserts that the result is successful.
+    /// </summary>
+    /// <param name="because">A formatted phrase explaining why the assertion should be satisfied.</param>
+    /// <param name="becauseArgs">Zero or more objects to format the <paramref name="because"/> parameter.</param>
+    [CustomAssertion]
     public AndConstraint<ResultAssertions> BeSuccessful(
-        string because = "", 
+        string because, 
         params object[] becauseArgs)
     {
         Subject.Should().NotBeNull(because, becauseArgs);
 
-        Subject.IsSuccess.Should().BeTrue(
-            "Expected result to be successful, but it failed with error: {0}",
-            Subject.Error?.Description ?? "Unknown error");
+        var failureDetails = $"result failed with error '{Subject.Error?.Description ?? "Unknown error"}'";
+        
+        var effectiveBecause = string.IsNullOrWhiteSpace(because)
+            ? failureDetails
+            : $"{because}; {failureDetails}";
+
+        Subject.IsSuccess.Should().BeTrue(effectiveBecause, becauseArgs);
 
         return new AndConstraint<ResultAssertions>(this);
     }

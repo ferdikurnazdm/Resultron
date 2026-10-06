@@ -9,8 +9,19 @@ public partial class ResultAssertions
     /// Asserts that the result does not contain an error.
     /// </summary>
     [CustomAssertion]
+    public AndConstraint<ResultAssertions> NotHaveError()
+    {
+        return NotHaveError(string.Empty, Array.Empty<object>());
+    }
+    
+    /// <summary>
+    /// Asserts that the result does not contain an error.
+    /// </summary>
+    /// <param name="because">A formatted phrase explaining why the assertion should be satisfied.</param>
+    /// <param name="becauseArgs">Zero or more objects to format the because parameter.</param>
+    [CustomAssertion]
     public AndConstraint<ResultAssertions> NotHaveError(
-        string because = "", 
+        string because, 
         params object[] becauseArgs)
     {
         Subject.Should().NotBeNull(because, becauseArgs);
