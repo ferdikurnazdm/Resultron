@@ -5,7 +5,48 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <!--nuget-->
+    <IsPackable>true</IsPackable>
+    <Title>Resultron.FluentAssertions</Title>
+    <PackageId>Resultron.FluentAssertions</PackageId>
+    <Authors>ferdikurnazdm</Authors>
+    <Company>ferdikurnazdm</Company>
+    <PackageProjectUrl>https://ferdikurnazdm.github.io/Resultron/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ferdikurnazdm/Resultron</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageIcon>logo.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>    
+    <Copyright>Copyright © 2026 ferdikurnazdm</Copyright>
+    <Description>
+      FluentAssertions integration for Resultron, providing expressive
+      and readable assertions for Result and Result&lt;T&gt; objects.
+      Simplifies unit testing of success states, failures, error details,
+      and returned values with fluent assertion APIs.
+    </Description>
+    <PackageTags>
+      resultron;fluentassertions;fluent-assertions;
+      result;result-pattern;railway-oriented-programming;
+      unit-testing;testing;assertions;dotnet;csharp
+    </PackageTags>
+
   </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\LICENSE">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\logo.png">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="all" />

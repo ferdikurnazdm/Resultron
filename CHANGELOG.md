@@ -6,6 +6,22 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+- Added a dedicated Resultron.FluentAssertions.Tests project using xUnit.
+
+- Added 44 unit test cases covering generic and non-generic result assertions.
+
+- Added FluentAssertions-based validations for successful and failed results, expected values, errors, and exception scenarios.
+
+- Added NSubstitute support for mocking dependencies in unit tests.
+
+- Added standardized unit test naming conventions following the MethodName_Should_ExpectedResult_When_Condition pattern.
+
+- Added .NET 8 and .NET 10 multi-targeting support for the Resultron.FluentAssertions package.
+
+- Added NuGet package metadata, including description, tags, project information, and licensing details.
+
+- Added Public API Analyzer support for tracking and maintaining the public API surface.
+
 - Added parameterless assertion overloads to provide a cleaner and more consistent FluentAssertions-style API.
 
 - Added BeSuccessfulWithValue() for generic results.
@@ -23,6 +39,18 @@ All notable changes to this project will be documented in this file.
 - Added equivalent assertion support for both generic and non-generic result types where applicable.
 
 ### Changed
+
+- Improved NuGet package configuration for publishing Resultron.FluentAssertions as a standalone package.
+
+- Updated package metadata to improve discoverability on NuGet.
+
+- Standardized package identity, copyright, and repository information.
+
+- Configured shared branding assets, including the package icon, README, and MIT license.
+
+- Improved unit test organization, readability, and consistency.
+
+- Updated project configuration to enable nullable reference types, implicit usings, and XML documentation generation.
 
 - Standardized assertion overloads so common assertions can be called without explicitly providing a because argument.
 
