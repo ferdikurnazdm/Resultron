@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050807">
+<title>FluentAssertions Integration · Resultron</title>
+<meta name="description" content="Install and use the Resultron.FluentAssertions package to write expressive tests for Result values.">
+<link rel="icon" href="../assets/images/logo.png">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="docs-page">
+<div class="page-noise" aria-hidden="true"></div>
+<div class="orb orb-one" aria-hidden="true"></div>
+<header class="nav shell reveal reveal-down">
+  <a class="brand" href="../index.html"><span class="brand-mark"><img src="../assets/images/logo.png" alt=""></span><span>Resultron</span></a>
+  <nav aria-label="Primary navigation">
+    <a href="../index.html#features">Features</a>
+    <a href="quick-start.html">Quick Start</a>
+    <a href="packages.html">Packages</a>
+    <a class="nav-github" href="https://github.com/ferdikurnazdm/Resultron" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+  </nav>
+</header>
+
+<main class="docs-shell shell">
+  <aside class="docs-sidebar reveal">
+    <span class="section-kicker">Testing</span>
+    <a class="active" href="#overview">Overview</a>
+    <a href="#install">Installation</a>
+    <a href="#usage">Usage</a>
+    <a href="#packages">Packages</a>
+  </aside>
+
+  <article class="docs-content">
+    <div class="docs-hero reveal">
+      <div class="eyebrow"><span class="pulse-dot"></span> Optional testing integration</div>
+      <h1>Resultron.<br>FluentAssertions</h1>
+      <p>Make tests for Resultron results easier to read by using the dedicated FluentAssertions integration package alongside the core library.</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="https://www.nuget.org/packages/Resultron.FluentAssertions" target="_blank" rel="noreferrer">View on NuGet <span>↗</span></a>
+        <a class="btn btn-secondary" href="quick-start.html">Core Quick Start <span>→</span></a>
+      </div>
+    </div>
+
+    <section id="overview" class="doc-section reveal">
+      <span class="section-kicker">01 · Overview</span>
+      <h2>Expressive Result assertions</h2>
+      <p><code>Resultron</code> is the core library for modeling success and failure outcomes. <code>Resultron.FluentAssertions</code> is a separate package intended to integrate Result testing with FluentAssertions.</p>
+      <p>Install the integration package in your test project. Keep the core package in your application project, and add the integration where you write assertions.</p>
+    </section>
+
+    <section id="install" class="doc-section reveal">
+      <span class="section-kicker">02 · Installation</span>
+      <h2>Install the integration package</h2>
+      <p>From the directory containing your test project, run:</p>
+      <div class="code-window compact">
+        <div class="window-bar"><div class="window-dots"><span></span><span></span><span></span></div><div class="window-title">Terminal</div><button class="copy-btn" type="button" data-copy-target="#install-code">Copy</button></div>
+        <pre><code id="install-code">dotnet add package Resultron.FluentAssertions</code></pre>
+      </div>
+      <p>If your test project does not already reference the core library and FluentAssertions, add the dependencies required by your project as well.</p>
+    </section>
+
+    <section id="usage" class="doc-section reveal">
+      <span class="section-kicker">03 · Usage</span>
+      <h2>Use it in your test project</h2>
+      <p>Reference the package in the test project, then use the assertion extensions supplied by the installed package to express the expected state of a <code>Result</code> or <code>Result&lt;T&gt;</code>.</p>
+      <p>The exact assertion method names and supported result types should match the API exposed by the version you have installed. See the package documentation and examples in the repository for the current API.</p>
+      <div class="buttons">
+        <a class="btn btn-secondary" href="https://github.com/ferdikurnazdm/Resultron" target="_blank" rel="noreferrer">Browse repository <span>↗</span></a>
+        <a class="btn btn-secondary" href="https://www.nuget.org/packages/Resultron.FluentAssertions" target="_blank" rel="noreferrer">Package details <span>↗</span></a>
+      </div>
+    </section>
+
+    <section id="packages" class="doc-section reveal">
+      <span class="section-kicker">04 · Packages</span>
+      <h2>Choose the package you need</h2>
+      <p><strong>Resultron</strong> — the core Result Pattern library for application code.</p>
+      <p><strong>Resultron.FluentAssertions</strong> — the optional integration package for testing Result instances with FluentAssertions.</p>
+      <div class="code-window compact">
+        <div class="window-bar"><div class="window-dots"><span></span><span></span><span></span></div><div class="window-title">Terminal · core package</div><button class="copy-btn" type="button" data-copy-target="#core-code">Copy</button></div>
+        <pre><code id="core-code">dotnet add package Resultron</code></pre>
+      </div>
+    </section>
+  </article>
+</main>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

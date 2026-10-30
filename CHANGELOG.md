@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [fa-v1.0.0] - 2026-10-30
+
 ### Added
 
 - Added a dedicated Resultron.FluentAssertions.Tests project using xUnit.
@@ -200,6 +202,7 @@ All notable changes to this project will be documented in this file.
 - Removed `reports/` folder.
 
 [unreleased]: https://github.com/ferdikurnazdm/Resultron/
+[fa-v1.0.0]: https://github.com/ferdikurnazdm/Resultron/releases/tag/fa-v1.0.0
 [1.7.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.7.1
 [1.6.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.6.1
 [1.5.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.5.1
