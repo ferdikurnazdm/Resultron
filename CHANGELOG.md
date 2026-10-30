@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.7.2] - 2026-10-30
+
+### Changed
+
+- Updated README with corrected NuGet version and download badges.
+
+- Improved package descriptions and installation instructions.
+
+- Updated GitHub Pages documentation structure.
+
+- Reorganized navigation into Features, Quick Start, and Packages sections.
+
+- Removed outdated pagination references.
+
+- Improved documentation consistency and readability.
+
+- Updated installation and getting started guides.
+
+- Updated package information and NuGet links.
+
+- Refined project documentation to reflect the latest core package structure.
+
+
 ## [fa-v1.0.0] - 2026-10-30
 
 ### Added
