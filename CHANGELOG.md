@@ -4,6 +4,40 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+[fa-v1.0.1] - 2026-10-30
+
+### Added
+
+- Added a dedicated README for the Resultron.FluentAssertions NuGet package.
+
+- Added package-specific installation instructions and usage examples.
+
+- Added FluentAssertions integration documentation to GitHub Pages.
+
+- Added a dedicated documentation page covering assertion methods and their usage.
+
+- Added practical examples demonstrating Result assertions in unit tests.
+
+- Added NuGet package version and download badges for Resultron.FluentAssertions.
+
+### Changed
+
+- Updated package metadata and documentation links.
+
+- Improved package documentation to better explain the available assertion APIs.
+
+- Updated GitHub Pages navigation to include FluentAssertions documentation.
+
+- Improved consistency between the package README and GitHub Pages documentation.
+
+- Expanded documentation for generic and non-generic Result assertions.
+
+- Documented successful and failed Result assertion scenarios.
+
+- Added examples for expected value and Error record validation.
+
+- Updated installation and getting started instructions for the FluentAssertions integration.
+
 ## [1.7.2] - 2026-10-30
 
 ### Changed
@@ -225,6 +259,8 @@ All notable changes to this project will be documented in this file.
 - Removed `reports/` folder.
 
 [unreleased]: https://github.com/ferdikurnazdm/Resultron/
+[fa-v1.0.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/fa-v1.0.1
+[1.7.2]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.7.2
 [fa-v1.0.0]: https://github.com/ferdikurnazdm/Resultron/releases/tag/fa-v1.0.0
 [1.7.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.7.1
 [1.6.1]: https://github.com/ferdikurnazdm/Resultron/releases/tag/v1.6.1
