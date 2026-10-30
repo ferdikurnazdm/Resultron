@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-[fa-v1.0.1] - 2026-10-30
+## [fa-v1.0.1] - 2026-10-30
 
 ### Added
 
