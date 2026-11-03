@@ -1,6 +1,6 @@
 using Resultron;
 
-namespace Snippets.Docs;
+namespace Snippets.Resultron;
 
 public static class MaybeSnippets
 {
@@ -45,7 +45,7 @@ public static class MaybeSnippets
         Maybe<string> none = null;
 
         Console.WriteLine(some.HasValue);
-        
+
         Console.WriteLine(none.HasNoValue);
     }
 

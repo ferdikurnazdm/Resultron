@@ -1,6 +1,6 @@
 using Resultron;
 
-namespace Snippets.Docs;
+namespace Snippets.Resultron;
 
 public static class UnitSnippets
 {
