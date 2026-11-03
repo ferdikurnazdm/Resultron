@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Resultron.FluentAssertions\Resultron.FluentAssertions.csproj" />
     <ProjectReference Include="..\Resultron\Resultron.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
+  </ItemGroup>
 </Project>
