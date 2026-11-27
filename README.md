@@ -13,7 +13,14 @@ enabling explicit error handling, composable pipelines, and predictable applicat
 [![GitHub](https://img.shields.io/badge/GitHub-ferdikurnazdm%2FResultron-black?logo=github)](https://github.com/ferdikurnazdm/Resultron)
 [![Core Build](https://img.shields.io/github/actions/workflow/status/ferdikurnazdm/Resultron/nuget.yml?branch=main&label=Core%20Build)](https://github.com/ferdikurnazdm/Resultron/actions/workflows/nuget.yml)
 [![FluentAssertions Build](https://img.shields.io/github/actions/workflow/status/ferdikurnazdm/Resultron/fluentassertions-nuget.yml?branch=main&label=FluentAssertions%20Build)](https://github.com/ferdikurnazdm/Resultron/actions/workflows/fluentassertions-nuget.yml)
-
+[![Quality gate status](https://sonarcloud.io/api/project_badges/measure?project=ferdikurnazdm_Resultron&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ferdikurnazdm_Resultron)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ferdikurnazdm_Resultron&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ferdikurnazdm_Resultron)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ferdikurnazdm_Resultron&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ferdikurnazdm_Resultron)
+[![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=ferdikurnazdm_Resultron&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=ferdikurnazdm_Resultron)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=ferdikurnazdm_Resultron&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=ferdikurnazdm_Resultron)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ferdikurnazdm_Resultron&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=ferdikurnazdm_Resultron)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=ferdikurnazdm_Resultron&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=ferdikurnazdm_Resultron)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ferdikurnazdm_Resultron&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ferdikurnazdm_Resultron)
 
 
 
