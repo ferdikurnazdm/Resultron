@@ -86,6 +86,14 @@ Console.WriteLine(message); // Result: 20
 
 See the full [documentation](https://github.com/ferdikurnazdm/Resultron/wiki).
 
+## Code Quality
+
+Resultron uses SonarQube Cloud for continuous code quality,
+security, reliability, maintainability, and test coverage analysis.
+
+View detailed analysis results on the
+[SonarQube Cloud Dashboard](https://sonarcloud.io/summary/new_code?id=ferdikurnazdm_Resultron).
+
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://github.com/ferdikurnazdm/Resultron/blob/main/CONTRIBUTING.md) before submitting pull requests.
